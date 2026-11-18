@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0",
+  "id": "story.remains",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.story.remains.title",
+    "description": "tour.story.remains.description",
+    "category": "story",
+    "estimatedMinutes": 8
+  },
+  "launch": {
+    "autoStart": "never"
+  },
+  "steps": [
+    {
+      "id": "look-back",
+      "type": "story",
+      "content": {
+        "title": "tour.story.remains.step.look-back.title",
+        "body": "tour.story.remains.step.look-back.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "frames_to_strip_exposition",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "choose",
+      "type": "story",
+      "content": {
+        "title": "tour.story.remains.step.choose.title",
+        "body": "tour.story.remains.step.choose.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "arrange",
+      "type": "story",
+      "content": {
+        "title": "tour.story.remains.step.arrange.title",
+        "body": "tour.story.remains.step.arrange.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "frames_to_strip_exposition",
+          "do": "hint"
+        },
+        {
+          "command": "frames_to_comic_grid",
+          "do": "hint"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "title-it",
+      "type": "story",
+      "content": {
+        "title": "tour.story.remains.step.title-it.title",
+        "body": "tour.story.remains.step.title-it.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "toggle_frame_speech_editor",
+          "do": "hint"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "preserved",
+      "type": "story",
+      "content": {
+        "title": "tour.story.remains.step.preserved.title",
+        "body": "tour.story.remains.step.preserved.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "basic_save_json_file",
+          "do": "hint"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

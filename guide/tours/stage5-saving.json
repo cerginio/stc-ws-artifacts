@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0",
+  "id": "handbook.stage5",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.handbook.stage5.title",
+    "description": "tour.handbook.stage5.description",
+    "category": "handbook",
+    "estimatedMinutes": 2
+  },
+  "launch": {
+    "allowedSources": [
+      "editor",
+      "deep-link"
+    ],
+    "autoStart": "never",
+    "allowResume": true,
+    "restartPolicy": "ask"
+  },
+  "session": {
+    "contentMode": "user-content",
+    "onEnd": "keep"
+  },
+  "steps": [
+    {
+      "id": "why",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage5.step.why.title",
+        "body": "tour.handbook.stage5.step.why.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "save",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage5.step.save.title",
+        "body": "tour.handbook.stage5.step.save.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "restore",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage5.step.restore.title",
+        "body": "tour.handbook.stage5.step.restore.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "warning",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage5.step.warning.title",
+        "body": "tour.handbook.stage5.step.warning.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "done",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage5.step.done.title",
+        "body": "tour.handbook.stage5.step.done.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

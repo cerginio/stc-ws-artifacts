@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>StoryTileCraft</title>
+  <meta name="author" content="SIA Mental Health and Gamification, Riga, Latvia">
+  <meta name="copyright" content="SIA Mental Health and Gamification, Riga, Latvia, https://storytilecraft.com">
+  <meta name="description"
+    content="StoryTileCraft app is therapeutic stories drawing and gamification tool for CBT and TF-CBT therapysts">
+  <meta name="keywords" content="CBT, TF-CBT, therapy, storytelling, gamification">
+  <meta name="license-code" content="CC BY-NC-ND 4.0">
+  <meta name="license-name"
+    content="Creative Commons Public License Attribution-NonCommercial-NoDerivatives 4.0 International">
+  <meta name="license-description-uri" content="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+  <meta property="cc:company"
+    content="SIA Mental Health and Gamification developing digital tools for Trauma-focused Cognitive Behavioral Therapy using a storytelling and gamification approach.">
+  <meta property="cc:product"
+    content="StoryTileCraft Community Edition product is oriented toward specialists working with trauma and parents who want to support kids consciously.
+StoryTileCraft is the web platform with application and methodology materials ready for instant use like a first aid box for psychotherapy.
+StoryTileCraft Community Edition is free and doesn’t contain any ads or registration.
+Methodology includes therapeutic scenarios for storytelling, basic guides on how to use stories, digital drawing and gamification tools. 
+Materials and tools are intended for psychologists, psychotherapists, social workers, and can also be used by non-specialists, such as parents.">
+  <meta property="og:type" content="product">
+  <meta property="og:title" content="StoryTileCraft - Therapeutic Storytelling Tool">
+  <meta property="og:description"
+    content="A gamification-based tool for therapists, social workers, and parents supporting trauma-focused CBT.">
+  <meta property="og:url" content="https://storytilecraft.space">
+  <meta property="og:image" content="https://storytilecraft.com/product-logo">
+  <meta property="og:site_name" content="StoryTileCraft Community Edition">
+  <meta property="og:price:amount" content="0.00">
+  <meta property="og:price:currency" content="EUR">
+  <meta property="al:android:url" content="android-app://co.median.android.wjzyrd">
+  <meta property="al:android:package" content="co.median.android.wjzyrd">
+  <meta property="al:android:app_name" content="StoryTileCraft">
+  <meta property="application-domain" content="storytilecraft.space">
+  <meta property="product-domain" content="storytilecraft.com">
+
+  <meta id="viewport" name="viewport"
+    content="width=device-width, height=device-height, initial-scale=0.7, user-scalable=0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="app-version" content="4.1.1">
+  <meta property="build" content="4.1.1.261118.1638">
+  <meta name="build-id" content="4.1.1.261118.1638">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-64x64.png">
+  <link rel="icon" type="image/x-icon" href="images/icons/favicon-64x64.png">
+  <link rel="preload" href="fonts/bellota-text-400.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/overlock-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/overlock-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="fonts-6e6229970f.css">
+  <link rel="stylesheet" href="layout-754dd52619.css">
+  <link rel="stylesheet" href="controls-0351dcb659.css">
+  <link rel="stylesheet" href="components-718bc46e81.css">
+  <link rel="stylesheet" href="panels-ux-1bd0b68343.css">
+  <link rel="stylesheet" href="json-import-dialog-252ac1e70f.css">
+  <link rel="stylesheet" href="layer-suggestion-3e3ce07c82.css">
+  <link rel="stylesheet" href="sw-update-a460d826f4.css">
+  <link rel="stylesheet" href="magic-5a9ea50573.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#0ea5e9">
+
+  <script>
+    // Хост Workspace (iframe будь-якого розміру): splash центрується, а не за фіксованим top.
+    if (new URLSearchParams(location.search).get('shell-api') === '1') document.documentElement.classList.add('shell-host');
+    if (new URLSearchParams(location.search).get('shell-private') !== '1') {
+      const analytics = document.createElement('script');
+      analytics.defer = true;
+      analytics.dataset.domain = 'storytilecraft.space,preview.storytilecraft.space,dev.storytilecraft.space';
+      analytics.src = 'https://plausible.io/js/script.file-downloads.outbound-links.js';
+      document.head.appendChild(analytics);
+    }
+  </script>
+
+  <style>
+    .ruler-border {
+      background:
+        linear-gradient(to right, orange 50%, black 50%) top repeat-x,
+        linear-gradient(orange 50%, black 50%) right repeat-y,
+        linear-gradient(to right, orange 50%, black 50%) bottom repeat-x,
+        linear-gradient(orange 50%, black 50%) left repeat-y;
+      background-size: 100px 2px, 2px 100px;
+      background-position: left top, top right, left bottom, top left;
+    }
+
+    .splash {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100%;
+      z-index: 998;
+      position: absolute;
+      backdrop-filter: blur(10px);
+      background-color: rgba(14, 165, 233, 0.6);
+      pointer-events: none;
+    }
+
+    #main-logo {
+      position: absolute;
+      top: 560px;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    #main-logo path {
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+    }
+
+    #splash-product-name {
+      position: absolute;
+      text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);
+      top: 730px;
+    }
+
+    .shell-host .splash { flex-direction: column; gap: 2vmin; }
+    .shell-host #main-logo, .shell-host #splash-product-name { position: static; }
+    .shell-host #main-logo { width: clamp(64px, 30vmin, 150px); height: auto; }
+    .shell-host #splash-product-name { font-size: clamp(20px, 8vmin, 48px) !important; }
+
+    #app-version-display {
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      font-size: 14px;
+      font-family: var(--font-ui);
+      color: #fff;
+      /* background: rgba(0, 0, 0, 0.6); */
+      padding: 4px 8px;
+      border-radius: 6px;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+
+    #file-panel button {
+      background-color: #a2e0b3;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      margin: auto;
+      display: block;
+    }
+
+    #root-div {
+      padding-top: 2px;
+      overflow: hidden;
+    }
+
+    #canvas {
+      overflow: hidden;
+      touch-action: none;
+      overscroll-behavior: contain;
+    }
+
+    #palette-canvas,
+    #svg-stage,
+    .cmd-spad {
+      touch-action: none;
+      overscroll-behavior: contain;
+    }
+
+    #gamification,
+    #book3d {
+      position: absolute;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+    }
+
+    #gamification {
+      display: none;
+    }
+
+    #settings-window,
+    #settings-window iframe {
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .icon-scale-center {
+      transform: scale(0.9) translate(0, -10%);
+      transform-origin: center;
+    }
+
+    #frames-navigator-body button span {
+      color: #00cfff99;
+      font-size: 24px;
+      font-weight: bolder;
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+    }
+
+    #frames-navigator-body button svg {
+      width: 14px;
+    }
+
+    /*svg.transparent{
+      stroke: transparent;
+      fill:transparent;
+    } */
+
+    #pdf-maker-frame {
+      position: absolute;
+      z-index: 110;
+      border-width: 0;
+    }
+
+    .pdf-maker-preview {
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(15px);
+    }
+
+    .pdf-maker-btn {
+      /* font-size: 3rem; */
+      width: 40px;
+      height: 40px;
+      border: none;
+      margin: 12px;
+    }
+
+    .pdf-maker-btn-block {
+      position: absolute;
+      z-index: 110;
+      top: 3%;
+      left: 50%;
+    }
+
+
+    #simpleColorDropdown {
+      pointer-events: auto;
+      margin: 8px 20px;
+      /* scale: 1.5; */
+    }
+
+    #tf-cbt-static-panel-slider {
+      margin: 0px 20px 0px -10px;
+    }
+
+    #tf-cbt-static-toolbar .cmd-spad button {
+      width: 60px;
+    }
+
+    #thermometer-static-toolbar .c-range-slider:before {
+      left: 0;
+      pointer-events: none;
+    }
+
+    #svg-stage {
+      top: 5px;
+      left: 5px;
+      position: absolute;
+      width: 99%;
+      height: 99%;
+      padding: 5px;
+      /* pointer-events: none; */
+      transform-origin: center center;
+
+    }
+
+    #gamification-frame,
+    #book3d-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #gamification-btn,
+    #book3d-btn {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      width: 50px;
+      height: 50px;
+      padding: 3px;
+      background: tomato;
+      border-radius: 5px;
+      border-color: white;
+    }
+
+    #fluid-mode-controls {
+      position: absolute;
+      z-index: 3;
+      top: max(10px, env(safe-area-inset-top));
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      width: max-content;
+      max-width: calc(100% - 24px);
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .92);
+      box-shadow: 0 3px 18px rgba(0, 0, 0, .22);
+      backdrop-filter: blur(8px);
+    }
+    #fluid-mode-controls[hidden], #fluid-mode-controls [hidden] { display: none; }
+    #fluid-mode-controls button, #fluid-mode-controls select, #fluid-mode-controls input {
+      min-height: 38px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: white;
+      color: #1e293b;
+    }
+    #fluid-mode-controls button { padding: 6px 11px; cursor: pointer; }
+    #fluid-mode-controls .fluid-icon-button { display: inline-grid; place-items: center; width: 38px; padding: 6px; }
+    #fluid-mode-controls .fluid-icon-button svg { width: 18px; height: 18px; fill: currentColor; }
+    #fluid-mode-controls button:disabled, #fluid-mode-controls input:disabled,
+    #fluid-mode-controls select:disabled { opacity: .45; border-color: #e2e8f0; cursor: not-allowed; }
+    #fluid-mode-controls .fluid-group { display: flex; align-items: center; gap: 4px; }
+    #fluid-mode-controls .fluid-group + .fluid-group,
+    #fluid-play-thickness-field, #fluid-paint-size-field { border-left: 1px solid #e2e8f0; padding-left: 10px; }
+    #fluid-mode-palette { display: flex; gap: 5px; }
+    #fluid-play-controls, #fluid-rescript-controls { align-items: center; gap: 10px; }
+    #fluid-play-controls:not([hidden]), #fluid-rescript-controls:not([hidden]) { display: flex; }
+    #fluid-mode-palette button { width: 38px; padding: 0; }
+    #fluid-paint-size-field, #fluid-play-thickness-field { display: flex; align-items: center; gap: 6px; }
+    #fluid-paint-size, #fluid-play-thickness { width: 120px; accent-color: #64748b; }
+    #fluid-paint-size-field, #fluid-play-thickness-field,
+    #fluid-play-thickness-value, #fluid-paint-size-value { font-size: 12px; color: #64748b; }
+    #fluid-play-thickness-value, #fluid-paint-size-value {
+      min-width: 3.2rem; font-variant-numeric: tabular-nums;
+    }
+    #fluid-play-tools[aria-expanded="true"] { background: #e2e8f0; border-color: #94a3b8; }
+    #fluid-mode-status { width: 5rem; flex: 0 0 auto; font-size: 12px; color: #64748b; }
+    #fluid-mode-close { border-color: transparent; background: transparent; }
+    #fluid-mode-close:hover { background: red; color: white; }
+    #fluid-mode-title {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 6px; border-radius: 8px; color: #1e293b;
+      cursor: grab; touch-action: none; user-select: none;
+    }
+    #fluid-mode-title::before { content: "⠿"; font-size: 15px; line-height: 1; color: #94a3b8; }
+    #fluid-mode-title:hover { background: #f1f5f9; }
+    #fluid-mode-title:active { cursor: grabbing; }
+    /* Після першого перетягування панель стає на власні координати — центрування
+       по transform тут уже заважає. */
+    #fluid-mode-controls.dragged { transform: none; }
+    #fluid-desktop-controls { display: flex; align-items: center; gap: 10px; }
+    #fluid-mobile-primary { display: none; }
+    #fluid-mode-controls input[type="range"] { border: 0; background: transparent; padding: 0; }
+    #fluid-mode-controls button:focus-visible { outline: 3px solid #2563eb; outline-offset: 2px; }
+    #fluid-mode-controls[data-compact="true"] { padding: 6px 8px; gap: 0; width: max-content; max-width: calc(100% - 16px); }
+    #fluid-mode-controls[data-compact="true"] #fluid-mobile-primary { display: flex; gap: 4px; }
+    #fluid-mode-controls[data-compact="true"] #fluid-desktop-controls { display: none; }
+    #fluid-mobile-primary button { position: relative; display: grid; place-items: center; box-sizing: border-box; width: 44px; height: 44px; min-height: 44px; padding: 8px; flex: 0 0 44px; touch-action: manipulation; }
+    #fluid-mobile-primary button[data-fluid-tray="mode"] { touch-action: none; cursor: grab; }
+    #fluid-mobile-primary svg { width: 22px; height: 22px; fill: currentColor; }
+    #fluid-status-dot { position: absolute; right: 4px; bottom: 4px; width: 7px; height: 7px; border-radius: 50%; background: #64748b; }
+    #fluid-mode-controls[data-status="error"] #fluid-status-dot { background: #dc2626; }
+    #fluid-mode-controls[data-status="ready"] #fluid-status-dot { background: #16a34a; }
+    #fluid-mode-tray { position: absolute; left: 0; right: 0; top: calc(100% + 6px); padding: 12px; border-radius: 12px; box-sizing: border-box; background: #fff; box-shadow: 0 3px 18px #0004; overflow: auto; max-height: min(40dvh, 320px); }
+    #fluid-mode-controls[data-tray-above="true"] #fluid-mode-tray { top: auto; bottom: calc(100% + 6px); }
+    #fluid-mode-tray #fluid-play-controls, #fluid-mode-tray #fluid-rescript-controls { flex-direction: column; align-items: stretch; gap: 10px; }
+    #fluid-mode-tray #fluid-mode-title { cursor: default; }
+    #fluid-mode-tray #fluid-mode-title::before { display: none; }
+    #fluid-mode-tray #fluid-mode-status { display: block; width: auto; overflow-wrap: anywhere; }
+    #fluid-mode-tray button, #fluid-mode-tray select { min-height: 44px; min-width: 44px; }
+    #fluid-mode-tray input[type="range"] { min-height: 44px; flex: 1; min-width: 0; }
+    #fluid-mode-tray #fluid-mode-palette { display: grid; grid-template-columns: repeat(6, minmax(44px, 1fr)); gap: 2px; }
+    #fluid-mode-tray #fluid-mode-palette button { width: 100%; }
+    #fluid-mode-tray .fluid-group > button { flex: 1; }
+    #fluid-mode-tray #fluid-play-speed-field { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; font-size: 12px; color: #64748b; }
+    #fluid-mode-tray #fluid-play-speed { flex: 1; max-width: 180px; padding: 0 10px; }
+    #fluid-mode-controls:not([data-tray="mode"]):not([data-status="error"]) #fluid-mode-tray #fluid-mode-status { display: none; }
+    #fluid-mode-tray #fluid-play-controls [data-fluid-command],
+    #fluid-mode-tray #fluid-play-tools,
+    #fluid-mode-tray [data-fluid-command="clearPaint"] { display: none; }
+    #fluid-mode-controls:not([data-tray="mode"]) #fluid-mode-tray #fluid-mode-title { display: none; }
+    #fluid-mode-controls:not([data-tray="more"]) #fluid-mode-tray #fluid-play-controls { display: none; }
+    #fluid-mode-controls:not([data-tray="more"]) #fluid-mode-tray #fluid-rescript-controls > .fluid-group { display: none; }
+    #fluid-mode-controls:not([data-tray="color"]) #fluid-mode-tray #fluid-mode-palette { display: none; }
+    #fluid-mode-controls:not([data-tray="size"]) #fluid-mode-tray #fluid-paint-size-field { display: none; }
+    #fluid-mode-controls:not([data-tray="more"]) #fluid-mode-tray #fluid-rescript-tools { display: none; }
+    #fluid-mode-tray .fluid-group, #fluid-mode-tray #fluid-play-thickness-field, #fluid-mode-tray #fluid-paint-size-field { border: 0; padding: 0; }
+    #fluid-mobile-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    #fluid-mode-controls[data-status="error"][data-compact="true"] #fluid-mobile-status { top: calc(100% + 6px); left: 0; right: 0; width: auto; height: auto; max-height: 30vh; overflow: auto; clip-path: none; padding: 8px; box-sizing: border-box; overflow-wrap: anywhere; color: #991b1b; background: #fff1f2; border-radius: 8px; font-size: 13px; }
+    #fluid-mode-controls[data-tray][data-status="error"] #fluid-mobile-status { clip-path: inset(50%); width: 1px; height: 1px; }
+
+    #pop_close_stage:hover,
+    #gamification-btn:hover,
+    #book3d-btn:hover {
+      background: red !important;
+      fill: white;
+    }
+
+    #pop_close_stage {
+      padding: 3px;
+      background: tomato;
+      border-radius: 5px;
+      border-color: white;
+    }
+
+    #palette-content {
+      background: #33333388;
+    }
+
+    #narrative-editor {
+      position: absolute;
+      display: none;
+      z-index: 10;
+      background: #fff;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #555;
+      color: #000;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    #narrative-textarea {
+      width: 100%;
+      min-height: 50px;
+      font-size: 16px;
+      padding: 8px;
+      border-radius: 6px;
+      background: #fff;
+      color: #111;
+      border: solid 1px #8b8b8b;
+      resize: vertical;
+      box-sizing: border-box;
+      pointer-events: auto;
+    }
+
+    .narrative-buttons {
+      margin-bottom: 8px;
+      text-align: right;
+      pointer-events: auto;
+    }
+
+    .narrative-buttons button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #narrative-clear {
+      background-color: #d95b5b;
+      color: white;
+      margin-right: 8px;
+      float: left;
+    }
+
+    #narrative-submit {
+      background-color: #00CFFF;
+      color: white;
+      margin-right: 8px;
+    }
+
+    #narrative-cancel {
+      background-color: #616161;
+      color: white;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <dialog id="json-import-dialog" aria-labelledby="json-import-title">
+    <h2 id="json-import-title">Import JSON story</h2>
+    <p id="json-import-file"></p>
+    <p id="json-import-source"></p>
+    <p id="json-import-error" role="alert" hidden></p>
+    <div id="json-import-selection" hidden>
+      <div class="json-import-lists">
+        <section><h3>Frames</h3><div id="json-import-frames"></div></section>
+        <section><h3>Layers</h3><div id="json-import-layers"></div></section>
+      </div>
+      <p id="json-import-summary" aria-live="polite"></p>
+    </div>
+    <div class="json-import-actions">
+      <button type="button" id="json-import-skip">Skip</button>
+      <button type="button" id="json-import-replace">Replace</button>
+      <button type="button" id="json-import-merge">Merge</button>
+    </div>
+  </dialog>
+  <svg id="root-svg-filters" style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+    <defs>
+      <filter id="blurFilter">
+        <feGaussianBlur stdDeviation="5"></feGaussianBlur>
+      </filter>
+      <filter id="grayscaleFilter" color-interpolation-filters="linearRGB" filterUnits="objectBoundingBox"
+        primitiveUnits="userSpaceOnUse">
+        <feColorMatrix type="saturate" values="0.3" in="SourceGraphic" result="colormatrix" />
+      </filter>
+
+      <filter id="colorHueRotationFilter">
+        <feColorMatrix type="hueRotate" values="90" />
+      </filter>
+
+      <filter id="colorFilter" color-interpolation-filters="linearRGB" filterUnits="objectBoundingBox"
+        primitiveUnits="userSpaceOnUse">
+        <feColorMatrix type="matrix" values="1 0 0 0 0 
+                0 1 0 0 0 
+                0 0 1 0 0 
+                0 0 0 1 0" />
+      </filter>
+    </defs>
+  </svg>
+  <div id="root-div">
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="drag-zone" viewBox="0 -960 960 960" fill="#5f636877">
+        <path
+          d="M349.91-160q-28.91 0-49.41-20.59-20.5-20.59-20.5-49.5t20.59-49.41q20.59-20.5 49.5-20.5t49.41 20.59q20.5 20.59 20.5 49.5t-20.59 49.41q-20.59 20.5-49.5 20.5Zm260 0q-28.91 0-49.41-20.59-20.5-20.59-20.5-49.5t20.59-49.41q20.59-20.5 49.5-20.5t49.41 20.59q20.5 20.59 20.5 49.5t-20.59 49.41q-20.59 20.5-49.5 20.5Zm-260-250q-28.91 0-49.41-20.59-20.5-20.59-20.5-49.5t20.59-49.41q20.59-20.5 49.5-20.5t49.41 20.59q20.5 20.59 20.5 49.5t-20.59 49.41q-20.59 20.5-49.5 20.5Zm260 0q-28.91 0-49.41-20.59-20.5-20.59-20.5-49.5t20.59-49.41q20.59-20.5 49.5-20.5t49.41 20.59q20.5 20.59 20.5 49.5t-20.59 49.41q-20.59 20.5-49.5 20.5Zm-260-250q-28.91 0-49.41-20.59-20.5-20.59-20.5-49.5t20.59-49.41q20.59-20.5 49.5-20.5t49.41 20.59q20.5 20.59 20.5 49.5t-20.59 49.41q-20.59 20.5-49.5 20.5Zm260 0q-28.91 0-49.41-20.59-20.5-20.59-20.5-49.5t20.59-49.41q20.59-20.5 49.5-20.5t49.41 20.59q20.5 20.59 20.5 49.5t-20.59 49.41q-20.59 20.5-49.5 20.5Z" />
+      </symbol>
+    </svg>
+    <div id="app-version-display"></div>
+
+    <div id="splash-screen" class="splash">
+      <svg id="main-logo" class="magicmedtime" width="150" height="150" xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1316 1363">
+        <g fill="#f97316" stroke="#0284C7" stroke-width="2">
+          <path d="M931.523 1000.27C923.813 969.06 874.073 934.019 829.094 930.189C842.451 947.249 854.279 962.329 867.983 979.829C867.863 979.859 867.733 979.86 867.603 979.9C885.453 1002.5 938.443 1078.72 931.523 1000.27Z"/>
+          <path d="M844.508 232.703C873.543 162.513 854.944 88.1876 802.976 66.6936C751.008 45.2006 685.346 84.6776 656.315 154.869C627.285 225.059 645.88 299.384 697.848 320.878C749.816 342.371 815.478 302.894 844.508 232.703Z"/>
+          <path d="M935.763 397.096C936.183 395.47 936.303 392.792 934.363 390.656C933.273 389.509 932.573 389.126 931.553 388.457C930.443 387.723 929.193 387.181 927.703 386.767C906.853 383.93 886.413 381.188 865.563 378.287C863.73 378.064 862.373 376.693 859.763 375.29C866.493 364.164 872.703 353.899 878.893 343.633C901.393 306.174 923.653 268.524 946.543 231.288C960.443 208.685 974.433 186.051 990.153 164.723C1001.02 149.93 1003.6 140.59 992.863 125.478C979.533 106.733 962.443 92.0684 941.023 83.1744C918.643 73.8974 911.533 80.1454 910.543 104.374C909.523 129.304 909.143 155.35 901.683 178.75C881.853 241.139 855.331 300.946 822.208 357.692C815.832 368.627 809.073 370.189 797.66 368.372C757.874 362.028 717.896 356.864 678.014 351.029C642.118 345.801 606.157 340.669 570.388 334.707C559.58 332.89 549.315 327.853 538.539 325.525C535.065 324.792 529.294 327.056 527.318 329.861C525.947 331.774 528.242 338.15 530.761 340.637C543.608 353.261 556.679 365.726 570.451 377.267C574.723 380.837 582.757 384.121 588.336 384.408C617.506 386.002 646.74 385.97 675.91 387.66C715.952 389.987 755.929 393.334 801.103 396.618C788.829 412.462 775.248 437.743 764.824 450.91C766.832 458.816 768.203 456.871 771.518 463.853C780.509 466.595 789.531 469.241 798.776 471.121C799.669 469.209 800.944 467.136 802.729 464.809C814.62 449.316 824.471 432.228 834.641 415.491C839.55 407.393 844.683 402.834 855.14 405.417C872.073 409.593 889.183 413.387 906.433 415.65C909.273 416.033 912.073 416.352 914.943 416.639C920.043 416.989 920.403 416.83 922.693 416.001C929.103 413.706 929.483 411.888 932.703 406.118C933.943 403.695 935.413 398.531 935.763 397.096Z"/>
+          <path d="M1005.32 769.264C982.723 713.442 932.353 614.232 913.413 585.317C913.353 585.189 897.413 556.338 868.273 520.473C868.143 520.313 868.023 520.122 867.893 519.963C839.455 487.477 812.899 456.394 785.386 426.14C782.931 423.43 777.161 418.138 775.663 415.747C775.153 414.95 769.924 411.921 769.096 411.443C758.479 405.035 756.439 403.409 746.11 396.491C742.794 394.26 739.925 395.376 738.14 399.265C736.036 403.919 733.9 409.339 731.668 413.994C731.254 414.854 729.214 417.277 732.178 419.668C735.43 423.781 787.108 498.284 812.229 547.029L840.794 599.344C845.066 607.696 846.819 613.403 846.915 613.722C874.333 693.103 898.813 764.195 926.133 842.811C932.733 861.81 938.093 881.74 947.943 899.05C961.173 922.32 983.233 920.76 996.683 897.64C1020.72 856.33 1022.35 811.378 1005.32 769.264Z"/>
+          <path d="M595.35 831.175C612.47 834.618 659.811 842.971 676.707 847.274C693.285 851.51 709.576 856.84 727.365 862.35C728.098 862.64 728.799 862.96 729.628 863.18C730.648 863.47 731.637 863.72 732.657 863.98C733.932 864.36 735.175 864.74 736.451 865.13C736.451 865.06 736.451 865 736.419 864.9C756.121 869.91 777.098 872.75 797.341 875.17C797.66 875.27 797.979 875.39 798.266 875.46C839.965 883.17 881.723 891.05 923.683 896.98C961.583 902.33 999.783 905.04 1037.78 909.7C1043.93 910.46 1054.04 914.25 1054.67 916.84C1057.26 927.23 1052.06 933 1046.67 936.73C1021.93 953.82 992.323 961.31 959.993 954.55C932.453 948.78 905.673 939.5 878.633 931.53C853.068 924.04 827.595 916.29 801.996 908.61C790.583 904.5 779.042 901.02 767.023 897.74C754.654 894.39 741.456 890.66 728.353 887.92C695.708 879.82 663.095 871.57 630.45 863.44C621.459 861.33 620.28 860.98 609.983 858.94C609.313 858.82 606.253 858.02 605.583 857.92C601.885 856.97 599.08 856.17 595.413 855.15C587.443 852.95 588.719 853.4 580.94 851.42C580.717 851.36 569.782 848.55 569.527 848.486C562.928 847.019 563.055 847.051 558.528 846.031C519.188 836.977 480.072 826.967 440.827 817.499C405.504 808.955 370.181 800.315 334.699 792.409C323.987 790.018 312.606 790.369 301.735 788.392C298.228 787.755 293.669 783.961 292.808 781.028C292.235 779.051 296.602 774.843 299.854 773.791C316.432 768.372 333.137 763.207 350.224 758.967C355.963 757.564 363.423 757.883 369.193 759.764C396.897 768.786 424.154 779.083 451.89 788.01C488.679 799.869 525.819 810.963 567.232 823.683C576.381 826.138 586.328 829.199 595.35 831.175Z"/>
+          <path class="logo-path" d="M512.366 218.696C510.995 218.632 509.624 218.601 508.253 218.664C472.93 219.716 444.621 233.999 423.07 244.997C401.009 256.219 386.057 267.154 364.506 279.396C358.035 283.062 340.023 298.205 334.444 302.541C321.373 312.678 307.409 327.662 297.048 340.414C271.959 371.369 234.532 438.381 205.935 481.642C205.489 482.312 204.501 481.77 204.756 481.037C210.94 463.885 218.624 449.635 224.553 436.309L241.928 397.001C228.921 421.836 213.842 445.841 203.353 471.664C184.448 518.209 168.062 565.965 164.109 616.495C157.35 702.635 164.459 787.531 202.078 867.07C220.186 905.36 240.206 943.81 265.838 977.41C331.479 1063.55 412.709 1131.93 518.582 1165.28C636.57 1202.45 755.738 1206.18 874.203 1168.88C935.413 1149.62 991.973 1120.96 1043.13 1082.04C1080.02 1053.95 1117.29 1026.57 1145.4 989.17C1176.74 947.47 1200.11 901.85 1219.81 853.59C1246.4 788.456 1254.24 720.456 1259.22 651.531C1259.31 650.096 1271.87 592.999 1265.56 721.157C1264.48 725.62 1263.26 737.224 1263.23 741.688C1262.91 780.039 1247.36 807.871 1236.58 843.672C1205.24 947.86 1140.18 1029.37 1057.89 1098.93C1051.84 1104.04 1045.43 1108.69 1038.77 1112.96C981.923 1149.34 924.413 1184.41 857.273 1199.96C822.75 1207.96 788.16 1215.65 753.602 1223.55C750.701 1224.22 747.959 1225.4 745.919 1228.02C908.413 1219.89 1029.27 1139.36 1146.49 1031.41C1266.04 921.33 1291.22 672.157 1281.44 497.869C1283.95 498.22 1294.76 502.556 1295.34 505.01C1310.61 570.588 1304.77 678.884 1302.67 709.584C1300.5 741.433 1296.77 775.417 1291.45 806.914C1286.35 837.104 1271.9 861.21 1265.27 891.11C1265.34 891.65 1265.97 891.97 1266.04 892C1266.68 892.38 1266.8 892.23 1267.35 892.23C1282.78 877.11 1277.58 851.23 1296.07 833.279C1296.71 832.673 1297.79 833.279 1297.6 834.14C1288.45 883.52 1278.5 928.03 1257.18 969.53C1246.97 989.4 1242.38 1012.06 1232.91 1032.4C1225.81 1047.67 1215.6 1061.6 1205.75 1075.47C1176.87 1116.18 1150.25 1158.77 1106.22 1186.54C1074.18 1206.75 1043.1 1228.43 1011.83 1249.82C997.353 1259.71 983.743 1270.77 969.553 1281.07C969.653 1281.38 969.653 1281.42 969.713 1281.73C976.733 1282.5 1001.85 1262.26 1009.44 1261.04C1010.97 1260.79 1005.48 1265.79 993.913 1275.17C974.783 1290.69 948.073 1300.64 925.433 1310.36C878.413 1330.58 828.934 1339.66 777.799 1342.69C759.245 1343.77 741.105 1350.09 722.551 1351.71C706.643 1353.11 690.288 1352.35 674.348 1350.5C637.941 1346.32 601.407 1342.43 565.446 1335.61C531.175 1329.11 496.075 1322.76 464.068 1309.69C425.493 1293.91 389.947 1270.96 352.87 1251.48C337.536 1243.45 320.799 1237.77 306.294 1228.53C286.241 1215.74 267.751 1200.63 248.559 1186.51C242.087 1181.73 235.839 1176.56 229.016 1172.35C203.289 1156.61 187.604 1132.03 170.357 1108.75C168.253 1105.92 165.511 1103.49 163.025 1100.91C150.879 1088.32 137.585 1076.56 126.809 1062.91C115.014 1047.96 105.163 1031.44 95.3121 1015.12C91.9961 1009.61 92.0601 1002.21 89.0311 996.44C78.4791 976.36 66.8111 956.81 56.4501 936.6C51.9871 927.9 49.468 918.21 46.44 908.83C41.881 894.68 38.1511 880.27 33.2411 866.27C25.5901 844.533 15.1331 823.492 9.93706 801.239C6.23906 785.427 9.20405 768.148 9.33105 751.507C9.36305 746.055 9.84106 740.604 7.76906 734.961C7.57806 738.149 7.22705 741.369 7.19505 744.557C7.22705 741.273 6.62205 784.184 5.28305 783.897C-13.686 624.688 21.924 437.712 104.908 299.002C101.815 300.692 81.316 328.045 48.767 404.047C47.938 405.959 46.4721 406.916 47.5551 400.093C47.7151 399.041 49.404 393.175 49.819 392.187C54.123 381.826 84.3451 316.6 99.6151 292.084C105.832 281.85 107.872 279.619 110.997 274.646C115.938 266.644 124.195 256.984 128.371 251.501C141.442 234.349 155.15 217.58 169.879 201.768C186.839 183.564 190.155 177.029 209.346 161.248C250.567 127.392 283.149 111.994 332.626 89.5816C364.475 75.1716 419.563 53.4296 452.814 43.4516C494.481 30.9546 600.45 21.3586 621.619 19.8916C640.747 18.5846 682.318 19.6366 705.304 21.7416C730.202 23.8766 766.768 33.6966 786.566 44.6946C832.377 70.1666 845.926 100.103 849.051 115.788C851.729 129.305 796.99 122.419 799.509 132.078C800.784 136.924 795.078 137.562 790.806 144.48C787.458 149.899 791.061 152.577 788.542 157.391C787.65 159.081 788.415 171.578 787.395 173.395C782.198 182.544 756.79 195.169 749.585 203.394C744.739 208.909 719.873 217.038 713.274 220.673C691.117 232.883 674.794 267.058 664.147 266.038C637.718 263.456 638.834 243.116 562.258 223.574C554.607 221.629 546.764 220.45 538.858 220.131L512.366 218.696ZM106.661 1004.63L107.044 1004.41C108.096 1003.84 108.478 1002.56 107.968 1001.48C102.772 990.93 97.607 980.34 92.379 969.79C89.637 964.27 87.501 958.28 83.675 953.5C78.734 947.35 77.9691 952.67 78.2881 953.15C86.8321 970.52 94.9291 986.78 103.122 1003.49C103.728 1004.83 105.354 1005.34 106.661 1004.63Z"/>
+          <path d="M1031.31 3.02783C1102.65 100.772 1172.25 201.513 1243.56 299.257C1247.74 307.897 1248.63 313.061 1242.77 310.575C1237.38 308.215 1228.55 300.086 1221.85 297.153C1252.68 349.564 1285.13 416.894 1295.27 504.851C1295.27 504.883 1295.24 504.915 1295.21 504.915C1292.28 505.393 1285.04 504.054 1282.42 503.098C1275.38 448.105 1264.03 422.473 1245.35 366.906C1233.78 332.476 1201.64 282.68 1185.19 250.417C1172.79 226.093 1154.52 197.687 1139.86 174.256C1115.53 135.458 1099.69 122.355 1074.47 83.9718C1055.95 55.7258 1043.32 37.6498 1016.64 10.1368L1031.31 3.02783Z"/>
+          <path d="M580.192 629.38C578.28 634.162 569.782 654.305 569.527 654.751C565.669 663.104 559.963 674.74 544.915 696.769C481.761 800.347 401.551 883.62 291.629 938.16C298.929 942.24 307.696 943.78 313.626 942.91C339.034 939.25 360.298 937.4 383.635 930.32C457.66 907.85 514.534 861.24 558.975 799.04C576.253 774.875 591.907 749.53 609.664 722.145C624.679 697.279 631.023 678.884 641.193 652.647C642.118 650.511 642.468 648.726 643.138 647.132C648.972 628.45 654.615 613.849 658.408 597.558C670.81 544.351 682.031 490.856 694.751 437.712C695.102 436.214 696.282 433.058 697.302 428.435C700.203 414.599 700.586 405.035 703.04 391.04C705.272 378.383 709.671 366.333 712.955 353.963C714.963 343.634 716.812 334.006 715.027 325.08C708.811 293.965 643.425 262.181 614.318 274.805C610.461 276.463 601.598 282.425 607.623 289.534C629.334 315.07 624.902 347.874 627.198 378.447C627.357 380.392 627.325 382.145 627.166 383.707C627.038 385.461 626.975 385.652 626.751 387.692C626.688 387.852 626.433 391.072 626.401 391.199C626.465 393.558 626.465 394.323 626.209 396.682C626.082 397.83 625.954 398.595 625.891 399.042C625.859 399.902 625.763 400.731 625.668 401.592C625.54 410.008 625.636 418.329 624.392 426.65C624.233 429.838 624.042 431.655 623.787 434.875L623.468 436.341C623.308 437.043 623.277 437.585 623.021 438.86C618.909 507.976 604.404 569.026 580.079 629.662"/>
+          <path d="M580.393 630.12C578.481 634.902 570.046 654.457 569.791 654.903C565.933 663.256 560.227 674.892 545.179 696.921C482.025 800.499 401.815 883.772 291.893 938.312C299.193 942.392 307.96 943.932 313.89 943.062C339.298 939.402 360.562 937.552 383.899 930.472C457.924 908.002 514.798 861.392 559.239 799.192C576.517 775.027 592.171 749.682 609.928 722.297C624.943 697.431 631.287 679.036 641.457 652.799C642.382 650.663 642.732 648.878 643.402 647.284C649.236 628.602 654.879 614.001 658.672 597.71C671.074 544.503 682.295 491.008 695.015 437.864C695.366 436.366 696.546 433.21 697.566 428.587C700.467 414.751 700.85 405.187 703.304 391.192C705.536 378.535 709.935 366.485 713.219 354.115C715.227 343.786 717.076 334.158 715.291 325.232C709.075 294.117 643.689 262.333 614.582 274.957C610.725 276.615 601.862 282.577 607.887 289.686C629.598 315.222 625.166 348.026 627.462 378.599C627.621 380.544 627.589 382.297 627.43 383.859C627.302 385.613 627.239 385.804 627.015 387.844C626.952 388.004 626.697 391.224 626.665 391.351C626.729 393.71 626.729 394.475 626.473 396.834C626.346 397.982 626.218 398.747 626.155 399.194C626.123 400.054 626.027 400.883 625.932 401.744C625.804 410.16 625.9 418.481 624.656 426.802C624.497 429.99 624.306 431.807 624.051 435.027L623.732 436.493C623.572 437.195 623.541 437.737 623.285 439.012C619.173 508.128 604.718 569.484 580.393 630.12Z"/>
+          <path d="M1030.6 12.7836C1026.91 38.1596 1024.55 51.2946 1010.58 72.0166C1001.98 84.8006 985.623 90.5386 971.373 84.7686C959.643 80.0186 956.773 71.0596 966.303 60.6986C985.333 40.0086 1005.96 20.8166 1026.14 1.1786C1028.18 -0.797397 1031.59 0.796605 1031.37 3.63361C1031.15 6.56661 1030.89 9.4676 1030.8 10.9026C1030.76 11.5396 1030.7 12.1776 1030.6 12.7836Z"/>
+          <path d="M589.133 930.77C578.677 972.95 511.442 1020.32 450.615 1025.55C468.691 1002.5 484.631 982.16 503.185 958.47C503.249 958.28 504.205 957.1 504.364 956.85C506.054 955.25 532.674 910.91 555.468 892.1C585.786 866.59 597.805 906.03 589.133 930.77Z"/>
+          </g>
+      </svg>
+
+      <div id="splash-product-name" class="magicmedtime" style="font-size:48px; color: #f97316">
+        StoryTileCraft</div>
+    </div>
+
+    <div id="startup-popup" class="startup-popup-overlay hidden">
+      <div class="startup-popup-content">
+        <h1 class="hidden">Select UI Mode & Language</h1>
+
+        <div class="startup-button-group">
+          <button id="startup-btn-tfcbt">Level 1: Simple</button>
+          <button id="startup-btn-art">Level 2: Advanced</button>
+        </div>
+
+        <!-- <label for="startup-language-select">Choose language:</label> -->
+        <!-- <div style="margin: 20px 0 0px 0px; font-weight: bold; text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);">Language:
+        </div> -->
+        <select id="startup-language-select">
+          <option value="en">English (en)</option>
+          <option value="lv">Latvian (lv)</option>
+          <option value="ua">Ukrainian (ua)</option>
+          <option value="de">German (de)</option>
+          <option value="ru">Russian (ru)</option>
+          <option value="lt">Lithuanian (lt)</option>
+        </select>
+
+
+        <div class="startup-button-group">
+          <div style="margin: 27px 0 16px 0px; font-weight: bold; text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);">Support
+            us:</div>
+          <script>
+            if (navigator.onLine && new URLSearchParams(location.search).get('shell-private') !== '1') {
+              const coffee = document.createElement('script');
+              coffee.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
+              Object.assign(coffee.dataset, { name: 'bmc-button', slug: 'StoryTileCraft', color: '#fb9d18',
+                emoji: '☕', font: 'Cookie', text: 'Buy me a coffee', outlineColor: '#000000',
+                fontColor: '#000000', coffeeColor: '#FFDD00' });
+              document.currentScript.parentNode.append(coffee);
+            } else {
+              document.currentScript.parentNode.hidden = true;
+            }
+          </script>
+          <!-- <a href="https://www.buymeacoffee.com/StoryTileCraft" target="_blank">
+            <img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee"
+              style="height: 50px !important;width: 175px !important;"></a> -->
+        </div>
+      </div>
+    </div>
+
+    <div id="pdf-maker" class="hidden">
+      <iframe id="pdf-maker-frame" class="pdf-maker-preview"></iframe>
+      <div class="pdf-maker-btn-block f-row">
+        <button class="pdf-maker-btn download-pdf hidden" onclick="downloadPdfFile()"></button>
+        <button class="pdf-maker-btn close" onclick="closePdfMakerView()">❌</button>
+      </div>
+    </div>
+
+    <div id="gamification">
+      <iframe id="gamification-frame"></iframe>
+      <div id="fluid-mode-controls" role="toolbar" aria-label="Fluid session controls" hidden>
+        <!-- MU-2: локальні project-authored SVG, без зовнішніх icon assets. -->
+        <div id="fluid-mobile-primary">
+          <button type="button" data-fluid-tray="mode" aria-label="Fluid session menu" aria-expanded="false" aria-controls="fluid-mode-tray"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C9 7 5 11 5 15a7 7 0 0 0 14 0c0-4-4-8-7-13z"/></svg><span id="fluid-status-dot" aria-hidden="true"></span></button>
+          <button id="fluid-mobile-play" type="button" data-fluid-requires-ready aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+          <button id="fluid-mobile-restart" type="button" data-fluid-requires-ready aria-label="Restart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L8 6l4 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg></button>
+          <button id="fluid-mobile-tools" type="button" data-fluid-requires-ready aria-label="Show Fluid tools" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v3H4zm0 6h16v3H4zm0 6h16v3H4z"/></svg></button>
+          <button id="fluid-mobile-color" type="button" data-fluid-tray="color" data-fluid-requires-ready aria-label="Paint colors" aria-expanded="false" aria-controls="fluid-mode-tray" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg></button>
+          <button id="fluid-mobile-size" type="button" data-fluid-tray="size" data-fluid-requires-ready aria-label="Brush size" aria-expanded="false" aria-controls="fluid-mode-tray" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="3"/><circle cx="17" cy="12" r="6"/></svg></button>
+          <button id="fluid-mobile-clear" type="button" data-fluid-requires-ready aria-label="Clear paint" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h10l-1 13H8zm-2-5h5V1h4v2h5v3H5z"/></svg></button>
+          <button type="button" data-fluid-tray="more" aria-label="More Fluid controls" aria-expanded="false" aria-controls="fluid-mode-tray"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+          <button id="fluid-mobile-close" type="button" aria-label="Close Fluid mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 4 6 6 6-6 2 2-6 6 6 6-2 2-6-6-6 6-2-2 6-6-6-6z"/></svg></button>
+        </div>
+        <span id="fluid-mobile-status" role="status" aria-live="polite"></span>
+        <div id="fluid-desktop-controls">
+        <strong id="fluid-mode-title" role="button" tabindex="0"
+          title="Drag to move the panel; arrow keys nudge it"></strong>
+        <span id="fluid-play-controls" hidden>
+          <span class="fluid-group">
+            <button class="fluid-icon-button" type="button" data-fluid-command="play" aria-label="Play" title="Play">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="fluid-icon-button" type="button" data-fluid-command="pause" aria-label="Pause" title="Pause">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+            </button>
+            <button class="fluid-icon-button" type="button" data-fluid-command="restart"
+              aria-label="Restart" title="Restart">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L8 6l4 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>
+            </button>
+            <label id="fluid-play-speed-field">Speed <select id="fluid-play-speed" aria-label="Playback speed" title="Playback speed">
+              <option value="0.5">0.5×</option><option value="1" selected>1×</option>
+              <option value="2">2×</option><option value="4">4×</option>
+              <option value="8">8×</option><option value="16">16×</option>
+            </select></label>
+          </span>
+          <label id="fluid-play-thickness-field">Thickness
+            <input id="fluid-play-thickness" type="range" min="0.1" max="1.2" step="0.05" value="1">
+            <output id="fluid-play-thickness-value" for="fluid-play-thickness">1.00×</output>
+          </label>
+          <span class="fluid-group">
+            <button id="fluid-play-tools" type="button" data-fluid-requires-ready
+              aria-label="Show Fluid tools" aria-expanded="false">Tools</button>
+            <button id="fluid-play-save" type="button" data-fluid-requires-ready>Save</button>
+          </span>
+        </span>
+        <span id="fluid-rescript-controls" hidden>
+          <span id="fluid-mode-palette" aria-label="Paint colors"></span>
+          <label id="fluid-paint-size-field">Size
+            <input id="fluid-paint-size" type="range" min="5" max="112.5" step="0.5" value="75">
+            <output id="fluid-paint-size-value" for="fluid-paint-size">75</output>
+          </label>
+          <span class="fluid-group">
+            <button type="button" data-fluid-command="clearPaint">Clear paint</button>
+            <button id="fluid-rescript-save" type="button" data-fluid-requires-ready>Save</button>
+          </span>
+        </span>
+        <span id="fluid-mode-status" role="status" aria-live="polite"></span>
+        <button id="fluid-mode-close" type="button" aria-label="Close Fluid mode">✕</button>
+        </div>
+        <div id="fluid-mode-tray" role="region" aria-label="Fluid controls" hidden></div>
+      </div>
+      <button id="gamification-btn" onclick="gamify_model_toggle_command()">
+        <svg viewBox="0 0 28 28">
+          <path
+            d="M26.105,21.891c-0.229,0-0.439-0.131-0.529-0.346l0,0c-0.066-0.156-1.716-3.857-7.885-4.59 c-1.285-0.156-2.824-0.236-4.693-0.25v4.613c0,0.213-0.115,0.406-0.304,0.508c-0.188,0.098-0.413,0.084-0.588-0.033L0.254,13.815 C0.094,13.708,0,13.528,0,13.339c0-0.191,0.094-0.365,0.254-0.477l11.857-7.979c0.175-0.121,0.398-0.129,0.588-0.029 c0.19,0.102,0.303,0.295,0.303,0.502v4.293c2.578,0.336,13.674,2.33,13.674,11.674c0,0.271-0.191,0.508-0.459,0.562 C26.18,21.891,26.141,21.891,26.105,21.891z">
+          </path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="book3d" class="hidden">
+      <iframe id="book3d-frame"></iframe>
+      <button id="book3d-btn" onclick="close3dBookView()" title="Close 3D book">
+        <svg viewBox="0 0 24 24">
+          <path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.3l6.3 6.29 6.3-6.29 1.41 1.41Z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div>
+      <canvas id="canvas" width="50px" height="50px" class="ruler-border"></canvas>
+    </div>
+
+    <div id="svg-stage" class="hidden">
+    </div>
+
+
+    <template id="folder-template-x">
+      <a class="folder">
+        <div class="content content--left-half">
+          <div class="svg-wrapper"></div>
+        </div>
+        <button onclick="unfold_image_command()" class="ripple-container left-half"
+          title='continue unfolding top to bottom' icon='unfold-image' icon-pivot="set90"></button>
+        <button onclick="fold_image_command()" class="ripple-container right-half"
+          title='continue folding bottom to top' icon='fold-image' icon-pivot="set90">></button>
+        <div class="content content--right-half" aria-hidden="true">
+          <div class="svg-wrapper"></div>
+        </div>
+
+      </a>
+    </template>
+
+    <template id="folder-template-y">
+      <a class="folder">
+        <div class="content content--top-half">
+          <div class="svg-wrapper"></div>
+        </div>
+        <button onclick="unfold_image_command()" class="ripple-container top-half"
+          title='continue unfolding left to right' icon='unfold-image'></button>
+        <button onclick="fold_image_command()" class="ripple-container bottom-half"
+          title='continue folding right to left' icon='fold-image'></button>
+        <div class="content content--bottom-half" aria-hidden="true">
+          <div class="svg-wrapper"></div>
+        </div>
+      </a>
+    </template>
+
+    <div id="top-main-static-toolbar" class="data-panel static-panel static-toolbar horizontal center">
+      <div class="toolbar-content center">
+        <svg class="icon draggable inner">
+          <use xlink:href="#drag-zone"></use>
+        </svg>
+        <div name="command-bind-panel">
+          <div class="f-row gap15">
+            <div id="top-main-left-static-toolbar-body" class="cmd-spad f-row gap15">
+            </div>
+            <div id="top-main-right-static-toolbar-body" class="cmd-spad f-row gap15">
+            </div>
+          </div>
+
+          <div id="toolbar-warning" class="warning hidden">{warning}</div>
+
+          <div id="top-main-static-panel-slider" class="range-slider f-row horizontal hidden">
+            <button onclick="switch_size_slider_command()">
+              <div class="range-icon"><svg></svg></div>
+            </button>
+            <span class="range-min">0</span>
+            <input class="input-range horizontal" aria-label="range-slider" type="range" min="0" max="100" value="50"
+              orient="horizontal">
+            <span class="range-max">100</span>
+            <div class="range-value">100</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="gamifiers-settings" class="data-panel static-panel static-toolbar horizontal">
+      <div class="toolbar-content center">
+        <svg class="icon draggable">
+          <use xlink:href="#drag-zone"></use>
+        </svg>
+        <div name="command-bind-panel">
+          <div class="f-row f-stretch gap15">
+            <div id="gamifiers-settings-coloring-toolbar-body" class="cmd-spad f-row gap15">
+            </div>
+            <div id="gamifiers-settings-folding-toolbar-body" class="cmd-spad f-row gap15">
+            </div>
+            <div id="gamifiers-settings-framing-toolbar-body" class="cmd-spad f-row gap15">
+            </div>
+          </div>
+
+          <div id="gamifiers-settings-slider" class="range-slider f-row horizontal hidden">
+            <div class="range-icon"><svg></svg></div>
+            <span class="range-min">0</span>
+            <input class="input-range horizontal" aria-label="range-slider" type="range" min="0" max="100" value="50"
+              orient="horizontal">
+            <span class="range-max">100</span>
+            <div class="range-value">100</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="thermometer-static-toolbar" class="data-panel static-panel static-toolbar vertical">
+      <div class="toolbar-content">
+        <svg class="icon draggable empty">
+          <use xlink:href="#drag-zone"></use>
+        </svg>
+
+        <button class="close" onclick="thermoPanel().close()">x</button>
+        <div name="command-bind-panel">
+          <div id="thermometer-static-toolbar-body" class="cmd-spad f-column">
+          </div>
+        </div>
+
+        <div class="c-range-slider blue-red">
+          <input id="thermostat" type="range" orient="vertical" min="0" max="100" />
+          <div class="c-range-slider__bar"></div>
+          <div class="c-range-slider__thumb linear"></div>
+        </div>
+        <!-- button add (plus) or set or toggle -->
+      </div>
+    </div>
+
+
+    <div id="top-ext-static-toolbar" class="data-panel static-panel static-toolbar vertical">
+      <div class="toolbar-content">
+        <svg class="icon draggable">
+          <use xlink:href="#drag-zone"></use>
+        </svg>
+
+        <div name="command-bind-panel">
+          <div id="top-ext-static-toolbar-body" class="cmd-spad f-column gap15">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cbt-emo-static-toolbar" class="data-panel static-panel static-toolbar horizontal">
+      <div class="toolbar-content">
+        <svg class="icon draggable empty">
+          <use xlink:href="#drag-zone"></use>
+        </svg>
+
+        <div name="command-bind-panel">
+          <div id="cbt-emo-static-toolbar-body" class="cmd-spad f-row gap15">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="tf-cbt-static-toolbar" class="data-panel static-panel static-toolbar horizontal">
+      <div class="f-column center">
+
+        <div class="toolbar-content">
+          <svg class="icon draggable">
+            <use xlink:href="#drag-zone"></use>
+          </svg>
+
+          <div name="command-bind-panel">
+
+            <div id="tf-cbt-static-toolbar-body-container" class="f-row gap15 forced-f-column-reverse">
+              <div id="tf-cbt-right-static-toolbar-body" class="cmd-spad f-row gap15">
+              </div>
+              <div class="f-row">
+                <div id="tf-cbt-static-panel-slider" class="range-slider f-row horizontal hidden">
+                  <div class="range-icon"><svg></svg></div>
+                  <!-- <span class="range-min">0</span> -->
+                  <input class="input-range horizontal" aria-label="range-slider" type="range" min="0" max="100"
+                    value="50" orient="horizontal">
+                  <!-- <span class="range-max">100</span> -->
+                  <div class="range-value">100</div>
+                </div>
+                <div id="tf-cbt-left-static-toolbar-body" class="cmd-spad f-row gap15">
+                </div>
+                <div id="simpleColorDropdown"></div>
+              </div>
+            </div>
+            <div id="toolbar-warning-bottom" class="warning hidden">{warning}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="frames-navigator" class="data-panel static-panel static-toolbar horizontal">
+      <div class="toolbar-content left">
+        <svg class="icon draggable">
+          <use xlink:href="#drag-zone"></use>
+        </svg>
+        <div name="command-bind-panel">
+
+          <div id="frames-navigator-body" class="cmd-spad f-row navigator gap25">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <textarea id="narrative-editor"></textarea> -->
+
+    <div id="narrative-editor">
+      <div class="narrative-buttons">
+        <button id="narrative-clear">🗑️</button>
+        <button id="narrative-cancel">✗</button>
+        <button id="narrative-submit">✓</button>
+      </div>
+      <textarea id="narrative-textarea"></textarea>
+    </div>
+
+
+    <!-- <div id="frames-navigator-vert" idTodo="frames-navigator" class="static-panel static-toolbar vertical">
+      <div class="toolbar-content left">
+        <svg class="icon draggable">
+          <use xlink:href="#drag-zone"></use>
+        </svg>
+        <div name="command-bind-panel">
+          <div id="frames-navigator-body" class="cmd-spad f-column navigator">
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div id="player-bottom-toolbar" class="data-panel static-panel static-toolbar horizontal center">
+      <div class="toolbar-content ">
+        <svg class="icon draggable">
+          <use xlink:href="#drag-zone"></use>
+        </svg>
+        <div name="command-bind-panel">
+          <div id="player-bottom-toolbar-body" class="cmd-spad f-row  gap15">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="effects-side-toolbar" class="data-panel static-panel">
+      <div>
+        <div name="command-bind-panel">
+          <div id="effects-side-toolbar-body" class="cmd-spad">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="palette-toolbar" class="data-panel static-panel static-toolbar vertical">
+      <div class="toolbar-content center">
+        <svg class="icon draggable">
+          <use xlink:href="#drag-zone"></use>
+        </svg>
+        <div name="command-bind-panel">
+          <div id="palette-toolbar-body" class="cmd-spad f-row ">
+          </div>
+
+          <div id='palette-content'>
+            <div class="wada-page-caption" hidden></div>
+            <div class="scroll-wrapper">
+              <div class="scroll-body evacuation-drag-area">
+                <canvas class="expandable" id="palette-canvas" width="120" height="700"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="range-slider f-row horizontal">
+            <input class="input-range horizontal" aria-label="range-slider" type="range" min="0" max="100" value="100"
+              orient="horizontal">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview" localize style="z-index: 110;">move and drop</div>
+
+    <div id="panel-stub" class="hidden"></div>
+
+    <!-- iro component -->
+    <div class="data-panel pop-panel" id="color-mixer-circle">
+      <div class="pop-panel-header f-row">
+        <div class="f-row color-label-container">
+          <input type="checkbox" id="color-input" onclick="updateRandomColorState(this.checked)" checked />
+          <label for="color-input" class="color-label">
+            <img src="images/random-color.png"
+              style="object-fit:fit;user-select:none;user-drag:none;pointer-events:none;" height="50" width="100">
+            <p style="pointer-events: none;margin:1px;"></p>
+          </label>
+
+          <button id="pick-color-btn" class="pick-color-handle">
+            <svg viewBox="-100 -100 850 850" width="46px" height="46px">
+              <path stroke="white" fill="white"
+                d="M341.6 29.2L240.1 130.8l-9.4-9.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-9.4-9.4L482.8 170.4c39-39 39-102.2 0-141.1s-102.2-39-141.1 0zM55.4 323.3c-15 15-23.4 35.4-23.4 56.6v42.4L5.4 462.2c-8.5 12.7-6.8 29.6 4 40.4s27.7 12.5 40.4 4L89.7 480h42.4c21.2 0 41.6-8.4 56.6-23.4L309.4 335.9l-45.3-45.3L143.4 411.3c-3 3-7.1 4.7-11.3 4.7H96V379.9c0-4.2 1.7-8.3 4.7-11.3L221.4 247.9l-45.3-45.3L55.4 323.3z" />
+            </svg></button>
+        </div>
+
+        <div class="line-width-switch-h">
+          <input type="checkbox" class="toggle-button enable-brush-width-btn" id="toggle-palette-hex-layout"
+            onchange="switch_palette_layout_command('hex')" />
+          <label for="toggle-palette-hex-layout">to hex</label>
+        </div>
+
+        <button class="pop-panel-close-btn" onclick="closePanel('color-mixer-circle')">&#8864;</button>
+      </div>
+      <div class="color-picker evacuation-drag-area">
+        <div id="circle-color-picker"></div>
+      </div>
+    </div>
+
+    <!-- @shapes: форма як інструмент, _docs/layers-pool-manager-spec.md §5 -->
+    <div class="data-panel pop-panel" id="art-layers-pool">
+      <div class="pop-panel-header f-row">
+        <span localize>Shapes</span>
+        <button class="pop-panel-close-btn" onclick="closePanel('art-layers-pool')">&#8864;</button>
+      </div>
+
+      <div class="shapes-panel-body">
+        <div class="shapes-panel-gallery" id="art-layers-pool-gallery"></div>
+
+        <div class="shapes-panel-mark">
+          <div class="shapes-panel-preview" id="art-layers-pool-preview"></div>
+          <input class="shapes-panel-size" id="art-layers-pool-size" type="range" aria-label="size" min="0.5" max="10"
+            step="0.1" value="1">
+          <div class="shapes-panel-variants" id="art-layers-pool-variants"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- @palette -->
+    <div class="data-panel pop-panel" id="palette-panel">
+      <div class="pop-panel-header f-row">
+        <div class="pop-panel-btn-block">
+          <span class="pop-panel-btn" onclick="expandPanel('palette-panel', -30)">-30%</span>
+          <span class="pop-panel-btn" onclick="expandPanel('palette-panel', +30)">+30%</span>
+        </div>
+        <div class="line-width-switch-h">
+          <input type="checkbox" class="toggle-button enable-brush-width-btn" id="toggle-palette-circle-layout"
+            onchange="switch_palette_layout_command('circle')" />
+          <label for="toggle-palette-circle-layout">to circle</label>
+        </div>
+        Hex palette
+        <button class="pop-panel-close-btn" onclick="closePanel('palette-panel')">&#8864;</button>
+
+      </div>
+
+      <div name="command-bind-panel" class="hex-panel-h-tool-bar drag-area f-row stretch">
+        <div class="f-column">
+
+          <div><button onclickaction="palette_generate_colors_command()">renew colors</button></div>
+        </div>
+
+        <div class="f-column">
+          <div><button onclickaction="palette_import_layer_colors_command()">pull from layer</button></div>
+        </div>
+
+        <div class="f-column">
+          <div><button onclickaction="palette_toggle_order_shufle_command()">shuffle / order</button></div>
+        </div>
+      </div>
+
+      <div id='palette-content'>
+        <div class="wada-page-caption" hidden></div>
+        <div class="scroll-wrapper">
+          <div class="scroll-body evacuation-drag-area">
+            <canvas class="expandable" id="palette-canvas" width="480" height="370"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- @layers -->
+    <div class="data-panel pop-panel" id="layers-panel">
+      <div class="pop-panel-header">Layers
+        <button class="pop-panel-palette-btn" onclick="togglePanel('color-mixer-circle')">🎨</button>
+        <button class="pop-panel-close-btn" onclick="closePanel('layers-panel')">&#8864;</button>
+
+      </div>
+
+      <template id='tmpl-layer-item'>
+        <div onclick="activateLayer(event,this)" class="f-row start layer-item @rowClass">
+          <div>@name.@ownerBadge</div>
+          <div>@tiles</div>
+          <div>@opacity</div>
+          <div>@gridSize</div>
+          <div>@tileShape</div>
+          <div>
+            <button idx="@idx" onclick="toggleLayerVisibility(event, this)" class="@class-state">@state</button>
+          </div>
+        </div>
+      </template>
+
+      <!-- grid variant (Editor.uiFlags.layerPanelGrid). Same cell order/names as the table above;
+           owner/lock badge lives in a full-width second row that collapses when empty. -->
+      <template id='tmpl-layer-item-grid'>
+        <div onclick="activateLayer(event,this)" class="layer-item-grid @rowClass">
+          <div class="li-name">@name.</div>
+          <div class="li-tiles">@tiles</div>
+          <div class="li-opacity">@opacity</div>
+          <div class="li-gridSize">@gridSize</div>
+          <div class="li-tileShape">@tileShape</div>
+          <div class="li-vis">
+            <button idx="@idx" onclick="toggleLayerVisibility(event, this)" class="@class-state">@state</button>
+          </div>
+          <div class="li-owner">@ownerBadge</div>
+        </div>
+      </template>
+      <div class="f-column start">
+        <div name="command-bind-panel" class="panel-h-tool-bar  drag-area f-row stretch">
+          <div class="f-column">
+            <div>
+              <button name="layer_add" class="non-toggle-btn"
+                onclickaction="layer_add_command()">➕&nbsp;&nbsp;&nbsp;&nbsp;add</button>
+            </div>
+            <div>
+              <button name="layer_remove" class="non-toggle-btn"
+                onclickaction="layer_remove_command()">➖&nbsp;remove</button>
+            </div>
+          </div>
+          <div class="f-column">
+            <!-- <div><button name="global_zoom_and_move_mode" class="non-toggle-btn"
+              onclickaction="layers_global_state_switch_command()">zoom &
+              move
+              <span></span></button>
+            </div> -->
+            <div><button name="toggle_layers_visibility" onclickaction="toggle_layers_visibility_command()">inactive
+                visible</button>
+            </div>
+            <div style="width: 100%;height: 100%;">
+              <select id="layer_tile_shape_select" onclick="select_control_tile_shape_apply_command(this.value, false)">
+                <option localize value="polyline">Line</option>
+                <option localize value="square">Square</option>
+                <option localize value="circle">Circle</option>
+                <option localize value="slash">Slash</option>
+                <option localize value="3">Triangle</option>
+                <option localize value="4">Rhomb</option>
+                <option localize value="5">Pentagon</option>
+                <option localize value="6">Hexagon</option>
+                <option localize value="7">Heptagon</option>
+                <option localize value="8">Octagon</option>
+                <!-- <option localize value="Origami">origami</option> -->
+              </select>
+              <!-- <button class="non-toggle-btn">
+                <span></span></button> -->
+            </div>
+          </div>
+          <div class="f-column">
+            <!-- layer list renders in UI in reversed order, 'up'->down() is not a bug -->
+            <div><button name="layer_move_down" class="non-toggle-btn"
+                onclickaction="layer_move_down_command()">up&nbsp;&nbsp;&nbsp;⬆️</button>
+            </div>
+            <div><button name="layer_move_up" class="non-toggle-btn"
+                onclickaction="layer_move_up_command()">down&nbsp;⬇️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-wrapper">
+
+          <div class="f-row start layer-item scroll-header drag-area">
+            <div>#</div>
+            <div>tiles</div>
+            <div>opacity</div>
+            <div>grid</div>
+            <div>shape</div>
+            <div>visibility</div>
+          </div>
+          <div id='layers-content' class="scroll-body evacuation-drag-area">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- templates for static panels-->
+    <template id="tmpl-stat-icon-btn">
+      <div>
+        <button name="@command-name" onclickaction='_command' title="@desc" stateparam="@param" class="ripple-container"
+          aria-label="@command-name">
+          <svg></svg></button>
+      </div>
+    </template>
+
+    <template id="tmpl-stat-icon-round-btn">
+      <div>
+        <button name="@command-name" onclickaction='_command' title="@desc" stateparam="@param" class="ripple-container"
+          aria-label="@command-name">
+          <span>@info</span></button>
+      </div>
+    </template>
+
+    <!-- templates for floating and bottom cmd pad panels-->
+    <template id="tmpl-tool-state-btn">
+      <div>
+        <button name="@command-name" onclickaction='_command' aria-label="@command-name">
+          <svg></svg>@desc<p><span></span></p></button>
+      </div>
+    </template>
+
+    <template id="tmpl-tool-toggle-btn">
+      <div>
+        <button name="@command-name" onclickaction='_command' aria-label="@command-name">
+          <svg></svg>@desc</button>
+      </div>
+    </template>
+
+    <template id="tmpl-tool-select-menu">
+      <div>
+        <button name="@command-name" class="select-container" aria-label="@command-name">
+          <svg></svg>
+          <div class="select-menu" onchange='_command'>
+            <div class="select-btn">
+              <span class="sBtn-text">First option</span>
+              <i class="bx bx-chevron-down"></i>
+            </div>
+            <ul class="options">
+              <template id="tmpl-tool-select-menu-option">
+                <li class="option">
+                  <svg></svg>
+                  <span class="option-text">First option</span>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </button>
+      </div>
+    </template>
+
+    <template id="tmpl-tool-select">
+      <div>
+        <button name="@command-name" class="select-container" aria-label="@command-name">
+          <svg></svg>
+          <select onchange='_command' aria-label="@command-name">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+          <div name="@command-name-value" class="selected-value">@selected-value</div>
+          @desc
+        </button>
+      </div>
+    </template>
+    <template id="tmpl-tool-select-static">
+      <div>
+        <button name="@command-name" class="select-container" aria-label="@command-name">
+          <select onchange='_command' aria-label="@command-name">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select>
+        </button>
+      </div>
+    </template>
+    <template id="pop-button-menu">
+      <div class="circle-live-button">
+        <button class="circle-live-button" aria-label="toggle-panels">...</button>
+      </div>
+    </template>
+    <template id="warning-panel-template">
+      <div class="warning-panel">
+        <p class="warning-text"></p>
+        <div class='f-row'>
+          <button class="warning-yes" aria-label="confirm-action" localize>Yes, sure</button>
+          <button class="warning-no" aria-label="decline-action" localize>No, cancel</button>
+        </div>
+      </div>
+    </template>
+
+    <div id="settings-window" class="top-z-200 hidden">
+      <iframe id="settings-window-iframe">
+      </iframe>
+    </div>
+  </div>
+  </div>
+
+  </div>
+
+  <!-- ── Collab Drawing quick panel ────────────────────────────────── -->
+  <style>
+    #collab-panel {
+      position: fixed;
+      bottom: 56px;
+      right: 16px;
+      box-sizing: border-box;
+      width: 320px;
+      max-width: calc(100vw - 32px);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      padding: 14px;
+      z-index: 900;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+      font-family: inherit;
+      font-size: 13px;
+      color: #1e293b;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .collab-drag-handle {
+      min-height: 18px;
+      margin: -4px 22px 0 -2px;
+      color: #64748b;
+      cursor: grab;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 18px;
+      user-select: none;
+    }
+    .collab-drag-handle:active {
+      cursor: grabbing;
+    }
+    .collab-section { display: flex; flex-direction: column; gap: 6px; }
+    .collab-section.hidden { display: none; }
+    .collab-head { display: flex; flex-direction: column; gap: 2px; }
+    .collab-room-code { font-size: 13px; font-weight: 600; }
+    .collab-room-code-id { font-family: monospace; font-size: 14px; letter-spacing: 0.05em; user-select: text; }
+    .collab-status-line { font-size: 13px; color: #334155; }
+    .collab-status-line:empty { display: none; }
+    .collab-question { margin: 0; font-weight: 600; }
+    .collab-screen-title { margin: 0; font-size: 14px; font-weight: 700; }
+    .collab-note { margin: 0; font-size: 13px; color: #475569; }
+    .collab-error { margin: 0; font-size: 13px; color: #b91c1c; }
+    .collab-error[hidden] { display: none; }
+    .collab-tasks { display: flex; gap: 6px; }
+    .collab-tasks button, .collab-primary, .collab-secondary, .collab-link-btn {
+      min-height: 44px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .collab-tasks button { flex: 1; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 600; }
+    .collab-primary { border: none; background: #0ea5e9; color: #fff; font-weight: 600; }
+    .collab-primary:disabled { background: #94a3b8; cursor: not-allowed; }
+    .collab-secondary { border: 1px solid #cbd5e1; background: transparent; color: #334155; }
+    .collab-link-btn { border: none; background: transparent; color: #0369a1; text-decoration: underline; padding: 8px 4px; }
+    .collab-code-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .collab-code { font-family: monospace; font-size: 16px; letter-spacing: 0.05em; user-select: text; }
+    #collab-code-input {
+      min-height: 44px;
+      font-family: monospace;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      padding: 5px 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f8f8f8;
+    }
+    .collab-field-label { font-size: 13px; font-weight: 600; color: #475569; }
+    .collab-policy-details { font-size: 13px; color: #475569; }
+    .collab-policy-details p { margin: 4px 0 0; }
+    #collab-panel [hidden] { display: none !important; }
+    .collab-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .collab-share-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .collab-share-row .collab-secondary { flex: 1; }
+    .collab-warning { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 8px; border-radius: 8px; background: #fef3c7; color: #78350f; font-size: 13px; }
+    .collab-warning .collab-link-btn { min-height: 32px; padding: 4px 0; }
+    #collab-share-url { width: 100%; box-sizing: border-box; min-height: 44px; padding: 5px 8px; font-family: monospace; font-size: 13px; border: 1px solid #ccc; border-radius: 6px; }
+    /* participant-count badge on the collab PopButton (spec §12.4) */
+    #pop_collab[data-count]::after {
+      content: attr(data-count);
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 3px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      background: #22c55e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 16px;
+      text-align: center;
+      pointer-events: none;
+    }
+    .collab-tabs { display: flex; flex-wrap: wrap; gap: 2px; padding: 2px; background: #e2e8f0; border-radius: 8px; }
+    .collab-tabs [role="tab"] {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      min-height: 44px;
+      padding: 6px 4px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: #334155;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .collab-tabs [role="tab"][aria-selected="true"] { background: #fff; color: #0f172a; box-shadow: 0 1px 2px rgba(0,0,0,0.12); }
+    .collab-tabpanel { display: flex; flex-direction: column; gap: 8px; max-height: min(55vh, 440px); overflow-y: auto; }
+    .collab-roster { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+    .collab-roster-entry { position: relative; display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 4px; }
+    .collab-roster-entry .collab-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+    .collab-avatar { font-size: 15px; }
+    .collab-you, .collab-owner-tag { color: #64748b; font-size: 13px; }
+    .collab-more-btn { min-width: 44px; min-height: 44px; border: none; border-radius: 8px; background: transparent; font-size: 18px; cursor: pointer; }
+    .collab-more-btn[aria-expanded="true"], .collab-more-btn:hover { background: #e2e8f0; }
+    .collab-menu { position: absolute; right: 4px; top: 42px; z-index: 2; min-width: 180px; padding: 4px; background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.16); }
+    .collab-menu [role="menuitem"] { width: 100%; min-height: 44px; border: none; background: transparent; color: #b91c1c; font-size: 14px; text-align: left; padding: 0 10px; cursor: pointer; }
+    .collab-menu [role="menuitem"]:hover { background: #fee2e2; }
+    .collab-manage-block { display: flex; flex-direction: column; gap: 6px; }
+    .collab-manage-block h4 { margin: 0; font-size: 13px; font-weight: 700; color: #334155; }
+    .collab-danger-block { margin-top: 6px; padding-top: 10px; border-top: 1px solid #fecaca; }
+    .collab-choice { display: flex; flex-direction: column; gap: 4px; }
+    .collab-choice [role="radio"] {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+      min-height: 44px; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 8px;
+      background: #fff; color: #1e293b; font-size: 14px; text-align: left; cursor: pointer;
+    }
+    .collab-choice [role="radio"] span { font-size: 13px; color: #475569; }
+    .collab-choice [role="radio"][aria-checked="true"] { border-color: #0ea5e9; box-shadow: inset 0 0 0 1px #0ea5e9; background: #f0f9ff; }
+    .collab-choice [role="radio"]:disabled { opacity: 0.6; cursor: not-allowed; }
+    .collab-secondary:disabled, .collab-danger:disabled { opacity: 0.6; cursor: not-allowed; }
+    .collab-danger { min-height: 44px; padding: 8px 12px; border: none; border-radius: 8px; background: #dc2626; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .collab-confirm {
+      position: absolute; inset: 0; z-index: 3;
+      display: flex; flex-direction: column; justify-content: center; gap: 12px;
+      padding: 16px; border-radius: 12px; background: rgba(255,255,255,0.97);
+    }
+    .collab-confirm p { margin: 0; font-size: 14px; }
+    .collab-confirm-actions { display: flex; flex-direction: column; gap: 6px; }
+    .collab-panel-close {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #475569;
+      line-height: 1;
+    }
+    .collab-warning .collab-primary { align-self: stretch; }
+    @media (max-width: 640px) {
+      /* Нижня панель у межах viewport; inline left/top від drag тут не діють.
+         --collab-zoom компенсує initial-scale сторінки, щоб touch targets лишались 44 px. */
+      #collab-panel {
+        zoom: var(--collab-zoom, 1);
+        left: 8px !important;
+        right: 8px !important;
+        top: auto !important;
+        bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important;
+        width: auto;
+        max-width: none;
+        max-height: calc((100dvh - 96px) / var(--collab-zoom, 1));
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+      .collab-tabpanel { max-height: none; overflow: visible; }
+    }
+    .collab-qr-code {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 8px;
+    }
+    .collab-qr-code svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .collab-qr-url {
+      word-break: break-all;
+      background: #f0f0f0;
+      border-radius: 4px;
+      padding: 6px 8px;
+      margin: 6px 0 0;
+      font-family: monospace;
+      font-size: 12px;
+      user-select: all;
+    }
+  </style>
+
+  <div id="collab-panel" class="hidden collab-draggable-panel" style="position:fixed;" aria-labelledby="collab-title">
+    <div id="collab-title" class="collab-drag-handle" localize>Collab drawing</div>
+    <button type="button" id="collab-close-panel" class="collab-panel-close" aria-label="Close">✕</button>
+
+    <div class="collab-head">
+      <div id="collab-room-code" class="collab-room-code" hidden></div>
+      <div id="collab-status-line" class="collab-status-line" role="status" aria-live="polite"></div>
+      <div id="collab-live" class="collab-sr-only" aria-live="polite"></div>
+    </div>
+
+    <div id="collab-prejoin" class="collab-section"></div>
+
+    <div id="collab-joined" class="collab-section" hidden>
+      <div id="collab-stale" class="collab-warning" hidden>
+        <span localize>Last known data: the room may have changed. Room actions are unavailable until the connection is restored.</span>
+        <button type="button" id="collab-retry-btn" class="collab-primary" data-collab="retry" hidden localize>Retry</button>
+      </div>
+      <div class="collab-tabs" role="tablist" aria-label="Room">
+        <button type="button" role="tab" id="collab-tab-participants" data-tab="participants" aria-controls="collab-participants-section" localize>Participants</button>
+        <button type="button" role="tab" id="collab-tab-invite" data-tab="invite" aria-controls="collab-share-section" localize>Invite</button>
+        <button type="button" role="tab" id="collab-tab-manage" data-tab="manage" aria-controls="collab-owner-actions" localize>Manage</button>
+      </div>
+
+      <div id="collab-participants-section" class="collab-tabpanel" role="tabpanel" aria-labelledby="collab-tab-participants" hidden>
+        <p id="collab-ownerless" class="collab-note" hidden localize>Nobody manages the room right now</p>
+        <ul class="collab-roster"></ul>
+        <p id="collab-alone" class="collab-note" hidden><span localize>For now you are here alone</span>
+          <button type="button" id="collab-alone-invite" class="collab-link-btn" data-collab="goto-invite" localize>Invite</button></p>
+        <p id="collab-saving-info" class="collab-note"></p>
+      </div>
+
+      <div id="collab-share-section" class="collab-tabpanel" role="tabpanel" aria-labelledby="collab-tab-invite" hidden>
+        <div id="collab-closed-warning" class="collab-warning" hidden>
+          <span localize>New participants cannot join right now</span>
+          <button type="button" id="collab-closed-manage" class="collab-link-btn" data-collab="goto-manage" localize>Manage</button>
+          <span id="collab-closed-hint" localize>The room manager can open entry</span>
+        </div>
+        <button type="button" id="collab-copy-link" class="collab-primary" data-collab="copy-link" localize>Copy link</button>
+        <div class="collab-share-row">
+          <button type="button" id="collab-qr-btn" class="collab-secondary" data-collab="toggle-qr" aria-expanded="false" aria-controls="collab-qr-box">Show QR</button>
+          <button type="button" id="collab-copy-code" class="collab-link-btn" data-collab="copy-code" localize>Copy code</button>
+        </div>
+        <p id="collab-share-result" class="collab-note" role="status" aria-live="polite"></p>
+        <div id="collab-share-fallback" hidden>
+          <p class="collab-note" localize>Could not copy. Select the link and copy it manually.</p>
+          <input id="collab-share-url" type="text" readonly aria-label="Invite link">
+        </div>
+        <div id="collab-qr-box" hidden>
+          <div class="collab-qr-code"></div>
+          <div class="collab-qr-url"></div>
+        </div>
+      </div>
+
+      <div id="collab-owner-actions" class="collab-tabpanel" role="tabpanel" aria-labelledby="collab-tab-manage" hidden>
+        <section class="collab-manage-block">
+          <h4 localize>Entry for new participants</h4>
+          <button type="button" id="collab-close-btn" class="collab-secondary" data-collab="toggle-entry"></button>
+          <p class="collab-note" localize>Those who have already joined stay in the room</p>
+          <p id="collab-entry-error" class="collab-error" hidden localize>Could not change entry. Try again.</p>
+        </section>
+        <section class="collab-manage-block">
+          <h4 localize>Saving drawings</h4>
+          <div id="collab-privacy-segmented" class="collab-choice" role="radiogroup" aria-labelledby="collab-privacy-label">
+            <span id="collab-privacy-label" hidden localize>Saving drawings</span>
+            <button type="button" id="collab-privacy-private" role="radio" data-mode="private" aria-checked="true">
+              <strong localize>Only own layers</strong><span localize>Each person saves only their own layers</span></button>
+            <button type="button" id="collab-privacy-common" role="radio" data-mode="common" aria-checked="false">
+              <strong localize>All layers</strong><span localize>Anyone can save the whole shared drawing</span></button>
+          </div>
+          <p class="collab-note" localize>This is a saving rule. Everyone in the room sees the shared drawing.</p>
+          <p id="collab-policy-error" class="collab-error" hidden localize>The change was not sent: no connection</p>
+        </section>
+        <section class="collab-manage-block collab-danger-block">
+          <h4 localize>Ending the room</h4>
+          <button type="button" id="collab-terminate-btn" class="collab-danger" data-collab="terminate"></button>
+        </section>
+      </div>
+    </div>
+
+    <div id="collab-confirm" class="collab-confirm" role="alertdialog" aria-modal="true" aria-describedby="collab-confirm-text" hidden>
+      <p id="collab-confirm-text"></p>
+      <div class="collab-confirm-actions">
+        <button type="button" class="collab-secondary" data-confirm="cancel" localize>Cancel</button>
+        <button type="button" class="collab-danger" data-confirm="ok"></button>
+      </div>
+    </div>
+
+    <button id="collab-secondary-btn" class="collab-secondary" hidden></button>
+  </div>
+  <!-- ── end Collab Drawing quick panel ────────────────────────────── -->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!--@-->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  
+  
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!-- catalog.js is loaded in BOTH documents: the iframe renders the library from it, and the
+       host needs its slug regex (to reject an invalid TOUR_SELECTED) and completionKey (to
+       persist completion under the same key the library reads). -->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!-- Both are consumed by entry-point.js on boot, so they must precede it. -->
+  <!--@-->
+  <!--@-->
+  <!--@-->
+
+  <!-- placeholders -->
+  <script type="text/javascript" src="_local-21ebecf6f4.js"></script>
+  <script type="text/javascript" src="_bundle-8ed9ae1809.js"></script>
+
+
+</body>
+
+</html>

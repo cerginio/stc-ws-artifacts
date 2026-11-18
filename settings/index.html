@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Settings StoryTileCraft</title>
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'> -->
+    <meta name="author" content="SIA Mental Health and Gamification, Riga, Latvia">
+    <meta name="copyright" content="SIA Mental Health and Gamification, Riga, Latvia, https://storytilecraft.com">
+    <meta name="description"
+        content="StoryTileCraft app is therapeutic stories drawing and gamification tool for CBT and TF-CBT therapysts">
+    <meta name="keywords"
+        content="CBT gamification, TF-CBT, story gamificators, dialog, therapy, storytelling, settings">
+    <meta name="license-code" content="CC BY-NC-ND 4.0">
+    <meta name="license-name"
+        content="Creative Commons Public License Attribution-NonCommercial-NoDerivatives 4.0 International">
+    <meta name="license-description-uri" content="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+    <meta property="cc:company"
+        content="SIA Mental Health and Gamification developing digital tools for Trauma-focused Cognitive Behavioral Therapy using a storytelling and gamification approach.">
+    <meta property="cc:product"
+        content="StoryTileCraft Community Edition product is oriented toward specialists working with trauma and parents who want to support kids consciously.
+  StoryTileCraft is the web platform with application and methodology materials ready for instant use like a first aid box for psychotherapy.
+  StoryTileCraft Community Edition is free and doesn’t contain any ads or registration.
+  Methodology includes therapeutic scenarios for storytelling, basic guides on how to use stories, digital drawing and gamification tools. 
+  Materials and tools are intended for psychologists, psychotherapists, social workers, and can also be used by non-specialists, such as parents.">
+    <meta property="og:type" content="product">
+    <meta property="og:title"
+        content="StoryTileCraft - Therapeutic Storytelling Tool - Settings: General, Storage, Story, Rendering, Diagnostics, Updates, Language, Guide, About">
+    <meta property="og:description"
+        content="A gamification-based tool for therapists, social workers, and parents supporting trauma-focused CBT.">
+    <meta property="og:url" content="https://storytilecraft.space/settings">
+    <meta property="og:image" content="https://storytilecraft.com/product-logo">
+    <meta property="og:site_name" content="StoryTileCraft Community Edition">
+    <meta property="og:price:amount" content="0.00">
+    <meta property="og:price:currency" content="EUR">
+    <meta property="al:android:url" content="android-app://co.median.android.wjzyrd">
+    <meta property="al:android:package" content="co.median.android.wjzyrd">
+    <meta property="al:android:app_name" content="StoryTileCraft">
+    <meta property="application-domain" content="storytilecraft.space">
+    <meta property="product-domain" content="storytilecraft.com">
+    <meta name="app-version" content="4.1.1">
+    <meta property="build" content="4.1.1.261118.1638">
+    <meta name="build-id" content="4.1.1.261118.1638">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/icons/favicon-64x64.png">
+    <link rel="icon" type="image/x-icon" href="../images/icons/favicon-64x64.png">
+    <link rel="stylesheet" href="../fonts.css">
+    <link rel="stylesheet" href="../components-718bc46e81.css?v=1">
+    <link rel="stylesheet" href="style-4420b52799.css?v=8">
+    <link rel="stylesheet" href="fa-39d592ddc1.css?v=2">
+    <!--@-->
+
+    <style>
+        .sliders {
+            margin-top: 36px;
+            /* display: none; */
+        }
+
+        .range-wrapper {
+            align-items: center;
+            margin: 0 20px;
+        }
+
+        input[type='range'] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        input[type="range"][name="set_bg_layer_shape"] {
+            width: auto;
+            margin-right: -60px;
+        }
+
+        .range-value.wide {
+            width: 100px;
+        }
+
+        .range-value {
+            width: 1.6em;
+            background-color: #0084ff;
+            display: inline-block;
+            padding: 3px 5px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .fa-exclamation-circle {
+            color: #f97316;
+        }
+
+        #Guide.tab-content:not(.hidden) {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        #Guide .guide-about-scroll {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.4rem;
+            padding-right: 24px;
+        }
+
+        #Guide .guide-about-scroll h3 {
+            margin: 0.5rem 0 0.25rem;
+        }
+
+        #Guide .guide-about-scroll p {
+            margin: 0.35rem 0;
+            line-height: 1.35;
+        }
+    </style>
+</head>
+
+<body style="z-index: 1;" onclick="closeWindow(event)">
+
+    <div style="z-index: 2;" class="acrylic dual-pane-window" onclick="paneOnClick(event)">
+
+        <div class="left-pane option-tabs">
+            <div data-tab="General"><i class="fa fa-palette"></i> <span localize>General</span></div>
+            <div data-tab="Storage"><i class="fa fa-folder"></i> <span localize>Storage</span></div>
+            <div data-tab="CBT-UI"><i class="fa fa-user-md"></i> <span localize>CBT UI</span></div>
+            <div data-tab="Tiles"><i class="fa fa-shapes"> </i><span localize>Tiles</span></div>
+            <div data-tab="Story"><i class="fa fa-comments"> </i><span localize>Story</span></div>
+            <div data-tab="Rendering"><i class="fa fa-image"> </i><span localize>Rendering</span></div>
+            <div data-tab="Diagnostics"><i class="fa fa-stethoscope"></i> <span localize>Diagnostics</span></div>
+            <div data-tab="Update"><i class="fa fa-sync"></i>
+                <span localize>Update</span>
+                <span class="hidden" id="build-new">
+                    <i class="gap"></i>
+                    <i class="fa fa-exclamation-circle"></i>
+                </span>
+            </div>
+            <div data-tab="Guide"><i class="fa fa-book-open"></i> <span localize>Guide</span></div>
+            <div data-tab="Collab Drawing"><i class="fa fa-share-alt"> </i><span localize>Collab Drawing</span></div>
+            <div data-tab="Community"><i class="fa fa-users"> </i><span localize>Community</span></div>
+            <img src="../images/icons/icon-192.png" class="logo">
+
+            <!-- <div data-tab="Developer"><i class="fa fa-code"></i> <span localize>Developer</span></div>            -->
+            <!-- Feedback: obtain official free license for commercial use, feel the form -->
+            <!-- develop your personal brand with your tenant custom settings panel -->
+        </div>
+
+        <div id="settings-options" class="right-pane">
+            <div id="General" class="tab-content active">
+                <div>
+                    <h2>
+                        <a href="../welcome" target="_blank" class="">
+                            <i class="fas fa-home mr-2"></i></a>
+                        <span localize>Settings</span>
+                        <i class="fa fa-chevron-right"></i>
+                        <span localize>General</span>
+                    </h2>
+                </div>
+
+
+                <div class="option is-select">
+                    <i class="fa fa-language"></i>
+                    <span localize>Language</span>
+                    <select name="switch_language" param="this.value" hook="localization_hook">
+                        <option value="en">EN - English</option>
+                        <option value="ua">UA - Українська</option>
+                        <option value="lv">LV - Latviešu</option>
+                        <option value="lt">LT - Lietuvu</option>
+                        <option value="de">DE - Deutch</option>
+                        <option value="ru">RU - русский</option>
+                    </select>
+                </div>
+
+                <div class="option">
+                    <span class="icon-set">
+                        <i class="fa fa-pen"></i>
+                        <i class="fa fa-exchange-alt"></i>
+                        <i class="fa fa-brush"></i>
+                    </span>
+                    <span localize> Use pencil or brush
+                    </span>
+                    <label class="switch">
+                        <input name="toggle_brush_width_mode" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option is-select">
+                    <i class="fa fa-sliders-h"></i> <span localize> Drawing Technique</span>
+                    <select name="apply_drawing_preset" param="this.value" refresh="tab">
+                        <!-- <option value="...">...</option> -->
+                        <option localize value="lines">Lines</option>
+                        <option localize value="spots">Spots</option>
+                        <option localize value="aqua">Aqua</option>
+                        <option localize value="labirinth">Labirinth</option>
+                        <option localize value="fluffy">Fluffy stairs</option>
+                        <option localize value="pixel">Pixel</option>
+                        <option localize value="bubbles">Bubbles</option>
+                        <option localize value="lego">Lego</option>
+                        <option localize value="straw">Straw</option>
+                    </select>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-border-none"></i> <span localize>Use grid</span>
+
+                    <span class="range-wrapper switch-managed">
+                        <input type="range" name="layer_set_grid_size" min="3" max="30" param="this.value">
+                        <span class="range-value">N/A</span>
+                    </span>
+
+                    <label class="switch">
+                        <input name="grid_tool_toggle" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-border-none"></i> <span localize>Apply spots</span>
+
+                    <span class="range-wrapper switch-managed">
+                        <input type="range" name="layer_set_spot_opacity" min="30" max="200" param="this.value">
+                        <span class="range-value">N/A</span>
+                    </span>
+
+                    <label class="switch">
+                        <input name="layer_set_spot" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- <div>
+                    <input type="radio" id="testrad" name="testrad" value="testrad">
+                    <label for="testrad">Test Radio</label>
+                </div> -->
+                <div class="credit" localize>Tap anywhere outside of settings window to close it.</div>
+            </div>
+            <div id="Storage" class="tab-content active">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>Files storage</span>
+                </h2>
+
+                <div class="option is-button">
+                    <i class="fa fa-download"></i>
+                    <span localize>Download story:</span>
+                    <button name="basic_save_json_file" type="button">
+                        <i class="fa fa-file-code" style="color:#22C55E;"></i>
+                        <span localize>to JSON file</span>
+                    </button>
+
+                    <button name="export_story_to_pdf" type="button">
+                        <i class="fa fa-file-pdf" style="color:#CC4B4C;"></i>
+                        <span localize>to PDF file</span>
+                    </button>
+                </div>
+
+                <div class="option is-button">
+                    <button name="basic_load_json_file" type="button">
+                        <i class="fa fa-upload"></i>
+                        <i class="fa fa-file-code" style="color:#22C55E;"></i>
+                        <span localize>Upload story from JSON file</span>
+                    </button>
+                    <span localize style="padding: 0 0 0 12px;">Merge uploading story</span>
+                    <label class="switch" style="float:right">
+                        <input name="toggle_story_upload_merge_mode" type="checkbox" param="this.checked"
+                            refresh="panel">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option is-button">
+                    <div class="left-block f-col">
+                        <div class="f-row" style="margin: 5px;">
+                            <i class="fa fa-download"></i>
+                            <span localize>Save frame:</span>
+                        </div>
+                        <div class="is-select">
+                            <select name="set_frame_download_as_picture" param="this.value"
+                                mapper="optionsToStateMapper" style="min-width: 50px; margin: 0 5px;">
+                            </select>
+                        </div>
+                    </div>
+                    <button name="save_frame_json" type="button">
+                        <i class="fa fa-file-code" style="color:#22C55E;"></i>
+                        <span localize>JSON file</span>
+                    </button>
+                    <button name="save_png_picture" type="button">
+                        <i class="fa fa-file-image" style="color: #8B5CF6;"></i>
+                        <span localize>PNG image</span>
+                    </button>
+                    <button name="save_svg_picture" type="button" class="second">
+                        <i class="fa fa-bezier-curve" style="color: #E57E25;"></i>
+                        <span localize>SVG vector</span>
+                    </button>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-lock"></i>
+                    <span localize> Encrypt my story</span>
+                    <!-- link to guide and documentation, then input with device key, share encryption key, data encryption tab -->
+                    <button type="button" class="switch-managed second" onclick="togglePopPanel('manage-passphrase')">
+                        <i class="fa fa-key"></i>
+                        <span localize> Manage passphrase</span>
+                    </button>
+                    <label class="switch">
+                        <input name="enable_model_encryption" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="option is-button">
+                    <button name="allowed" type="button" class="switch-managed"
+                        onclick="togglePopPanel('import-passphrase')">
+                        <i class="fa fa-upload"></i>
+                        <i class="fa fa-key"></i>
+                        <span localize>Upload encrypted story </span>
+                    </button>
+                </div>
+
+            </div>
+
+            <div id="CBT-UI" class="tab-content">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>CBT user interface</span>
+                </h2>
+
+                <div class="option">
+                    <i class="fa fa-sliders-h"></i>
+                    <span localize class="label-main f-col">
+                        <span localize>Enable CBT user interface</span>
+                        <span localize class="small" style="margin: 0.5rem;">(for tablet devices only)</span>
+                    </span>
+                    <label class="switch">
+                        <input name="set_ui_package_tf_cbt" type="checkbox" param="this.checked" refresh="panel"
+                            bind-to="activePackage">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-gamepad"></i><span localize>Enable gamificators</span>
+                    <label class="switch">
+                        <input name="enable_gamificators_panel" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-edit"></i><span localize>Enable free drawing</span>
+                    <label class="switch">
+                        <input name="enable_free_drawing" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-magic"></i>
+                    <span localize>Enable animations in player</span>
+                    <label class="switch">
+                        <input name="toggle_story_animation" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option is-button">
+                    <button name="basic_background_black_white_toggle" type="button" refresh="tab">
+                        <i class="fa fa-adjust"></i>
+                        <span localize> Switch background</span>
+                    </button>
+                    <label class="state" localize>white on white
+                    </label>
+                </div>
+            </div>
+
+            <div id="Tiles" class="tab-content">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>Tiles</span>
+                </h2>
+                <div class="option">
+                    <i class="fa fa-shapes"></i>
+                    <span localize>Use mosaic tiles</span>
+                    <span class="range-wrapper switch-managed">
+                        <input type="range" name="set_bg_layer_shape" min="1" max="27" param="this.value"
+                            map="mapNumberToShape">
+                        <span class="range-value wide">N/A</span>
+                    </span>
+                    <label class="switch">
+                        <input name="to_mosaic_tiles_switch" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option is-select">
+                    <i class="fa fa-shapes"></i> <span localize> Shape</span>
+                    <select name="layer_tile_shape_select" param="this.value">
+                        <option localize value="polyline">Line</option>
+                        <option localize value="square">Square</option>
+                        <option localize value="circle">Circle</option>
+                        <option localize value="slash">Slash</option>
+                        <option localize value="3">Triangle</option>
+                        <option localize value="4">Rhomb</option>
+                        <option localize value="5">Pentagon</option>
+                        <option localize value="6">Hexagon</option>
+                        <option localize value="7">Heptagon</option>
+                        <option localize value="8">Octagon</option>
+                        <!-- <option localize value="Origami">origami</option> -->
+                    </select>
+                </div>
+
+                <div class="option is-select">
+                    <i class="fa fa-sliders-h"></i> <span localize> Modification</span>
+                    <select name="layer_tile_modification_shift" param="this.value">
+                        <option value="0">v.0 (origin)</option>
+                        <option value="1">v.1 (modified)</option>
+                        <option value="2">v.2 (origin + modified)</option>
+                    </select>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-border-none"></i> <span localize>Scale tile</span>
+
+                    <span class="range-wrapper switch-managed">
+                        <input type="range" name="layer_set_scale" min="0.5" max="3" step="0.1" param="this.value">
+                        <span class="range-value">N/A</span>
+                    </span>
+                </div>
+
+                <div class="option is-select">
+                    <i class="fa fa-sliders-h"></i> <span localize> Grid type</span>
+                    <select name="layer_grid_type" param="this.value">
+                        <option value="off">-- off --</option>
+                        <option value="hexagon">Hexagonal</option>
+                        <option value="square">Square</option>
+                        <option value="triangle">Triangular</option>
+                    </select>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-fill"></i><span localize> Transparency</span>
+                    <span class="range-wrapper switch-managed">
+                        <input type="range" name="layer_set_tiles_opacity" min="10" max="255" param="this.value">
+                        <span class="range-value">N/A</span>
+                    </span>
+                    <label class="switch">
+                        <input name="layer_opacity_max_min_toggle" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="Story" class="tab-content active">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>Story</span>
+                </h2>
+                <div class="option is-button">
+                    <button name="export_story_to_3dbook" type="button">
+                        <i class="fa fa-book-open"></i>
+                        <i class="fa fa-file-export"></i>
+                        <span>Export story to 3D book</span>
+                    </button>
+                    <a href="https://storytilecraftgamifybook3d.vercel.app/" target="_blank" class="">
+                        <i class="fa fa-book-open"></i>
+                        <i class="fa fa-frog"></i>
+                        Fairy Frog 3D book demo</a>
+                </div>
+
+                <div class="option is-select story-demo-option">
+                    <div class="story-demo-label">
+                        <i class="fa fa-cloud-download-alt" aria-hidden="true"></i>
+                        <i class="fa fa-frog" aria-hidden="true"></i>
+                        <span localize>Story Demos</span>
+                    </div>
+                    <div class="story-demo-controls">
+                        <select required name="fetch_model_from_bin" param="this.value" aria-label="Story Demos"></select>
+                        <button id="refresh-story-demos" type="button">
+                            <i class="fa fa-redo" aria-hidden="true"></i>
+                            <span class="sr-only" localize>Refresh list</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="option is-button">
+                    <button name="pull_frames_narrative" type="button" callback="display_frames_narrative">
+                        <i class="fa fa-comment"></i>
+                        <span localize> Display narrative</span>
+                    </button>
+                    <div id="narrative_viewer_panel" class="hidden">
+                        <button class="close-button" onclick="togglePopPanel('narrative_viewer_panel')">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <textarea id="narrative_viewer"
+                            placeholder="Nothing to display. Press button 'Display narrative' to refresh narrative"></textarea>
+                    </div>
+                </div>
+
+                <div class="option is-button">
+                    <button name="export_story_to_pdf" type="button">
+                        <i class="fa fa-download"></i>
+                        <i class="fa fa-file-pdf" style="color:#CC4B4C;"></i>
+                        <span localize>Export story to PDF file</span>
+                    </button>
+
+                    <span localize>Paintings format in PDF:</span>
+
+                    <select name="set_pdf_images_render_format" param="this.value">
+                        <option value="svg">SVG-vector</option>
+                        <option value="png">PNG-raster</option>
+                    </select>
+                </div>
+
+                <div class="option is-button">
+                    <button name="export_story_to_png_pictures" type="button">
+                        <i class="fa fa-download"></i>
+                        <i class="fa fa-images" style="color: #8B5CF6;"></i>
+                        <span localize> Export story to png pictires</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="Rendering" class="tab-content">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>Rendering</span>
+                </h2>
+                <div class="option">
+                    <i class="fa fa-images"></i><span localize> Use scaling</span>
+                    <label class="switch">
+                        <input name="layers_toggle_scaling" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-sliders-h"></i><span localize> Apply optimization</span>
+                    <label class="switch">
+                        <input name="layers_toggle_deep_optimization" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+
+            <div id="Diagnostics" class="tab-content">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>Diagnostics</span>
+                </h2>
+                <div class="option">
+                    <i class="fa fa-bug"></i><span localize> Debug info</span>
+                    <label class="switch">
+                        <input name="debug_mode" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-eye-slash"></i><span localize> Hide marks</span>
+                    <label class="switch">
+                        <input name="hide_marks" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-search-plus"></i><span localize> Detect hidden</span>
+                    <label class="switch">
+                        <input name="detect_hidden_in_deep" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option is-button">
+                    <button onclick="download_localization_diff()" type="button">
+                        <i class="fa fa-download"></i>
+                        <i class="fa fa-language"></i>
+                        <span localize> Missing localizations to JSON</span>
+                    </button>
+                    <button onclick="download_localization()" type="button">
+                        <i class="fa fa-download"></i>
+                        <i class="fa fa-language"></i>
+                        <span localize> Localizations to JSON</span>
+                    </button>
+                </div>
+            </div>
+            <!--    
+            <div id="Storage" class="tab-content">
+                <h2>Settings <i class="fa fa-chevron-right"></i> Storage</h2>
+                <p>Manage storage options and disk usage.</p>
+            </div>
+            <div id="Developer" class="tab-content">
+                <h2>Settings <i class="fa fa-chevron-right"></i> Developer</h2>
+                <p>Enable developer tools and debugging features.</p></div> 
+            -->
+
+            <div id="Update" class="tab-content">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>Update</span>
+                </h2>
+
+                <div class="option version-row">
+
+                    <!-- Ліва колонка: поточна версія -->
+                    <div class="version-col">
+                        <span localize class="version-label">Current version:</span>
+                        <span id="current-version" class="version-value">
+                            <span id="version-number">0.0.0</span>.<span id="build-number"></span>
+                        </span>
+                    </div>
+
+                    <!-- Права колонка: нова версія -->
+                    <div class="version-col hidden" id="build-info">
+                        <span class="version-label">
+                            <span localize>New version available:</span>
+                        </span>
+                        <span id="build-info-update" class="version-value"></span>
+                    </div>
+
+                </div>
+
+                <div class="option is-button">
+                    <button name="restart_web_app" type="button">
+                        <i class="fa fa-redo"></i>
+                        <span localize> Update and restart application</span></button>
+                </div>
+
+                <div class="option">
+                    <span localize>Environments </span>
+
+                    <span><a href="https://preview.storytilecraft.space" target="_blank" class="badge preview">
+                            <i class="fas fa-code-branch"></i> preview</a></span>
+
+                    <span><a href="https://dev.storytilecraft.space" target="_blank" class="badge dev">
+                            <i class="fas fa-code-branch"></i> dev</a></span>
+                </div>
+
+            </div>
+
+            <div id="Guide" class="tab-content">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>Guide</span>
+                </h2>
+                <div class="option">
+                    <i class="fa fa-question"></i><span localize> Show hints</span>
+                    <label class="switch">
+                        <input name="toggle_hints" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <!-- todo: view with interactive guide -->
+                <div class="option is-button">
+                    <a href="https://storytilecraft.com/ua/install-app" target="_blank" class="" localize>
+                        <i class="fa fa-tablet-alt"></i>
+                        <i class="fa fa-info-circle"></i>
+                        <span localize>App Install guide</span>
+                    </a>
+                </div>
+
+                <div class="option is-button">
+                    <a href="/guide/editor/" target="_blank" class="" localize>
+                        <i class="fa fa-tools"></i>
+                        <i class="fa fa-info-circle"></i>
+                        <span localize>Guide tours editor</span>
+                    </a>
+                </div>
+
+                <div class="option guide-about-scroll">
+                    <h3><i class="fa fa-info-circle"></i> <span localize>About the project</span></h3>
+                    <p localize>StoryTileCraft Community Edition product is oriented toward specialists working with trauma and parents who want to support kids consciously.</p>
+                    <p localize>StoryTileCraft is the web platform with application and methodology materials ready for instant use like a first aid box for psychotherapy.</p>
+                    <p localize>StoryTileCraft Community Edition is free and doesn’t contain any ads or registration. Methodology includes therapeutic scenarios for storytelling, basic guides on how to use stories, digital drawing and gamification tools.</p>
+                    <p localize>Materials and tools are intended for psychologists, psychotherapists, social workers, and can also be used by non-specialists, such as parents.</p>
+                    <p><span localize>Detailed about methodology, stories scenarios, learning materials, collaboration see on: </span>
+                        <a target="_blank" href="https://storytilecraft.com">storytilecraft.com</a>
+                    </p>
+                </div>
+            </div>
+
+            <div id="Collab Drawing" class="tab-content">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>Collab Drawing</span>
+                </h2>
+
+                <div class="option">
+                    <i class="fa fa-share-alt"></i>
+                    <span localize="" class="label-main f-col">
+                        <span localize="">Enable Collab Drawing</span>
+                        <span localize="" class="small" style="margin: 0.5rem;">Share your canvas in real time</span>
+                    </span>
+                    <label class="switch">
+                        <input name="enable_collab_drawing" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <i class="fa fa-crown"></i>
+                    <span localize="" class="label-main f-col">
+                        <span localize="">Hand off control while away</span>
+                        <span localize="" class="small" style="margin: 0.5rem;">Let a participant hold room controls until you return; otherwise the room stays ownerless</span>
+                    </span>
+                    <label class="switch">
+                        <input name="collab_owner_policy" type="checkbox" param="this.checked">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="option is-select">
+                    <i class="fa fa-server"></i>
+                    <span localize="">Drawing room server</span>
+                    <select id="collab-server-select" name="collab_server" param="this.value"></select>
+                </div>
+                <script>
+                (function () {
+                    // Mirror of COLLAB_SERVER_MAP in collab-setup.js.
+                    // Settings runs in an iframe so window.parent.COLLAB_SERVER_MAP is available
+                    // after the parent page loads, but at parse-time we need a local copy to
+                    // populate the <select> synchronously (before initOptionValues fires).
+                    const OPTS = (window.parent && window.parent.COLLAB_SERVER_MAP) || {
+                        local:      ['http://127.0.0.1:3001', 'https://room-api.storytilecraft.space'],
+                        dev:        ['http://127.0.0.1:3001', 'https://room-api.storytilecraft.space'],
+                        preview:    ['http://127.0.0.1:3001', 'https://room-api.storytilecraft.space'],
+                        production: ['http://127.0.0.1:3001', 'https://room-api.storytilecraft.space'],
+                    };
+                    function _env() {
+                        const h = window.location.hostname;
+                        if (h === '127.0.0.1' || h === 'localhost') return 'local';
+                        if (h.startsWith('dev.'))     return 'dev';
+                        if (h.startsWith('preview.')) return 'preview';
+                        return 'production';
+                    }
+                    const sel = document.getElementById('collab-server-select');
+                    (OPTS[_env()] || OPTS.production).forEach(function (url) {
+                        sel.add(new Option(url, url));
+                    });
+                })();
+                </script>
+            </div>
+
+
+            <div id="Community" class="tab-content">
+                <h2>
+                    <span localize>Settings</span>
+                    <i class="fa fa-chevron-right"></i>
+                    <span localize>Join our Community</span>
+                </h2>
+
+                <!-- 
+                <div class="option is-button">                    
+                    <a href="https://storytilecraft.com/form/free-license" target="_blank" class="">
+                        <i class="fa fa-handshake"></i>
+                        <i class="fa fa-file-contract"></i>
+                        Register to get free commercial license</a>
+                </div> -->
+
+                <div class="option is-button">
+                    <a href="https://storytilecraft.com/form/feedback" target="_blank" class="">
+                        <i class="fa fa-thumbs-up"></i>
+                        <i class="fa fa-thumbs-down"></i>
+                        Provide feedback</a>
+                </div>
+
+                <div class="option is-button">
+                    <span localize class="f-col">
+                        <span>
+                            <span class="icon-set">
+                                <i class="fa fa-hand-holding-heart"></i>
+                                <i class="fa fa-donate"></i>
+                            </span>
+                            <span localize> Support free application and services development</span></span>
+
+                        <script>
+                            if (navigator.onLine) {
+                                const coffee = document.createElement('script');
+                                coffee.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
+                                Object.assign(coffee.dataset, { name: 'bmc-button', slug: 'StoryTileCraft', color: '#0ea5e9',
+                                    emoji: '☕', font: 'Cookie', text: 'Buy me a coffee', outlineColor: '#000000',
+                                    fontColor: '#000000', coffeeColor: '#FFDD00' });
+                                document.currentScript.parentNode.append(coffee);
+                            } else {
+                                document.currentScript.parentNode.hidden = true;
+                            }
+                        </script>
+                    </span>
+                </div>
+
+
+                <div class="option is-button">
+                    <button type="button" onclick="togglePopPanel('backlog_viewer_panel')">
+                        <i class="fa fa-clipboard-list"></i>
+                        <i class="fa fa-eye"></i>
+                        <span localize> Open development backlog</span>
+                    </button>
+
+                    <div id="backlog_viewer_panel" class="hidden">
+                        <button class="close-button" onclick="togglePopPanel('backlog_viewer_panel')">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <textarea id="backlog_viewer" style="font-family: monospace;">Our backlog 02-2026
+
+#1
+Valut of fears 3d gamificator.
+[60% #####|#----]
+
+#2
+3d book story service.
+[90% #####|####-]
+
+#3
+Story to PDF printing.
+[90% #####|####-]
+
+#4
+UX testing and UI improvements for TF-CBT and seniors.
+[90% #####|####-]
+
+#5
+Scenarios and courses for group work with teenagers, research and development.
+[50% #####|-----]
+
+#6
+Encrypted storage services for customer stories. 
+[50% #####|-----]
+
+#7
+Interactive guide with app usage scenarios
+[50% #####|-----]
+
+#8
+Gamificators SDK, components, samples and model public specification
+[40% ####-|-----]
+
+#9
+Collaborative drawing, supporting terapist online and group work from multiple devices in common session. Architectural MVP, UX, models research.
+[20% ##---|-----]
+
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="close-button" onclick="closeWindow()">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+
+    <!-- pop-panels -->
+    <div id="import-passphrase" class="acrylic pop-panel hidden" onclick="paneOnClick(event)">
+
+        <div class="pop-panel-header">
+            <h3>
+                <span localize>Encrypted File</span>
+                <i class="fa fa-chevron-right"></i>
+                <span localize>Guest passphrase</span>
+                <i class="fa fa-chevron-right"></i>
+                <span localize>Open</span>
+            </h3>
+        </div>
+        <div class="pop-panel-container option" style="">
+            <input id="importPassphrase" name="" class="passphrase-input masked" type="text" autocomplete="off"
+                spellcheck="false" autocapitalize="off" autocorrect="off"
+                placeholder="Paste or enter guest passphrase here">
+            <button id="toggleImportBtn" class="toggle-visibility" title="Show/Hide">
+                <i class="fa fa-eye"></i>
+            </button>
+            <button id="pasteGuestPassBtn" class="input-button" style="margin-top: 0.5rem;">
+                <i class="fa fa-paste"></i> Paste
+            </button>
+        </div>
+
+        <div class="passphrase-import">
+            <button id="openEncryptedBtn" class="input-button" style="margin-top: 0.5rem;">
+                <i class="fa fa-upload"></i> Open Encrypted File
+            </button>
+            <span id="upload-message"></span>
+        </div>
+        <div class="passphrase-warning">
+            <span>
+                <i class="fa fa-exclamation-triangle"></i>
+                <p localize>To open an encrypted story from another user or device, enter a guest passphrase.</p>
+                <p localize>The passphrase used for your own encrypted stories (set in the “Manage Passphrase” dialog)
+                    will not be replaced by the guest passphrase.</p>
+                <p localize>The guest passphrase applies only to this specific "Open Encrypted File" dialog and is not
+                    preserved after the application closes.</p>
+            </span>
+        </div>
+
+        <button class="close-button" onclick="togglePopPanel('import-passphrase')">
+            <i class="fa fa-times"></i>
+        </button>
+
+        <script>
+            const importInput = document.getElementById('importPassphrase');
+            const pasteGuestPassBtn = document.getElementById('pasteGuestPassBtn')
+            const openEncryptedFileBtn = document.getElementById('openEncryptedBtn');
+            const toggleImportBtn = document.getElementById('toggleImportBtn');
+            const importIcon = toggleImportBtn.querySelector('i');
+
+            toggleImportBtn.addEventListener('click', () => {
+                importInput.classList.toggle('masked');
+                importIcon.classList.toggle('fa-eye');
+                importIcon.classList.toggle('fa-eye-slash');
+            });
+
+            openEncryptedFileBtn.addEventListener('click', () => {
+                if (!importInput.value) {
+                    $('upload-message').innerHTML = 'Please enter passphrase for encrypted file.';
+                    return;
+                }
+
+                $('upload-message').innerHTML = '';
+
+                window.parent.postMessage({
+                    type: 'apply-command',
+                    commandName: "upload_encrypted_story_using_guest_passphrase",
+                    param: importInput.value
+                }, '*');
+            });
+
+
+            pasteGuestPassBtn.addEventListener('click', async () => {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    importInput.value = text;
+                } catch (err) {
+                    alert('Failed to read from clipboard.');
+                }
+            });
+        </script>
+    </div>
+
+    <div id="manage-passphrase" class="acrylic pop-panel hidden" onclick="paneOnClick(event)">
+        <div class="pop-panel-header">
+            <h3>
+                <span localize>Storage</span>
+                <i class="fa fa-chevron-right"></i>
+                <span localize>Encrypt my story</span>
+                <i class="fa fa-chevron-right"></i>
+                <span localize>Passphrase</span>
+            </h3>
+        </div>
+
+        <div class="pop-panel-container option">
+            <button id="saveBtn" class="input-button" title="Save passphrase">
+                <i class="fa fa-save"></i>
+            </button>
+            <input id="passphrase" name="set_encryption_passphrase" param="this.value" class="passphrase-input masked"
+                type="text" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off"
+                placeholder="Generate passphrase" refresh="panel">
+
+            <button id="toggleBtn" class="toggle-visibility">
+                <i class="fa fa-eye"></i>
+            </button>
+
+            <div class="actions">
+                <button id="rotateBtn" class="input-button" title="Generate New">
+                    <i class="fa fa-sync"></i>
+                </button>
+                <button id="copyBtn" class="input-button" title="Copy to Clipboard">
+                    <i class="fa fa-copy"></i>
+                </button>
+
+                <button id="pasteNewPassBtn" class="input-button">
+                    <i class="fa fa-paste"></i>
+                </button>
+                <span id="copyStatus" class="copied" style="display: none;">Copied!</span>
+            </div>
+        </div>
+
+        <div class="passphrase-warning">
+            <span>
+                <i class="fa fa-exclamation-triangle"></i>
+                <p localize>The passphrase is used to encrypt each of your stories.
+                    Before setting a new passphrase, make sure to save your current passphrase.</p>
+                <p localize>Stories encrypted with your current passphrase cannot be decrypted if you forget it.</p>
+                <p localize>There is no recovery mechanism — passphrases are never stored, backed up, or synced.</p>
+                <p localize>The passphrase saved only on this device’s local storage.</p>
+            </span>
+        </div>
+
+        <button class="close-button" onclick="togglePopPanel('manage-passphrase')">
+            <i class="fa fa-times"></i>
+        </button>
+
+        <script>
+            const passInput = document.getElementById('passphrase');
+            const toggleBtn = document.getElementById('toggleBtn');
+            const icon = toggleBtn.querySelector('i');
+            const saveBtn = document.getElementById('saveBtn');
+            const rotateBtn = document.getElementById('rotateBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const pasteNewPassBtn = document.getElementById('pasteNewPassBtn')
+
+            const copyStatus = document.getElementById('copyStatus');
+
+            toggleBtn.addEventListener('click', () => {
+                passInput.classList.toggle('masked');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+
+            saveBtn.addEventListener('click', async () => {
+                window.parent.postMessage({
+                    type: 'apply-command',
+                    commandName: "set_encryption_passphrase",
+                    param: passInput.value
+                }, '*');
+
+            })
+            rotateBtn.addEventListener('click', async () => {
+                passInput.value = generatePassphrase(64);
+                saveBtn.click();
+            })
+
+            copyBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(passInput.value);
+                    copyStatus.style.display = 'inline';
+                    setTimeout(() => copyStatus.style.display = 'none', 1500);
+                } catch (err) {
+                    alert('Copy failed.');
+                }
+            });
+
+            pasteNewPassBtn.addEventListener('click', async () => {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    passInput.value = text;
+                } catch (err) {
+                    alert('Failed to read from clipboard.');
+                }
+            });
+        </script>
+    </div>
+
+    <!--@-->
+    <!--@-->
+    <!--@-->
+    <!--@-->
+    <!--@-->
+    <!--@-->
+    <!-- placeholders -->
+    <script src="_bundle-ac9f05254f.js"></script>
+    <script src="_local-21ebecf6f4.js"></script>
+
+</body>
+
+</html>

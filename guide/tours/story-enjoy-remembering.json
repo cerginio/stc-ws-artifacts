@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "1.0",
+  "id": "story.enjoy-remembering",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.story.enjoy-remembering.title",
+    "description": "tour.story.enjoy-remembering.description",
+    "category": "story",
+    "estimatedMinutes": 10
+  },
+  "launch": {
+    "autoStart": "never"
+  },
+  "steps": [
+    {
+      "id": "slowly",
+      "type": "story",
+      "content": {
+        "title": "tour.story.enjoy-remembering.step.slowly.title",
+        "body": "tour.story.enjoy-remembering.step.slowly.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "recall-moments",
+      "type": "story",
+      "content": {
+        "title": "tour.story.enjoy-remembering.step.recall-moments.title",
+        "body": "tour.story.enjoy-remembering.step.recall-moments.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "mark-each",
+      "type": "story",
+      "content": {
+        "title": "tour.story.enjoy-remembering.step.mark-each.title",
+        "body": "tour.story.enjoy-remembering.step.mark-each.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "add_frame",
+          "do": "activate"
+        },
+        {
+          "command": "editor_draw_mode_toggle",
+          "do": "hint"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "name-them",
+      "type": "story",
+      "content": {
+        "title": "tour.story.enjoy-remembering.step.name-them.title",
+        "body": "tour.story.enjoy-remembering.step.name-them.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "toggle_frame_speech_editor",
+          "do": "hint"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "look-together",
+      "type": "story",
+      "content": {
+        "title": "tour.story.enjoy-remembering.step.look-together.title",
+        "body": "tour.story.enjoy-remembering.step.look-together.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "frames_to_strip_exposition",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

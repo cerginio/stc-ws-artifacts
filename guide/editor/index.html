@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tour workbench — StoryTileCraft</title>
+  <link rel="stylesheet" href="workbench.css" />
+</head>
+<body>
+  <!--
+    Tour authoring workbench — 09-tour-authoring.md §11.
+
+    A DEVELOPMENT tool. It is not part of the shipped application: it is reached only through
+    scripts/guide-workbench-server.mjs, which is the sole thing that can write files (§11.6).
+
+    Layout follows §11.1: YAML source on the left, the live editor on the right, diagnostics
+    underneath. The right pane is a real tilecraft instance in an iframe — the point of the
+    workbench is previewing against the real UI, so a mock would defeat it.
+  -->
+  <header class="wb-bar">
+    <strong class="wb-brand">Tour workbench</strong>
+
+    <!-- Two kinds of document, one dropdown. A technical tour teaches the editor; a story card
+         guides a session. They share a schema and a compiler (SPEC-story-cards §2), so this
+         filters the list rather than switching between two editors. -->
+    <select id="wb-kind" class="wb-select" aria-label="Kind of document">
+      <option value="tours">Tours</option>
+      <option value="stories">Story cards</option>
+    </select>
+    <select id="wb-tour" class="wb-select" aria-label="Authored tour"></select>
+    <!-- Which document the editor holds: the tour itself, or one of its locale sidecars.
+         One editor, not two panes — translating is the same work as authoring.
+
+         The options are labelled "Edit: …" because collapsed, a <select> shows only its
+         current value: plain "Tour source" beside a tour name read as a second panel title
+         rather than as a control you can change. Options are filled in from the tour's own
+         sidecars at boot, so each carries whether a translation exists yet. -->
+    <select id="wb-locale" class="wb-select" aria-label="Document being edited"></select>
+
+    <span class="wb-sep"></span>
+
+    <!-- Undo/Redo drive the textarea's NATIVE history, which every programmatic edit is careful
+         to preserve (see replaceRange in workbench.js). The buttons exist because a pick or a
+         POI click is a mouse gesture, and reaching for the keyboard to take one back is the
+         wrong shape for a tool operated mostly with the mouse. -->
+    <button id="wb-undo" class="wb-btn wb-btn-icon" type="button" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+    <button id="wb-redo" class="wb-btn wb-btn-icon" type="button" title="Redo (Ctrl+Y / Ctrl+Shift+Z)" aria-label="Redo">↷</button>
+
+    <span class="wb-sep"></span>
+
+    <button id="wb-pick-target" class="wb-btn" type="button" title="Click a control in the editor to insert its semantic id">
+      Pick target
+    </button>
+    <button id="wb-pick-icon" class="wb-btn" type="button" title="Click a control to insert an icon token at the cursor">
+      Pick icon
+    </button>
+    <button id="wb-poi" class="wb-btn" type="button" aria-pressed="false" title="Toggle the 3x3 POI overlay">
+      POI grid
+    </button>
+
+    <span class="wb-sep"></span>
+
+    <select id="wb-viewport" class="wb-select" aria-label="Viewport preset">
+      <option value="desktop">Desktop 1440x900</option>
+      <option value="portrait">Compact portrait 420x860</option>
+      <option value="landscape">Compact landscape 860x420</option>
+    </select>
+
+    <span class="wb-spacer"></span>
+
+    <span id="wb-status" class="wb-status" role="status" aria-live="polite"></span>
+    <button id="wb-discard" class="wb-btn" type="button" hidden title="Reload this tour from disk, throwing away unsaved edits">Discard</button>
+    <button id="wb-preview" class="wb-btn" type="button">Preview step</button>
+    <button id="wb-save" class="wb-btn wb-btn-primary" type="button">Save &amp; compile</button>
+  </header>
+
+  <main class="wb-main">
+    <section class="wb-left">
+      <!--
+        A plain textarea with a syntax-highlighted layer behind it, not a third-party editor.
+        There is no bundler in this project (index.html is a long list of <script> tags), so a
+        CodeMirror/Monaco build would be a second vendored dependency an order of magnitude
+        larger than the yaml parser, for an internal tool. Completion and diagnostics — the two
+        things §10 actually asks for — do not require one.
+      -->
+      <div id="wb-editor-wrap" class="wb-editor-wrap">
+        <!-- Line numbers, and error/warning markers replacing the number on affected lines.
+             A marker is also the "clear the offending text" control — one click target rather
+             than two in a 44px column. -->
+        <div id="wb-gutter" class="wb-gutter" aria-hidden="true"></div>
+        <button id="wb-find-toggle" class="wb-find-toggle" type="button"
+                title="Find in this document" aria-label="Find in this document" aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+            </svg>
+        </button>
+        <div id="wb-find" class="wb-find" hidden>
+            <input id="wb-find-input" type="search" placeholder="Find in this document" aria-label="Find in this document">
+            <span id="wb-find-count" class="wb-find-count"></span>
+            <button id="wb-find-prev" class="wb-find-step" type="button" title="Previous match (Shift+Enter)" aria-label="Previous match">&#8593;</button>
+            <button id="wb-find-next" class="wb-find-step" type="button" title="Next match (Enter)" aria-label="Next match">&#8595;</button>
+            <button id="wb-find-close" class="wb-find-close" type="button" title="Close (Esc)">&times;</button>
+        </div>
+        <pre id="wb-highlight" class="wb-highlight" aria-hidden="true"><code></code></pre>
+        <pre id="wb-find-layer" class="wb-find-layer" aria-hidden="true"></pre>
+        <!-- Which step each line belongs to. Mirrors the source text transparently, the same
+             way the find marks do, so the badges scroll with the text and cannot drift from
+             their line. -->
+        <pre id="wb-step-layer" class="wb-step-layer" aria-hidden="true"></pre>
+        <textarea id="wb-source" class="wb-source" spellcheck="false" autocomplete="off"
+                  autocapitalize="off" wrap="off" aria-label="Tour source (YAML)"></textarea>
+        <div id="wb-complete" class="wb-complete" role="listbox" hidden></div>
+        <!-- Hover documentation. Anchored to a token in the highlight layer; see wireHover(). -->
+        <div id="wb-hover" class="wb-hover" role="tooltip" hidden></div>
+      </div>
+
+      <div id="wb-splitter" class="wb-splitter" role="separator" tabindex="0"
+           aria-label="Resize YAML editor and diagnostics panels"
+           aria-controls="wb-editor-wrap wb-diagnostics" aria-orientation="horizontal"
+           title="Drag to resize panels; double-click to reset to 2:1">
+        <span class="wb-splitter-handle" aria-hidden="true"></span>
+      </div>
+
+      <div id="wb-diagnostics" class="wb-diagnostics">
+        <div class="wb-diag-head">
+          <!-- Two views of the same compile: what is WRONG, and what the tour IS.
+               Tabs rather than a second pane — vertical space in the editor column is the
+               scarcest thing here, and the two are never needed at the same instant. -->
+          <span class="wb-tabs">
+            <button id="wb-tab-diag" class="wb-tab" type="button" aria-selected="true">Diagnostics</button>
+            <button id="wb-tab-struct" class="wb-tab" type="button" aria-selected="false">Structure</button>
+            <!-- [CR-001] The event journal. Guide steps complete on EVENTS, so "why did this
+                 step not advance" is answerable only by seeing what was emitted and what the
+                 waiting step decided about it. Previously that needed a console and a
+                 hand-attached listener. -->
+            <button id="wb-tab-events" class="wb-tab" type="button" aria-selected="false">Events</button>
+          </span>
+          <span class="wb-tab-right">
+            <span id="wb-diag-summary">No diagnostics</span>
+            <button id="wb-show-json" class="wb-link" type="button">Compiled JSON</button>
+          </span>
+        </div>
+        <ul id="wb-diag-list" class="wb-diag-list"></ul>
+        <pre id="wb-structure" class="wb-structure" hidden></pre>
+        <div id="wb-events" class="wb-events" hidden></div>
+      </div>
+    </section>
+
+    <section class="wb-right">
+      <div id="wb-stage" class="wb-stage" data-viewport="desktop">
+        <!--
+          Loaded by DIRECTORY url ("../../"), never "../../index.html".
+
+          The app builds its sub-route iframes from `window.location.pathname`
+          (api-ext.js:216/263): `pathname + '/settings/'`. With /index.html that yields
+          /index.html/settings/ — a 404 — so Settings, PDF-maker and SOS were all dead inside
+          the workbench while working fine in a normal tab. The directory form gives pathname
+          "/", which is what the app expects.
+
+          src is set by workbench.js at boot so it can resolve against the SERVER ROOT rather
+          than against this page's own location; see appUrl().
+        -->
+        <iframe id="wb-app" class="wb-app" title="StoryTileCraft editor"></iframe>
+        <div id="wb-poi-overlay" class="wb-poi-overlay" hidden></div>
+        <div id="wb-pick-veil" class="wb-pick-veil" hidden>
+          <span>Click a control in the editor…&nbsp; <kbd>Esc</kbd> to cancel</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="wb-json" class="wb-json">
+    <header>
+      <strong>Compiled runtime JSON</strong>
+      <button class="wb-link" type="button" data-close>Close</button>
+    </header>
+    <pre><code id="wb-json-body"></code></pre>
+  </dialog>
+
+  <!--
+    compile-core.mjs is imported by BOTH Node (where `yaml` resolves from node_modules) and this
+    page. An import map is what lets the same file serve both without a build step: the source
+    keeps its bare specifier, and the browser is told where that lives. Changing the import to a
+    relative path instead would break the CLI, and duplicating the file is the second
+    implementation §11.1 forbids.
+  -->
+  <script type="importmap">
+  {
+    "imports": {
+      "yaml": "./vendor/yaml/index.js"
+    }
+  }
+  </script>
+
+  <script type="module" src="workbench.js"></script>
+</body>
+</html>

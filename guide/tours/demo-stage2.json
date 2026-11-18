@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0",
+  "id": "demo.stage2",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.demo.stage2.title",
+    "description": "tour.demo.stage2.description",
+    "category": "onboarding",
+    "estimatedMinutes": 1
+  },
+  "launch": {
+    "allowedSources": [
+      "editor",
+      "deep-link"
+    ],
+    "autoStart": "never",
+    "allowResume": false,
+    "restartPolicy": "restart"
+  },
+  "session": {
+    "contentMode": "demo",
+    "onEnd": "ask"
+  },
+  "setup": [
+    {
+      "command": "demo.ensureScene",
+      "args": {
+        "template": "heart"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "look-at-it",
+      "type": "info",
+      "content": {
+        "title": "tour.demo.stage2.step.look-at-it.title",
+        "body": "tour.demo.stage2.step.look-at-it.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

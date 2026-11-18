@@ -1,0 +1,396 @@
+{
+  "schemaVersion": "1.1",
+  "id": "handbook.stage3",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.handbook.stage3.title",
+    "description": "tour.handbook.stage3.description",
+    "category": "handbook",
+    "estimatedMinutes": 4
+  },
+  "launch": {
+    "allowedSources": [
+      "editor",
+      "deep-link"
+    ],
+    "autoStart": "never",
+    "allowResume": true,
+    "restartPolicy": "ask"
+  },
+  "requirements": {
+    "commands": [
+      "toggle_play_strip_exposition"
+    ]
+  },
+  "session": {
+    "contentMode": "user-content",
+    "onEnd": "keep"
+  },
+  "setup": [
+    {
+      "command": "ui.setupLocation",
+      "args": {
+        "location": "canvas"
+      },
+      "onFailure": {
+        "type": "skip-action"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "where-it-starts",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage3.step.where-it-starts.title",
+        "body": "tour.handbook.stage3.step.where-it-starts.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "play",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage3.step.play.title",
+        "body": "tour.handbook.stage3.step.play.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "toggle_play_strip_exposition",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "command.isOn",
+        "operator": "truthy",
+        "args": {
+          "command": "toggle_play_strip_exposition"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "toggle_play_strip_exposition",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "pause",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage3.step.pause.title",
+        "body": "tour.handbook.stage3.step.pause.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "toggle_play_strip_exposition",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "command.isOn",
+        "operator": "falsy",
+        "args": {
+          "command": "toggle_play_strip_exposition"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "beforeStep": [
+        {
+          "command": "ui.armForcedPause"
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "toggle_play_strip_exposition",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "speed",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage3.step.speed.title",
+        "body": "tour.handbook.stage3.step.speed.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "set_speed_of_play_strip_exposition",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "set_speed_of_play_strip_exposition"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "set_speed_of_play_strip_exposition",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "stop",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage3.step.stop.title",
+        "body": "tour.handbook.stage3.step.stop.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "stop_strip_exposition",
+          "role": "primary",
+          "padding": 8,
+          "allowDisabled": true
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "stop_strip_exposition"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "stop_strip_exposition",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "more-tools",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage3.step.more-tools.title",
+        "body": "tour.handbook.stage3.step.more-tools.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "show_more_player_tools_toggle",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "command.isOn",
+        "operator": "truthy",
+        "args": {
+          "command": "show_more_player_tools_toggle"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "show_more_player_tools_toggle",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "reverse",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage3.step.reverse.title",
+        "body": "tour.handbook.stage3.step.reverse.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "reverse_strip_exposition",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "reverse_strip_exposition"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "enter": [
+        {
+          "command": "show_more_player_tools_toggle",
+          "when": {
+            "type": "state",
+            "query": "command.isOn",
+            "operator": "falsy",
+            "args": {
+              "command": "show_more_player_tools_toggle"
+            }
+          },
+          "onFailure": {
+            "type": "skip-action"
+          }
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "reverse_strip_exposition",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "step-forward",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage3.step.step-forward.title",
+        "body": "tour.handbook.stage3.step.step-forward.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "next_action_strip_exposition",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "next_action_strip_exposition"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "enter": [
+        {
+          "command": "show_more_player_tools_toggle",
+          "when": {
+            "type": "state",
+            "query": "command.isOn",
+            "operator": "falsy",
+            "args": {
+              "command": "show_more_player_tools_toggle"
+            }
+          },
+          "onFailure": {
+            "type": "skip-action"
+          }
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "next_action_strip_exposition",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "tidy-up",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage3.step.tidy-up.title",
+        "body": "tour.handbook.stage3.step.tidy-up.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "frames_to_strip_exposition",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "frames_to_strip_exposition"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "frames_to_strip_exposition",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "done",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage3.step.done.title",
+        "body": "tour.handbook.stage3.step.done.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

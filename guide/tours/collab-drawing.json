@@ -1,0 +1,281 @@
+{
+  "schemaVersion": "1.1",
+  "id": "collab.drawing",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.collab.drawing.title",
+    "description": "tour.collab.drawing.description",
+    "category": "collaboration",
+    "estimatedMinutes": 3
+  },
+  "launch": {
+    "allowedSources": [
+      "editor",
+      "deep-link"
+    ],
+    "autoStart": "never",
+    "allowResume": true,
+    "restartPolicy": "ask"
+  },
+  "requirements": {
+    "targets": [
+      "button.collab"
+    ],
+    "unavailableHint": "tour.collab.drawing.unavailableHint"
+  },
+  "session": {
+    "contentMode": "user-content",
+    "onEnd": "keep"
+  },
+  "setup": [
+    {
+      "command": "ui.setupLocation",
+      "args": {
+        "location": "canvas"
+      },
+      "onFailure": {
+        "type": "skip-action"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "info",
+      "content": {
+        "title": "tour.collab.drawing.step.intro.title",
+        "body": "tour.collab.drawing.step.intro.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "who-is-here",
+      "type": "interaction",
+      "content": {
+        "title": "tour.collab.drawing.step.who-is-here.title",
+        "body": "tour.collab.drawing.step.who-is-here.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "button.collab",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "target.resolvable",
+        "operator": "truthy",
+        "args": {
+          "target": "panel.collab"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "show-info",
+        "content": {
+          "title": "tour.collab.drawing.step.who-is-here.fallback.title",
+          "body": "tour.collab.drawing.step.who-is-here.fallback.body"
+        }
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "button.collab",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "wait-peer",
+      "type": "transition",
+      "content": {
+        "title": "tour.collab.drawing.step.wait-peer.title",
+        "body": "tour.collab.drawing.step.wait-peer.body"
+      },
+      "interactionMode": "NONE",
+      "waitFor": {
+        "type": "state",
+        "query": "collab.participantCount",
+        "operator": "gte",
+        "value": 2
+      },
+      "timeoutMs": 120000,
+      "advance": {
+        "mode": "automatic"
+      },
+      "fallback": {
+        "type": "show-info",
+        "content": {
+          "title": "tour.collab.drawing.step.wait-peer.fallback.title",
+          "body": "tour.collab.drawing.step.wait-peer.fallback.body"
+        }
+      }
+    },
+    {
+      "id": "same-story",
+      "type": "interaction",
+      "content": {
+        "title": "tour.collab.drawing.step.same-story.title",
+        "body": "tour.collab.drawing.step.same-story.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "frames_to_strip_exposition",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "frames_to_strip_exposition"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "frames_to_strip_exposition",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "your-turn",
+      "type": "interaction",
+      "content": {
+        "title": "tour.collab.drawing.step.your-turn.title",
+        "body": "tour.collab.drawing.step.your-turn.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "canvas.frame",
+          "role": "primary",
+          "args": {
+            "index": 0
+          },
+          "padding": 6
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "drawing.completed"
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "enter": [
+        {
+          "command": "ui.selectFrame",
+          "args": {
+            "index": 0
+          },
+          "onFailure": {
+            "type": "skip-action"
+          }
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "canvas.frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "their-turn",
+      "type": "transition",
+      "content": {
+        "title": "tour.collab.drawing.step.their-turn.title",
+        "body": "tour.collab.drawing.step.their-turn.body"
+      },
+      "interactionMode": "NONE",
+      "waitFor": {
+        "type": "state",
+        "query": "collab.remoteLayerCount",
+        "operator": "gte",
+        "value": 1
+      },
+      "timeoutMs": 120000,
+      "advance": {
+        "mode": "automatic"
+      },
+      "fallback": {
+        "type": "show-info",
+        "content": {
+          "title": "tour.collab.drawing.step.their-turn.fallback.title",
+          "body": "tour.collab.drawing.step.their-turn.fallback.body"
+        }
+      }
+    },
+    {
+      "id": "who-drew-what",
+      "type": "interaction",
+      "content": {
+        "title": "tour.collab.drawing.step.who-drew-what.title",
+        "body": "tour.collab.drawing.step.who-drew-what.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "layers_panel_toggle",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "command.isOn",
+        "operator": "truthy",
+        "args": {
+          "command": "layers_panel_toggle"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "layers_panel_toggle",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "done",
+      "type": "info",
+      "content": {
+        "title": "tour.collab.drawing.step.done.title",
+        "body": "tour.collab.drawing.step.done.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

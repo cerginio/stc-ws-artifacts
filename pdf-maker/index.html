@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+    <meta name="build-id" content="4.1.1.261118.1638">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            overflow: clip;
+        }
+
+        header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            background: #fff;
+        }
+
+        #root {
+            width: 500px;
+            right: 50px;
+            top: 10%;
+            user-select: none;
+            touch-action: none;
+            pointer-events: auto;
+            cursor: move;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            padding: 12px;
+        }
+
+        .card {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .card img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .meta {
+            padding: 8px 10px;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <header>
+            <strong>PDF preview</strong>
+            <span id="status" style="margin-left:10px;color:#666;font-size:12px;">connecting…</span>
+        </header>
+
+        <main class="grid" id="grid"></main>
+    </div>
+
+    <!--@-->
+    <!--@-->
+    <!--@-->
+    <!--@-->
+    <!--@-->
+    <!--@-->
+    <!--@-->
+
+    <!-- placeholders -->
+    <script src="_bundle-2b49c7d32b.js"></script>
+
+</body>
+
+</html>
+

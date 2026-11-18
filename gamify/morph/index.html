@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="build-id" content="4.1.1.261118.1638">
+
+    <link rel="icon" type="image/png" sizes="64x64" href="../../images/icons/favicon-64x64.png">
+    
+    
+
+    <title>StoryTileCraft: Story</title>
+    <script defer="" data-domain="storytilecraft.space,preview.storytilecraft.space,dev.storytilecraft.space" src="https://plausible.io/js/script.file-downloads.outbound-links.js"></script>
+
+    <style>
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            overflow: hidden; background-color: #000;
+        }
+        html {
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: none;
+        }
+        * { touch-action: manipulation; }
+        body {
+            position: relative; user-select: none;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -moz-user-select: none; -ms-user-select: none;
+            outline: none; overflow: clip; touch-action: none;
+        }
+        canvas { position: absolute; top: 0; left: 0; cursor: none; }
+
+        .sliders { position: absolute; left: 20px; top: 160px; }
+
+        /* CBT aura — emotion tone vignette, behind controls, above canvas */
+        #aura {
+            position: absolute; inset: 0; pointer-events: none;
+            opacity: 0; transition: opacity 600ms ease, background 600ms ease;
+            background: radial-gradient(120% 90% at 50% 50%, transparent 55%, var(--aura, #00cfff) 130%);
+            mix-blend-mode: screen;
+        }
+        #aura.on { opacity: 0.5; }
+
+        /* CBT narrative caption */
+        #narrative {
+            position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+            max-width: 80vw; padding: 8px 16px; border-radius: 14px;
+            background: rgba(0,0,0,0.45); color: #fff; font: 16px/1.4 system-ui, sans-serif;
+            text-align: center; pointer-events: none; opacity: 0;
+            transition: opacity 400ms ease; backdrop-filter: blur(3px);
+        }
+        #narrative.on { opacity: 1; }
+        body.bg-light #narrative { background: rgba(255,255,255,0.6); color: #111; }
+
+        .pop-button.active, .pop-button.activated { border: solid 2px #00cfff; }
+    </style>
+<link rel="stylesheet" href="morph-bundle-12aa36eaa7.css"></head>
+
+<body>
+    <div id="root-div">
+        <canvas id="canvas" width="1024" height="720"></canvas>
+
+        <div id="aura"></div>
+        <div id="narrative"></div>
+
+        <!-- Custom cursor: film / play ring -->
+        <svg id="custom-cursor" viewBox="0 0 24 24">
+            <g fill="none" stroke="#88ccff" stroke-width="1.5">
+                <circle cx="12" cy="12" r="9" opacity="0.5"></circle>
+                <path d="M10 8.5 L16 12 L10 15.5 Z" fill="#88ccff" stroke="none"></path>
+            </g>
+        </svg>
+
+        <div class="sliders">
+            <div class="c-range-slider blue-red">
+                <input id="param-a" type="range" orient="vertical" min="300" max="4000" step="100" value="1500" data-unit="s" data-scale="0.001" data-digits="1">
+                <div class="c-range-slider__bar"></div>
+                <div class="c-range-slider__thumb"></div>
+            </div>
+            <div class="c-range-slider green-yellow">
+                <input id="param-b" type="range" orient="vertical" min="0" max="3000" step="100" value="900" data-unit="s" data-scale="0.001" data-digits="1">
+                <div class="c-range-slider__bar"></div>
+                <div class="c-range-slider__thumb"></div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- morph components -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- entry + controls -->
+    
+    
+
+
+
+<script src="morph-bundle-cd2b3c35f5.js"></script></body></html>

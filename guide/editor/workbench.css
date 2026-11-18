@@ -1,0 +1,754 @@
+/* Tour authoring workbench — 09-tour-authoring.md §11.
+   A development tool, so it optimises for information density over polish. */
+
+:root {
+    --wb-bg: #0f172a;
+    --wb-panel: #1e293b;
+    --wb-line: #334155;
+    --wb-text: #e2e8f0;
+    --wb-dim: #94a3b8;
+    --wb-accent: #0ea5e9;
+    --wb-brand: #f97316;
+    --wb-error: #f87171;
+    --wb-warn: #fbbf24;
+    --wb-ok: #4ade80;
+    --wb-bar-h: 44px;
+}
+
+* { box-sizing: border-box; }
+
+/**
+ * `hidden` must actually hide.
+ *
+ * The browser's default is `[hidden] { display: none }` at USER-AGENT weight, which any author
+ * `display:` rule beats. Both overlays declare `display: grid`, so `el.hidden = true` set the
+ * attribute and changed nothing: the POI grid and the "click a control" veil covered the whole
+ * editor from first paint, tinting it blue and swallowing every click.
+ *
+ * `!important` is the right tool here rather than a smell: `hidden` is a promise the platform
+ * makes, and a layout rule must never be able to break it.
+ */
+[hidden] { display: none !important; }
+
+html, body {
+    margin: 0;
+    height: 100%;
+    background: var(--wb-bg);
+    color: var(--wb-text);
+    font: 13px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    overflow: hidden;
+}
+
+/* ── top bar ─────────────────────────────────────────────────────────────── */
+
+.wb-bar {
+    height: var(--wb-bar-h);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    background: var(--wb-panel);
+    border-bottom: 1px solid var(--wb-line);
+}
+
+.wb-brand { color: var(--wb-brand); font-size: 13px; letter-spacing: .02em; }
+.wb-spacer { flex: 1; }
+.wb-sep { width: 1px; height: 22px; background: var(--wb-line); }
+
+.wb-btn, .wb-select {
+    background: #0b1220;
+    color: var(--wb-text);
+    border: 1px solid var(--wb-line);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.wb-btn:hover, .wb-select:hover { border-color: var(--wb-accent); }
+.wb-btn[aria-pressed="true"] { background: var(--wb-accent); border-color: var(--wb-accent); color: #04121c; }
+.wb-btn-primary { background: var(--wb-accent); border-color: var(--wb-accent); color: #04121c; font-weight: 600; }
+.wb-btn:disabled { opacity: .5; cursor: default; }
+
+/* Undo/Redo: a glyph, not a word — they sit next to five text buttons and would otherwise
+   dominate a toolbar where they are the least-used controls. */
+.wb-btn-icon {
+    font-size: 15px;
+    line-height: 1;
+    padding: 4px 9px;
+    min-width: 32px;
+}
+
+.wb-status { color: var(--wb-dim); font-size: 12px; min-width: 12ch; text-align: right; }
+.wb-status[data-kind="error"] { color: var(--wb-error); }
+.wb-status[data-kind="ok"] { color: var(--wb-ok); }
+
+.wb-link {
+    background: none; border: none; color: var(--wb-accent);
+    font: inherit; cursor: pointer; padding: 0; text-decoration: underline;
+}
+
+/* ── layout ──────────────────────────────────────────────────────────────── */
+
+.wb-main {
+    display: grid;
+    grid-template-columns: minmax(380px, 42%) 1fr;
+    height: calc(100% - var(--wb-bar-h));
+    /* Without this, a grid item's implicit `min-height: auto` lets the row grow past the row
+       track: the left column's content decided its own height and left dead space below the
+       diagnostics instead of filling the pane. */
+    min-height: 0;
+}
+
+.wb-left {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;          /* same reason — let the editor pane shrink and scroll */
+    height: 100%;
+    background: #0b1220;    /* the editor's own ground, so no black gap can show through */
+    border-right: 1px solid var(--wb-line);
+}
+
+.wb-right {
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    background: #060b16;
+    display: grid;
+    place-items: start center;
+    padding: 12px;
+}
+
+/* ── source editor ───────────────────────────────────────────────────────── */
+
+/* The textarea sits transparently ON TOP of a highlighted <pre> holding the same text. Both
+   must use identical metrics or the caret drifts from the glyphs — that is the whole trick, and
+   the reason font/padding/border are declared once for both. */
+.wb-editor-wrap {
+    position: relative;
+    flex: 2 1 0;
+    min-height: 120px;
+    overflow: hidden;
+}
+
+/* The source and diagnostics panes start at 2:1. Once the control is wired, JavaScript supplies
+   the editor's pixel basis while the diagnostics pane fills the remaining space. */
+.wb-left[data-split-resized] .wb-editor-wrap {
+    flex: 0 0 var(--wb-editor-height);
+}
+
+.wb-splitter {
+    position: relative;
+    flex: 0 0 9px;
+    cursor: row-resize;
+    touch-action: none;
+    background: #0b1220;
+    outline: none;
+    z-index: 4;
+}
+
+.wb-splitter::before {
+    content: '';
+    position: absolute;
+    inset: 4px 0 auto;
+    height: 1px;
+    background: var(--wb-line);
+}
+
+.wb-splitter-handle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 42px;
+    height: 5px;
+    border: 1px solid #64748b;
+    border-radius: 999px;
+    background: var(--wb-panel);
+    transform: translate(-50%, -50%);
+}
+
+.wb-splitter:hover::before,
+.wb-splitter:focus-visible::before,
+.wb-splitter[data-dragging="true"]::before {
+    background: var(--wb-accent);
+}
+
+.wb-splitter:hover .wb-splitter-handle,
+.wb-splitter:focus-visible .wb-splitter-handle,
+.wb-splitter[data-dragging="true"] .wb-splitter-handle {
+    border-color: var(--wb-accent);
+    background: #0c4a6e;
+}
+
+.wb-splitter:focus-visible {
+    box-shadow: inset 0 0 0 1px var(--wb-accent);
+}
+
+body.wb-resizing {
+    cursor: row-resize;
+    user-select: none;
+}
+
+/* Pointer capture keeps the drag attached to the separator. Disabling the iframe prevents its
+   nested document from swallowing the pointer if the cursor strays into the preview column. */
+body.wb-resizing .wb-app { pointer-events: none; }
+
+/* The overlay trick: a transparent textarea on top of a highlighted <pre> holding the same
+   text. Every metric below must be IDENTICAL in both, or the glyphs drift from the caret.
+
+   line-height is an INTEGER px, not a unitless ratio. 12.5px/1.55 computes to 19.375px, and a
+   textarea's line box and a <pre>'s round that fraction differently — measured 2px of drift by
+   line 20, which reads exactly as "the caret is one row above the text I clicked" and made the
+   completion popup appear to be missing (it opens at the caret, not where the eye was).
+   An integer removes the rounding entirely.
+
+   font-size is likewise a whole number: 12.5px let the same fractional rounding into glyph
+   advance, which is the horizontal half of the same bug. */
+.wb-source, .wb-highlight, .wb-find-layer, .wb-step-layer {
+    margin: 0;
+    padding: 12px 12px 12px 52px;   /* left room for the gutter */
+    border: 0;
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    line-height: 20px;
+    tab-size: 2;
+    white-space: pre;
+    overflow: auto;
+    position: absolute;
+    inset: 0;
+}
+
+.wb-source {
+    background: transparent;
+    color: transparent;
+    caret-color: var(--wb-text);
+    resize: none;
+    outline: none;
+    z-index: 1;
+}
+
+.wb-source::selection { background: rgba(14, 165, 233, .35); }
+.wb-highlight { background: #0b1220; color: var(--wb-text); pointer-events: none; }
+
+/* ── tokens, coloured by ROLE ──────────────────────────────────────────────
+   A key's colour says what KIND of thing it controls, not that it is a key:
+
+     identity  metadata, rarely read          dim
+     copy      what the user will read        bright
+     binding   references the registry        cyan   ← can be wrong
+     flow      where the tour branches        violet
+     layout    visual only, never behaviour   green
+
+   The point of the split is `binding`: those values are checked against the live
+   registry as you type, so a wrong id reads as wrong before the compiler says so. */
+
+.tk-key { color: #7dd3fc; }
+.tk-key[data-role="identity"] { color: #94a3b8; }
+.tk-key[data-role="copy"]     { color: #e2e8f0; font-weight: 600; }
+.tk-key[data-role="binding"]  { color: #22d3ee; }
+.tk-key[data-role="flow"]     { color: #c084fc; }
+.tk-key[data-role="layout"]   { color: #6ee7b7; }
+
+.tk-str { color: #a5f3c8; }
+.tk-num { color: #fcd34d; }
+.tk-bool { color: #f0abfc; }
+.tk-block { color: #f0abfc; }
+.tk-seq { color: #6ee7b7; }
+.tk-comment { color: #64748b; font-style: italic; }
+.tk-dash { color: var(--wb-dim); }
+
+/* A semantic value. Resolved ids get a quiet underline; unresolved ones are marked as errors
+   while typing — the compiler will agree a moment later, but the eye gets there first. */
+.tk-val { color: #22d3ee; }
+.tk-val[data-status="ok"] { text-decoration: underline; text-decoration-color: rgba(34, 211, 238, .35); }
+.tk-val[data-status="unresolved"] {
+    color: var(--wb-error);
+    text-decoration: underline wavy var(--wb-error);
+    text-underline-offset: 2px;
+}
+/* An icon token is the one construct that is neither structure nor prose — 10-content-icons.md.
+   Marking it distinctly is what makes a missing quote visible before the compiler says so. */
+.tk-icon { color: var(--wb-brand); background: rgba(249, 115, 22, .12); border-radius: 3px; }
+
+/* Line numbers.
+
+   A real column in the flow (not absolutely-positioned markers), so it scrolls with the text
+   by having its scrollTop mirrored, rather than needing every marker repositioned on scroll.
+   Its metrics MUST match the textarea's or the numbers drift from their lines — same font,
+   same line-height, same top padding. */
+.wb-gutter {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 44px;
+    padding: 12px 8px 12px 0;
+    text-align: right;
+    /* identical metrics to .wb-source — see the note there */
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    line-height: 20px;
+    color: #475569;
+    background: #0b1220;
+    border-right: 1px solid rgba(51, 65, 85, .6);
+    overflow: hidden;
+    user-select: none;
+    white-space: pre;
+    z-index: 2;               /* above the transparent textarea, so markers stay clickable */
+}
+
+.wb-gut { display: block; }
+
+/* [BUG-010 §2] The caret line, and the step it belongs to.
+   The caret decides which step "Preview step" starts from, so it earns a visible marker —
+   subtle for the step's extent, brighter for the exact line. */
+.wb-gut-step { background: rgba(148, 163, 184, 1); }
+.wb-gut-caret {
+    background: rgba(249, 115, 22, .20);
+    color: #fbbf24;
+    font-weight: 700;
+    border-radius: 3px;
+}
+
+/* A marker replaces the number and is clickable: it clears the offending text on that line. */
+.wb-gut-mark { cursor: pointer; font-weight: 700; }
+.wb-gut-mark[data-level="error"] { color: var(--wb-error); }
+.wb-gut-mark[data-level="warn"] { color: var(--wb-warn); }
+.wb-gut-mark:hover { background: rgba(248, 113, 113, .18); border-radius: 3px; }
+
+/* ── [CR-001] event journal ──────────────────────────────────────────────── */
+
+.wb-events { flex: 1; overflow: auto; display: flex; flex-direction: column; min-height: 0; }
+.wb-events-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 4px 10px; border-bottom: 1px solid rgba(51, 65, 85, .5);
+}
+.wb-events-hint { color: #64748b; font-size: 11px; }
+.wb-events-empty { color: #64748b; padding: 10px; font-size: 12px; }
+.wb-events-list { flex: 1; overflow: auto; margin: 0; padding: 0; list-style: none; }
+
+.wb-ev {
+    display: grid;
+    grid-template-columns: 46px 190px 1fr 82px;
+    gap: 8px; align-items: baseline;
+    padding: 2px 10px;
+    font-family: ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+    font-size: 11px; line-height: 17px;
+    border-bottom: 1px solid rgba(51, 65, 85, .22);
+}
+.wb-ev-n { color: #475569; }
+.wb-ev-name { color: #e2e8f0; }
+.wb-ev-data { color: #94a3b8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wb-ev-origin { text-align: right; }
+
+/* origin is the field that decides whether an event may satisfy a step (D7): a tour's own
+   setup reports as guide-command and must never complete the step it is preparing. Colouring
+   it makes that rule visible while watching, instead of something to remember. */
+.wb-ev-user .wb-ev-origin          { color: #4ade80; }
+.wb-ev-system .wb-ev-origin        { color: #60a5fa; }
+.wb-ev-guide-command .wb-ev-origin { color: #fbbf24; }
+
+/* the step's verdict on an event — the half that answers "why did it not advance" */
+.wb-ev-step { grid-template-columns: 46px 1fr; background: rgba(15, 23, 42, .55); }
+.wb-ev-step .wb-ev-name { color: #cbd5e1; white-space: normal; }
+.wb-ev-matched .wb-ev-name   { color: #4ade80; }
+.wb-ev-unmatched .wb-ev-name { color: #94a3b8; }
+
+/* ── completion popup — §10.2 ────────────────────────────────────────────── */
+
+.wb-complete {
+    position: absolute;
+    z-index: 5;
+    min-width: 280px;
+    max-width: 460px;
+    max-height: 240px;
+    overflow: auto;
+    background: #0b1220;
+    border: 1px solid var(--wb-accent);
+    border-radius: 6px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .55);
+    font: 12px/1.4 ui-monospace, Menlo, Consolas, monospace;
+}
+
+.wb-complete div {
+    padding: 5px 9px;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+}
+
+.wb-complete div[aria-selected="true"] { background: rgba(14, 165, 233, .22); }
+.wb-complete .wb-c-id { color: #7dd3fc; white-space: nowrap; }
+.wb-complete .wb-c-doc { color: var(--wb-dim); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── diagnostics ─────────────────────────────────────────────────────────── */
+
+.wb-diagnostics {
+    flex: 1 1 0;
+    min-height: 96px;
+    background: var(--wb-panel);
+    display: flex;
+    flex-direction: column;
+}
+
+.wb-diag-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--wb-line);
+    font-size: 12px;
+    color: var(--wb-dim);
+}
+
+.wb-tabs { display: flex; gap: 2px; }
+.wb-tab-right { display: flex; align-items: center; gap: 12px; }
+
+.wb-tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--wb-dim);
+    font: inherit;
+    padding: 3px 8px;
+    cursor: pointer;
+}
+
+.wb-tab[aria-selected="true"] { color: var(--wb-text); border-bottom-color: var(--wb-accent); }
+.wb-tab:hover { color: var(--wb-text); }
+
+/* ── structure graph ─────────────────────────────────────────────────────── */
+
+.wb-structure {
+    margin: 0;
+    padding: 10px 12px;
+    overflow: auto;
+    flex: 1;
+    font: 12px/1.6 ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+    white-space: pre;
+    color: var(--wb-text);
+}
+
+.st-dim { color: #475569; }
+.st-accent { color: var(--wb-brand); }
+.st-num { color: var(--wb-accent); font-weight: 700; }
+.st-target { color: #22d3ee; }
+.st-rule { color: #c084fc; }
+.st-action { color: #6ee7b7; }
+.st-fallback { color: var(--wb-warn); }
+.st-kind { color: var(--wb-dim); font-style: italic; }
+/* A routing target — the one edge in the graph that is not simply "the next step". */
+.st-goto { color: var(--wb-brand); font-weight: 600; }
+
+.st-step { color: var(--wb-text); font-weight: 600; cursor: pointer; }
+.st-step:hover { text-decoration: underline; }
+
+/* The step the caret is in — the reason to keep this pane open while editing rather than
+   only consulting it before publishing. */
+.st-current {
+    background: rgba(249, 115, 22, .2);
+    outline: 1px solid rgba(249, 115, 22, .5);
+    border-radius: 3px;
+    padding: 0 4px;
+}
+
+.wb-diag-list { margin: 0; padding: 4px 0; list-style: none; overflow: auto; flex: 1; }
+
+.wb-diag-list li {
+    padding: 4px 12px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 62px 1fr;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.wb-diag-list li:hover { background: rgba(148, 163, 184, .1); }
+.wb-diag-list .wb-where { color: var(--wb-dim); font-family: ui-monospace, Menlo, monospace; }
+.wb-diag-list li[data-level="error"] .wb-where { color: var(--wb-error); }
+.wb-diag-list li[data-level="warn"] .wb-where { color: var(--wb-warn); }
+
+/* ── stage ───────────────────────────────────────────────────────────────── */
+
+/* §11.2 viewport presets. Fixed pixel sizes rather than a responsive frame: the point is to see
+   what a 420px phone does to panel placement, which a fluid preview cannot show. */
+.wb-stage { position: relative; background: #000; box-shadow: 0 0 0 1px var(--wb-line); }
+.wb-stage[data-viewport="desktop"] { width: 1440px; height: 900px; transform-origin: top center; }
+.wb-stage[data-viewport="portrait"] { width: 420px; height: 860px; }
+.wb-stage[data-viewport="landscape"] { width: 860px; height: 420px; }
+
+.wb-app { width: 100%; height: 100%; border: 0; display: block; background: #fff; }
+
+/* ── POI overlay — §11.4 ─────────────────────────────────────────────────── */
+
+.wb-poi-overlay {
+    position: absolute; inset: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    pointer-events: none;
+}
+
+.wb-poi-cell {
+    border: 1px dashed rgba(148, 163, 184, .45);
+    display: grid;
+    place-items: center;
+    font: 11px/1 ui-monospace, Menlo, monospace;
+    color: rgba(226, 232, 240, .55);
+    pointer-events: auto;
+    cursor: pointer;
+    text-align: center;
+}
+
+.wb-poi-cell:hover { background: rgba(14, 165, 233, .16); }
+.wb-poi-cell[data-on="true"] {
+    background: rgba(249, 115, 22, .28);
+    border-color: var(--wb-brand);
+    color: #fff;
+}
+
+/* ── pick mode — §11.3 ───────────────────────────────────────────────────── */
+
+.wb-pick-veil {
+    position: absolute; inset: 0;
+    display: grid; place-items: start center;
+    padding-top: 12px;
+    background: rgba(14, 165, 233, .08);
+    box-shadow: inset 0 0 0 3px var(--wb-accent);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.wb-pick-veil span {
+    background: var(--wb-accent);
+    color: #04121c;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.wb-pick-veil kbd {
+    background: rgba(0, 0, 0, .25);
+    border-radius: 3px;
+    padding: 1px 5px;
+    font: inherit;
+}
+
+/* ── compiled JSON dialog ────────────────────────────────────────────────── */
+
+.wb-json {
+    width: min(820px, 92vw);
+    max-height: 82vh;
+    background: var(--wb-panel);
+    color: var(--wb-text);
+    border: 1px solid var(--wb-line);
+    border-radius: 8px;
+    padding: 0;
+}
+
+.wb-json::backdrop { background: rgba(0, 0, 0, .6); }
+.wb-json header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px; border-bottom: 1px solid var(--wb-line);
+}
+.wb-json pre {
+    margin: 0; padding: 14px; overflow: auto; max-height: 68vh;
+    font: 12px/1.5 ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* ── hover documentation — §10.1 ─────────────────────────────────────────── */
+
+.wb-hover {
+    position: absolute;
+    z-index: 6;
+    max-width: 460px;
+    padding: 9px 11px;
+    background: #0b1220;
+    border: 1px solid var(--wb-line);
+    border-left: 3px solid var(--wb-accent);
+    border-radius: 6px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .6);
+    font: 12px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    pointer-events: none;   /* never steals the pointer from the text being read */
+}
+
+.hv-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.hv-head b { font-family: ui-monospace, Menlo, Consolas, monospace; color: #7dd3fc; }
+
+.hv-badge {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, .18);
+    color: var(--wb-dim);
+}
+.hv-badge[data-kind="ok"]   { background: rgba(74, 222, 128, .18); color: var(--wb-ok); }
+.hv-badge[data-kind="warn"] { background: rgba(251, 191, 36, .18); color: var(--wb-warn); }
+.hv-badge[data-kind="err"]  { background: rgba(248, 113, 113, .18); color: var(--wb-error); }
+
+.hv-line { white-space: pre-wrap; }
+.hv-sub  { color: var(--wb-text); margin-bottom: 3px; }
+.hv-foot { color: var(--wb-dim); font-size: 11px; margin-top: 5px; }
+.hv-err  { color: var(--wb-error); margin-bottom: 3px; }
+.hv-mono { font-family: ui-monospace, Menlo, Consolas, monospace; color: var(--wb-dim); font-size: 11px; }
+
+.hv-shape {
+    margin: 5px 0;
+    padding: 6px 8px;
+    background: rgba(148, 163, 184, .08);
+    border-radius: 4px;
+    font: 11.5px/1.5 ui-monospace, Menlo, Consolas, monospace;
+    color: #a5f3c8;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+/* Read-only build — see applyReadOnly() in workbench.js.
+   The workbench ships inside production builds so a tour can be checked against the real
+   thing, but only the dev server may write files (09 §11.6). The badge says so once, in the
+   bar, instead of letting Save look live. */
+.wb-readonly-tag {
+    /* No `margin-left:auto` — the bar's own right-hand group (ok / Preview step / Save) already
+       claims that side, and pushing past it drove the badge off the edge at 1280px. The badge
+       sits inline where it is appended and lets the bar wrap normally. */
+    flex: 0 0 auto;
+    padding: 2px 8px;
+    border: 1px solid var(--wb-line);
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: .02em;
+    opacity: .75;
+    white-space: nowrap;
+}
+
+
+/* Find-in-document. Floats over the editor pane rather than taking a row in .wb-bar,
+   which is a fixed-height flex row that does not wrap. */
+.wb-find {
+    position: absolute;
+    top: 6px;
+    right: 18px;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    background: #1e293b;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
+}
+.wb-find input {
+    width: 190px;
+    padding: 3px 6px;
+    border: 1px solid #334155;
+    border-radius: 4px;
+    background: #0f172a;
+    color: #e2e8f0;
+    font: inherit;
+}
+.wb-find-count { color: #94a3b8; font-size: 12px; min-width: 46px; text-align: right; }
+.wb-find-close {
+    border: 0; background: transparent; color: #94a3b8;
+    cursor: pointer; font-size: 16px; line-height: 1; padding: 0 2px;
+}
+/* The match marks live in the highlight layer UNDER the textarea, so they must not
+   swallow clicks meant for the text. */
+.wb-find-hit { background: rgba(249, 115, 22, .35); border-radius: 2px; }
+.wb-find-hit-current { background: rgba(249, 115, 22, .75); border-radius: 2px; }
+
+
+/* Transparent except for the hit marks, and never a click target: the textarea above it
+   must keep receiving every pointer event. */
+.wb-find-layer { color: transparent; background: transparent; pointer-events: none; z-index: 2; }
+
+
+/* ── step badges ───────────────────────────────────────────────────────────
+   Which step each line belongs to, riding along with the text.
+
+   Same layer trick as the find marks: a transparent <pre> mirroring the source
+   character-for-character, so the browser places each badge on its own line and
+   scrolling is just a mirrored scrollTop — no per-badge `top` to recompute.
+
+   `position: absolute` on the badge itself is what keeps that mirror intact: the
+   badge sits on a line of real text, and anything with layout width there would
+   push that line's glyphs sideways and break alignment with the textarea above.
+   Its containing block is the layer's padding box, so `right` parks it in the
+   margin while `position: static` on the line keeps the vertical placement. */
+/* `overflow: hidden` overrides the shared `overflow: auto` above: an absolutely-positioned
+   badge still counts toward scrollWidth, so a badge parked in the right margin added ~12px of
+   scrollable width that the textarea does not have. The two panes' scrollWidths must match or
+   horizontal scrolling drifts them apart. This layer is scrolled programmatically by
+   syncScroll(), never by the user, so it loses nothing by not being scrollable itself. */
+.wb-step-layer {
+    color: transparent;
+    background: transparent;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 3;
+}
+
+.wb-step-badge {
+    position: absolute;
+    /* Plain `right`, no scroll compensation: syncScroll() deliberately leaves this layer's
+       scrollLeft at 0 (only its scrollTop is mirrored), so the badge is already measured
+       against a pane that never moves sideways. The badge belongs to the right edge of the
+       view, not to a column of text — mirroring scrollLeft here dragged it off with the
+       glyphs, and compensating for a scroll that never happens pushed it off the other way. */
+    right: 14px;
+    /* Pulled onto the line it labels: the span is placed where the text flow left it,
+       and `absolute` only detaches it horizontally. */
+    margin-top: 0;
+    padding: 0 6px;
+    border-radius: 999px;
+    border: 1px solid rgba(249, 115, 22, .45);
+    background: rgba(249, 115, 22, .14);
+    color: #fdba74;
+    font-size: 11px;
+    line-height: 18px;
+    letter-spacing: .02em;
+    white-space: pre;
+    /* The layer is transparent so its text stays invisible; the badge opts back in. */
+    opacity: .9;
+}
+
+
+/* The find toggle. Ctrl+F is taken by the browser, so the discoverable control is this
+   icon in the editor pane corner; the shortcut stays as a bonus for anyone whose browser
+   lets it through. */
+.wb-find-toggle {
+    position: absolute;
+    top: 6px;
+    right: 18px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    background: #1e293b;
+    color: #94a3b8;
+    cursor: pointer;
+}
+.wb-find-toggle:hover { color: #e2e8f0; border-color: #475569; }
+.wb-find-toggle[aria-expanded="true"] { color: #f97316; border-color: #f97316; }
+
+
+/* Step buttons. Enter/Shift+Enter still work, but a keyboard shortcut nobody can see is
+   not a discoverable control — the arrows are what says the matches can be walked. */
+.wb-find-step {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 1px solid #334155;
+    border-radius: 4px;
+    background: #0f172a;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+}
+.wb-find-step:hover:not(:disabled) { color: #e2e8f0; border-color: #475569; }
+.wb-find-step:disabled { opacity: .4; cursor: default; }

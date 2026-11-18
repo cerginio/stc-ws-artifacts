@@ -1,0 +1,305 @@
+{
+  "schemaVersion": "1.0",
+  "tours": [
+    {
+      "slug": "collab-drawing",
+      "id": "collab.drawing",
+      "version": 1,
+      "status": "published",
+      "definition": "collab-drawing.json",
+      "meta": {
+        "title": "tour.collab.drawing.title",
+        "description": "tour.collab.drawing.description",
+        "category": "collaboration",
+        "estimatedMinutes": 3
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": true,
+        "restartPolicy": "ask"
+      }
+    },
+    {
+      "slug": "demo-placement",
+      "id": "demo.placement",
+      "version": 1,
+      "status": "draft",
+      "definition": "demo-placement.json",
+      "meta": {
+        "title": "tour.demo.placement.title",
+        "description": "tour.demo.placement.description",
+        "category": "internal",
+        "estimatedMinutes": 1
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": false,
+        "restartPolicy": "restart"
+      }
+    },
+    {
+      "slug": "demo-stage0",
+      "id": "demo.stage0",
+      "version": 1,
+      "status": "published",
+      "definition": "demo-stage0.json",
+      "meta": {
+        "title": "tour.demo.stage0.title",
+        "description": "tour.demo.stage0.description",
+        "category": "onboarding",
+        "estimatedMinutes": 1
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": false,
+        "restartPolicy": "restart"
+      }
+    },
+    {
+      "slug": "demo-stage1",
+      "id": "demo.stage1",
+      "version": 1,
+      "status": "published",
+      "definition": "demo-stage1.json",
+      "meta": {
+        "title": "tour.demo.stage1.title",
+        "description": "tour.demo.stage1.description",
+        "category": "onboarding",
+        "estimatedMinutes": 1
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": false,
+        "restartPolicy": "restart"
+      }
+    },
+    {
+      "slug": "demo-stage2",
+      "id": "demo.stage2",
+      "version": 1,
+      "status": "published",
+      "definition": "demo-stage2.json",
+      "meta": {
+        "title": "tour.demo.stage2.title",
+        "description": "tour.demo.stage2.description",
+        "category": "onboarding",
+        "estimatedMinutes": 1
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": false,
+        "restartPolicy": "restart"
+      }
+    },
+    {
+      "slug": "stage1-frames",
+      "id": "handbook.stage1",
+      "version": 1,
+      "status": "published",
+      "definition": "stage1-frames.json",
+      "meta": {
+        "title": "tour.handbook.stage1.title",
+        "description": "tour.handbook.stage1.description",
+        "category": "handbook",
+        "estimatedMinutes": 6
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": true,
+        "restartPolicy": "ask"
+      }
+    },
+    {
+      "slug": "stage2-drawing",
+      "id": "handbook.stage2",
+      "version": 1,
+      "status": "published",
+      "definition": "stage2-drawing.json",
+      "meta": {
+        "title": "tour.handbook.stage2.title",
+        "description": "tour.handbook.stage2.description",
+        "category": "handbook",
+        "estimatedMinutes": 5
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": true,
+        "restartPolicy": "ask"
+      }
+    },
+    {
+      "slug": "stage3-playing",
+      "id": "handbook.stage3",
+      "version": 1,
+      "status": "published",
+      "definition": "stage3-playing.json",
+      "meta": {
+        "title": "tour.handbook.stage3.title",
+        "description": "tour.handbook.stage3.description",
+        "category": "handbook",
+        "estimatedMinutes": 4
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": true,
+        "restartPolicy": "ask"
+      }
+    },
+    {
+      "slug": "stage4-gamifiers",
+      "id": "handbook.stage4",
+      "version": 1,
+      "status": "published",
+      "definition": "stage4-gamifiers.json",
+      "meta": {
+        "title": "tour.handbook.stage4.title",
+        "description": "tour.handbook.stage4.description",
+        "category": "handbook",
+        "estimatedMinutes": 8
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": true,
+        "restartPolicy": "ask"
+      }
+    },
+    {
+      "slug": "stage5-saving",
+      "id": "handbook.stage5",
+      "version": 1,
+      "status": "published",
+      "definition": "stage5-saving.json",
+      "meta": {
+        "title": "tour.handbook.stage5.title",
+        "description": "tour.handbook.stage5.description",
+        "category": "handbook",
+        "estimatedMinutes": 2
+      },
+      "launch": {
+        "allowedSources": [
+          "editor",
+          "deep-link"
+        ],
+        "autoStart": "never",
+        "allowResume": true,
+        "restartPolicy": "ask"
+      }
+    },
+    {
+      "slug": "story-enjoy-remembering",
+      "id": "story.enjoy-remembering",
+      "version": 1,
+      "status": "published",
+      "definition": "story-enjoy-remembering.json",
+      "meta": {
+        "title": "tour.story.enjoy-remembering.title",
+        "description": "tour.story.enjoy-remembering.description",
+        "category": "story",
+        "estimatedMinutes": 10
+      },
+      "launch": {
+        "autoStart": "never"
+      }
+    },
+    {
+      "slug": "story-remains",
+      "id": "story.remains",
+      "version": 1,
+      "status": "published",
+      "definition": "story-remains.json",
+      "meta": {
+        "title": "tour.story.remains.title",
+        "description": "tour.story.remains.description",
+        "category": "story",
+        "estimatedMinutes": 8
+      },
+      "launch": {
+        "autoStart": "never"
+      }
+    },
+    {
+      "slug": "story-small-steps",
+      "id": "story.small-steps",
+      "version": 1,
+      "status": "published",
+      "definition": "story-small-steps.json",
+      "meta": {
+        "title": "tour.story.small-steps.title",
+        "description": "tour.story.small-steps.description",
+        "category": "story",
+        "estimatedMinutes": 12
+      },
+      "launch": {
+        "autoStart": "never"
+      }
+    },
+    {
+      "slug": "story-what-happened-today",
+      "id": "story.what-happened-today",
+      "version": 1,
+      "status": "published",
+      "definition": "story-what-happened-today.json",
+      "meta": {
+        "title": "tour.story.what-happened-today.title",
+        "description": "tour.story.what-happened-today.description",
+        "category": "story",
+        "estimatedMinutes": 10
+      },
+      "launch": {
+        "autoStart": "never"
+      }
+    },
+    {
+      "slug": "story-who-am-i",
+      "id": "story.who-am-i",
+      "version": 1,
+      "status": "published",
+      "definition": "story-who-am-i.json",
+      "meta": {
+        "title": "tour.story.who-am-i.title",
+        "description": "tour.story.who-am-i.description",
+        "category": "story",
+        "estimatedMinutes": 12
+      },
+      "launch": {
+        "autoStart": "never"
+      }
+    }
+  ]
+}

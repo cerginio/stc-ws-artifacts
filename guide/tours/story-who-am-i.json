@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0",
+  "id": "story.who-am-i",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.story.who-am-i.title",
+    "description": "tour.story.who-am-i.description",
+    "category": "story",
+    "estimatedMinutes": 12
+  },
+  "launch": {
+    "autoStart": "never"
+  },
+  "steps": [
+    {
+      "id": "settle",
+      "type": "story",
+      "content": {
+        "title": "tour.story.who-am-i.step.settle.title",
+        "body": "tour.story.who-am-i.step.settle.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "pick-versions",
+      "type": "story",
+      "content": {
+        "title": "tour.story.who-am-i.step.pick-versions.title",
+        "body": "tour.story.who-am-i.step.pick-versions.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "add_frame",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "mark-each",
+      "type": "story",
+      "content": {
+        "title": "tour.story.who-am-i.step.mark-each.title",
+        "body": "tour.story.who-am-i.step.mark-each.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "editor_draw_mode_toggle",
+          "do": "hint"
+        },
+        {
+          "command": "add_frame",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "name-them",
+      "type": "story",
+      "content": {
+        "title": "tour.story.who-am-i.step.name-them.title",
+        "body": "tour.story.who-am-i.step.name-them.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "toggle_frame_speech_editor",
+          "do": "hint"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "look-together",
+      "type": "story",
+      "content": {
+        "title": "tour.story.who-am-i.step.look-together.title",
+        "body": "tour.story.who-am-i.step.look-together.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "frames_to_strip_exposition",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

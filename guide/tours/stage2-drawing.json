@@ -1,0 +1,386 @@
+{
+  "schemaVersion": "1.1",
+  "id": "handbook.stage2",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.handbook.stage2.title",
+    "description": "tour.handbook.stage2.description",
+    "category": "handbook",
+    "estimatedMinutes": 5
+  },
+  "launch": {
+    "allowedSources": [
+      "editor",
+      "deep-link"
+    ],
+    "autoStart": "never",
+    "allowResume": true,
+    "restartPolicy": "ask"
+  },
+  "requirements": {
+    "commands": [
+      "editor_draw_mode_toggle",
+      "editor_hard_erase_mode_toggle"
+    ]
+  },
+  "session": {
+    "contentMode": "user-content",
+    "onEnd": "keep"
+  },
+  "setup": [
+    {
+      "command": "ui.setupLocation",
+      "args": {
+        "location": "canvas"
+      },
+      "onFailure": {
+        "type": "skip-action"
+      }
+    },
+    {
+      "command": "layer_tile_scale_slider",
+      "onFailure": {
+        "type": "skip-action"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "pick-frame",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage2.step.pick-frame.title",
+        "body": "tour.handbook.stage2.step.pick-frame.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "canvas.frame",
+          "role": "primary",
+          "args": {
+            "index": 0
+          },
+          "padding": 6
+        },
+        {
+          "id": "nav.frame",
+          "role": "allowed",
+          "args": {
+            "index": 0
+          },
+          "padding": 6
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "frame.selected.index",
+        "operator": "gte",
+        "value": 0
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "beforeStep": [
+        {
+          "command": "ui.deselectFrame"
+        },
+        {
+          "command": "ui.enableMoveMode"
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "canvas.frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "pencil",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage2.step.pencil.title",
+        "body": "tour.handbook.stage2.step.pencil.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "editor_draw_mode_toggle",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "editor_draw_mode_toggle"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "beforeStep": [
+        {
+          "command": "ui.enableMoveMode"
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "editor_draw_mode_toggle",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "draw",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage2.step.draw.title",
+        "body": "tour.handbook.stage2.step.draw.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "canvas.frame",
+          "role": "primary",
+          "args": {
+            "index": 0
+          },
+          "padding": 6
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "drawing.completed"
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "canvas.frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "line-width",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage2.step.line-width.title",
+        "body": "tour.handbook.stage2.step.line-width.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "control.lineWidth",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "layer_tile_scale_slider"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "control.lineWidth",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "colour",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage2.step.colour.title",
+        "body": "tour.handbook.stage2.step.colour.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "panel.palette",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "color.selected"
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "panel.palette",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "eraser",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage2.step.eraser.title",
+        "body": "tour.handbook.stage2.step.eraser.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "editor_hard_erase_mode_toggle",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "editor_hard_erase_mode_toggle"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "beforeStep": [
+        {
+          "command": "ui.enableDrawMode"
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "editor_hard_erase_mode_toggle",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "next-frame",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage2.step.next-frame.title",
+        "body": "tour.handbook.stage2.step.next-frame.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "nav.frame",
+          "role": "primary",
+          "args": {
+            "index": 1
+          },
+          "padding": 6
+        },
+        {
+          "id": "canvas.frame",
+          "role": "allowed",
+          "args": {
+            "index": 1
+          },
+          "padding": 6
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "frame.selected.index",
+        "operator": "gte",
+        "value": 1
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "nav.frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "draw-again",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage2.step.draw-again.title",
+        "body": "tour.handbook.stage2.step.draw-again.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "canvas.frame",
+          "role": "primary",
+          "args": {
+            "index": 1
+          },
+          "padding": 6
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "frame.selected.hasContent",
+        "operator": "truthy"
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "canvas.frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "done",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage2.step.done.title",
+        "body": "tour.handbook.stage2.step.done.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

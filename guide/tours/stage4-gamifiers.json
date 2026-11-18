@@ -1,0 +1,395 @@
+{
+  "schemaVersion": "1.1",
+  "id": "handbook.stage4",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.handbook.stage4.title",
+    "description": "tour.handbook.stage4.description",
+    "category": "handbook",
+    "estimatedMinutes": 8
+  },
+  "launch": {
+    "allowedSources": [
+      "editor",
+      "deep-link"
+    ],
+    "autoStart": "never",
+    "allowResume": true,
+    "restartPolicy": "ask"
+  },
+  "requirements": {
+    "commands": [
+      "toggle_frame_speech_editor",
+      "burn_frame"
+    ]
+  },
+  "session": {
+    "contentMode": "user-content",
+    "onEnd": "keep"
+  },
+  "setup": [
+    {
+      "command": "ui.setupLocation",
+      "args": {
+        "location": "canvas"
+      },
+      "onFailure": {
+        "type": "skip-action"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "select-first",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage4.step.select-first.title",
+        "body": "tour.handbook.stage4.step.select-first.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "canvas.frame",
+          "role": "primary",
+          "args": {
+            "index": 0
+          },
+          "padding": 6
+        },
+        {
+          "id": "nav.frame",
+          "role": "allowed",
+          "args": {
+            "index": 0
+          },
+          "padding": 6
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "frame.selected.index",
+        "operator": "gte",
+        "value": 0
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "enter": [
+        {
+          "command": "ui.selectFrame",
+          "args": {
+            "index": 0
+          },
+          "onFailure": {
+            "type": "skip-action"
+          }
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "canvas.frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "narrative",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage4.step.narrative.title",
+        "body": "tour.handbook.stage4.step.narrative.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "toggle_frame_speech_editor",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "toggle_frame_speech_editor"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "toggle_frame_speech_editor",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "thermometer",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage4.step.thermometer.title",
+        "body": "tour.handbook.stage4.step.thermometer.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "toggle_frame_thermometer",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "toggle_frame_thermometer"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "toggle_frame_thermometer",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "background",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage4.step.background.title",
+        "body": "tour.handbook.stage4.step.background.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "portal_frame_set_aura",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "portal_frame_set_aura"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "portal_frame_set_aura",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "gamifier-panel",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage4.step.gamifier-panel.title",
+        "body": "tour.handbook.stage4.step.gamifier-panel.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "shatter",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage4.step.shatter.title",
+        "body": "tour.handbook.stage4.step.shatter.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "shatter_frame",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "gamifier.opened",
+        "origin": "system"
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "enter": [
+        {
+          "command": "ui.setupLocation",
+          "args": {
+            "location": "canvas"
+          },
+          "onFailure": {
+            "type": "skip-action"
+          }
+        }
+      ],
+      "fallback": {
+        "type": "show-info",
+        "content": {
+          "title": "tour.handbook.stage4.step.shatter.fallback.title",
+          "body": "tour.handbook.stage4.step.shatter.fallback.body"
+        }
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "shatter_frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "back-from-shatter",
+      "type": "transition",
+      "content": {
+        "title": "tour.handbook.stage4.step.back-from-shatter.title",
+        "body": "tour.handbook.stage4.step.back-from-shatter.body"
+      },
+      "interactionMode": "NONE",
+      "waitFor": {
+        "type": "state",
+        "query": "gamifier.active",
+        "operator": "falsy"
+      },
+      "timeoutMs": 300000,
+      "waitAfterEvent": "gamifier.opened",
+      "advance": {
+        "mode": "automatic"
+      },
+      "fallback": {
+        "type": "show-info",
+        "content": {
+          "title": "tour.handbook.stage4.step.back-from-shatter.fallback.title",
+          "body": "tour.handbook.stage4.step.back-from-shatter.fallback.body"
+        }
+      }
+    },
+    {
+      "id": "fire",
+      "type": "interaction",
+      "content": {
+        "title": "tour.handbook.stage4.step.fire.title",
+        "body": "tour.handbook.stage4.step.fire.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "burn_frame",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "gamifier.opened",
+        "origin": "system"
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "enter": [
+        {
+          "command": "ui.setupLocation",
+          "args": {
+            "location": "canvas"
+          },
+          "onFailure": {
+            "type": "skip-action"
+          }
+        }
+      ],
+      "fallback": {
+        "type": "show-info",
+        "content": {
+          "title": "tour.handbook.stage4.step.fire.fallback.title",
+          "body": "tour.handbook.stage4.step.fire.fallback.body"
+        }
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "burn_frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "back-from-fire",
+      "type": "transition",
+      "content": {
+        "title": "tour.handbook.stage4.step.back-from-fire.title",
+        "body": "tour.handbook.stage4.step.back-from-fire.body"
+      },
+      "interactionMode": "NONE",
+      "waitFor": {
+        "type": "state",
+        "query": "gamifier.active",
+        "operator": "falsy"
+      },
+      "timeoutMs": 300000,
+      "waitAfterEvent": "gamifier.opened",
+      "advance": {
+        "mode": "automatic"
+      },
+      "fallback": {
+        "type": "show-info",
+        "content": {
+          "title": "tour.handbook.stage4.step.back-from-fire.fallback.title",
+          "body": "tour.handbook.stage4.step.back-from-fire.fallback.body"
+        }
+      }
+    },
+    {
+      "id": "filters",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage4.step.filters.title",
+        "body": "tour.handbook.stage4.step.filters.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "done",
+      "type": "info",
+      "content": {
+        "title": "tour.handbook.stage4.step.done.title",
+        "body": "tour.handbook.stage4.step.done.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

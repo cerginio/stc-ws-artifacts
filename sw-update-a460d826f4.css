@@ -1,0 +1,18 @@
+#sw-update-prompt {
+  position: fixed;
+  z-index: 10000;
+  right: 16px;
+  bottom: 16px;
+  max-width: min(400px, calc(100vw - 32px));
+  padding: 12px;
+  border: 1px solid #3e7692;
+  border-radius: 8px;
+  background: #f4fbff;
+  color: #14354a;
+  box-shadow: 0 4px 18px #0004;
+  font: 16px/1.4 sans-serif;
+}
+
+#sw-update-prompt[hidden] { display: none; }
+#sw-update-prompt .sw-update-message { display: block; margin-bottom: 8px; }
+#sw-update-prompt button { margin-right: 8px; padding: 5px 10px; cursor: pointer; }

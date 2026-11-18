@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "1.1",
+  "id": "demo.stage1",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.demo.stage1.title",
+    "description": "tour.demo.stage1.description",
+    "category": "onboarding",
+    "estimatedMinutes": 1
+  },
+  "launch": {
+    "allowedSources": [
+      "editor",
+      "deep-link"
+    ],
+    "autoStart": "never",
+    "allowResume": false,
+    "restartPolicy": "restart"
+  },
+  "session": {
+    "contentMode": "user-content",
+    "onEnd": "keep"
+  },
+  "setup": [
+    {
+      "command": "ui.setupLocation",
+      "args": {
+        "location": "canvas"
+      },
+      "onFailure": {
+        "type": "skip-action"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "toggle-move",
+      "type": "interaction",
+      "content": {
+        "title": "tour.demo.stage1.step.toggle-move.title",
+        "body": "tour.demo.stage1.step.toggle-move.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "editor_move_mode_toggle",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "command.isOn",
+        "operator": "truthy",
+        "args": {
+          "command": "editor_move_mode_toggle"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "editor_move_mode_toggle",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "move-frame",
+      "type": "interaction",
+      "content": {
+        "title": "tour.demo.stage1.step.move-frame.title",
+        "body": "tour.demo.stage1.step.move-frame.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "canvas.frame",
+          "role": "primary",
+          "args": {
+            "index": 0
+          },
+          "padding": 6
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "frame.moved"
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "beforeStep": [
+        {
+          "command": "ui.enableMoveMode"
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "canvas.frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "toggle-draw",
+      "type": "interaction",
+      "content": {
+        "title": "tour.demo.stage1.step.toggle-draw.title",
+        "body": "tour.demo.stage1.step.toggle-draw.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "editor_draw_mode_toggle",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "command.executed",
+        "match": {
+          "command": "editor_draw_mode_toggle"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "beforeStep": [
+        {
+          "command": "ui.enableMoveMode"
+        }
+      ],
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "editor_draw_mode_toggle",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "draw-something",
+      "type": "interaction",
+      "content": {
+        "title": "tour.demo.stage1.step.draw-something.title",
+        "body": "tour.demo.stage1.step.draw-something.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "canvas.frame",
+          "role": "primary",
+          "args": {
+            "index": 0
+          },
+          "padding": 6
+        }
+      ],
+      "completion": {
+        "type": "event",
+        "event": "drawing.completed"
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "canvas.frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    }
+  ]
+}

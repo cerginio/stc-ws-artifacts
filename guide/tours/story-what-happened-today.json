@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0",
+  "id": "story.what-happened-today",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.story.what-happened-today.title",
+    "description": "tour.story.what-happened-today.description",
+    "category": "story",
+    "estimatedMinutes": 10
+  },
+  "launch": {
+    "autoStart": "never"
+  },
+  "steps": [
+    {
+      "id": "settle",
+      "type": "story",
+      "content": {
+        "title": "tour.story.what-happened-today.step.settle.title",
+        "body": "tour.story.what-happened-today.step.settle.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "name-parts",
+      "type": "story",
+      "content": {
+        "title": "tour.story.what-happened-today.step.name-parts.title",
+        "body": "tour.story.what-happened-today.step.name-parts.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "add_frame",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "mark-each",
+      "type": "story",
+      "content": {
+        "title": "tour.story.what-happened-today.step.mark-each.title",
+        "body": "tour.story.what-happened-today.step.mark-each.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "editor_draw_mode_toggle",
+          "do": "hint"
+        },
+        {
+          "command": "add_frame",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "look-together",
+      "type": "story",
+      "content": {
+        "title": "tour.story.what-happened-today.step.look-together.title",
+        "body": "tour.story.what-happened-today.step.look-together.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "frames_to_strip_exposition",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "keep-it",
+      "type": "story",
+      "content": {
+        "title": "tour.story.what-happened-today.step.keep-it.title",
+        "body": "tour.story.what-happened-today.step.keep-it.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "basic_save_json_file",
+          "do": "hint"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

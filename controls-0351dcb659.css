@@ -1,0 +1,505 @@
+/* toggle button https://codepen.io/WebsiteMentor/pen/abKeyWw */
+input[type="checkbox"].toggle-button {
+position: relative;
+width: 48px;
+height: 24px;
+-webkit-appearance: none;
+appearance: none;
+background: red;
+outline: none;
+border-radius: 2rem;
+cursor: pointer;
+box-shadow: inset 0 0 5px rgb(0 0 0 / 50%);
+}
+
+input[type="checkbox"].toggle-button::before {
+content: "";
+width: 24px;
+height: 24px;
+border-radius: 50%;
+background: #fff;
+position: absolute;
+top: 0;
+left: 0;
+transition: 0.5s;
+}
+
+input[type="checkbox"].toggle-button:checked::before {
+transform: translateX(100%);
+background: #fff;
+}
+
+input[type="checkbox"].toggle-button:checked {
+background: #00ed64;
+}
+
+/* https://codepen.io/raeesh/pen/QWVEddN */
+:root {
+--rs-height: 50px;
+--bar-fill: #ccc;
+}
+*, *:before, *:after {
+box-sizing: border-box;
+}
+
+.slider-box {
+position: relative;
+width: 4em;
+text-align: center;
+padding: 5px 0;
+}
+
+.slider-box input[type="range"] {
+-webkit-appearance: none; /* Removes default styling */
+-moz-appearance: none;
+appearance: none;
+writing-mode: vertical-lr;
+width: 100%;
+height: 300px;
+background-color: transparent;
+position: relative;
+z-index: 1;
+display: block;
+outline: none;
+}
+
+.slider-box input[type="range"]::-webkit-slider-runnable-track {
+background-color: #053a5f;
+border-radius: 0.5rem;
+height: 0.5rem;
+}
+.slider-box input[type="range"]::-moz-range-track {
+-moz-appearance: none;
+height: 8px;
+background: red;
+}
+.slider-box input[type="range"]::-ms-track {
+appearance: none;
+height: 8px;
+}
+.slider-box input[type="range"]::-webkit-slider-thumb {
+appearance: none;
+-webkit-appearance: none;
+height: 40px;
+width: 40px;
+margin-top: -7px;
+background-color: dodgerblue;
+cursor: pointer;
+z-index: 5;
+position: relative;
+pointer-events: auto;
+border-radius: 30%;
+}
+.slider-box input[type="range"]::-moz-range-thumb {
+-webkit-appearance: none;
+height: 22px;
+width: 22px;
+cursor: pointer;
+border-radius: 50%;
+background-color: #3264fe;
+pointer-events: auto;
+}
+.slider-box input[type="range"]::-ms-thumb {
+appearance: none;
+height: 22px;
+width: 22px;
+cursor: pointer;
+border-radius: 50%;
+background-color: #3264fe;
+pointer-events: auto;
+}
+.slider-box input[type="range"]:active::-webkit-slider-thumb {
+background-color: red;
+border: 3px solid #3264fe;
+}
+
+/* https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers */
+/* https://range-input-css.netlify.app/ */
+/* TODO: https://toughengineer.github.io/demo/slider-styler/slider-styler.html */
+input[type="range"] {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+background: transparent;
+cursor: pointer;
+position: relative;
+display: block;
+outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+background: dodgerblue;
+height: 0.5rem;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+/*
+border: 1px solid #053a5f;
+outline: 3px solid #053a5f;
+outline-offset: 0.125rem;
+*/
+}
+
+input[type="range"]::-moz-range-track {
+background: dodgerblue;
+height: 0.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none; /* Override default look */
+appearance: none;
+margin-top: -0.7rem; /* Centers thumb on the track */
+background-color: #0051ff;
+border-radius: 1rem;
+height: 2rem;
+width: 2rem;
+}
+
+input[type="range"]::-moz-range-thumb {
+border: none; /*Removes extra border that FF applies*/
+border-radius: 0; /*Removes default border-radius that FF applies*/
+background-color: #0051ff;
+border-radius: 1rem;
+height: 2rem;
+width: 2rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+/*
+border: 1px solid #053a5f;
+outline: 3px solid #053a5f;
+outline-offset: 0.125rem;
+*/
+}
+
+/* shared with gamify plugins */
+.circle-live-button {
+position: absolute;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 10px;
+/*background-color: rgba(255, 255, 255, 0.8);*/
+border: 1px solid #ccc;
+border-radius: 50%;
+cursor: pointer;
+width: 60px;
+height: 60px;
+}
+
+.pop-button {
+position: absolute;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 5px;
+/*background-color: rgba(255, 255, 255, 0.8);*/
+backdrop-filter: blur(3px);
+background: #ffffff77;
+/*border: 1px solid #ccc;*/
+border-radius: 6px;
+cursor: pointer;
+}
+
+.pop-button svg {
+width: 25px;
+height: 25px;
+}
+.pop-button.activated{
+border: 3px solid #00cfff;
+}
+
+.warning-panel {
+position: absolute;
+background: #fff;
+border: 1px solid #ccc;
+padding: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+z-index: 1000;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+p.warning-text {
+margin-bottom: 10px;
+text-align: center;
+color: #000
+}
+
+.warning-buttons {
+display: flex;
+gap: 10px;
+}
+
+button.warning-yes,
+button.warning-no {
+padding: 5px 10px;
+border: none;
+cursor: pointer;
+margin:5px;
+}
+
+button.warning-yes {
+background-color: #dc3545;
+color: white;
+}
+
+button.warning-no {
+/*background-color: #28a745;*/
+color: black;
+}
+
+#custom-cursor {
+position: absolute;
+/*display: none;*/
+pointer-events: none;
+width: 36px;
+height: 36px;
+transform: translate(-50%, -50%);
+}
+
+/* Ripple container */
+.ripple-container {
+position: relative;
+overflow: hidden;
+}
+
+/* Ripple effect */
+.ripple {
+position: absolute;
+border-radius: 50%;
+transform: scale(0);
+background-color: rgba(255, 255, 255, 0.6); /* Adjust for visibility */
+animation: ripple-animation 0.6s ease-out;
+pointer-events: none;
+}
+
+/* Ripple animation */
+@keyframes ripple-animation {
+to {
+transform: scale(4);
+opacity: 0;
+}
+}
+
+/* horizontal slider bottom panel container */
+.range-slider .input-range.horizontal {
+height: 48px;
+width:100%;
+border-radius: 3px;
+margin-bottom: 16px;
+}
+
+.horizontal .range-min,
+.horizontal .range-max {
+padding: 3px 5px;
+margin: 3px;
+font-size:20px;
+}
+
+.horizontal button.range-close {
+width: 90px;
+height: 60px;
+}
+
+/* vertical slider floating panel container */
+.range-slider{
+pointer-events: auto;
+}
+
+.range-value{
+text-align: center;
+background-color: dodgerblue;
+color: white;
+text-align: center;
+}
+
+.range-icon{
+background-color: white;
+height: 74px;
+/* margin: 2px; */
+}
+
+.range-icon svg{
+width: 64px;
+height: 64px;
+margin: 5px;
+}
+
+/* slider from static-toolbar */
+.static-toolbar .range-value{
+text-align: center;
+background-color: #ffffff77;
+backdrop-filter: blur(3px);
+/*border: 1px solid #ccc;*/
+border-radius: 5px;
+color: black;
+text-align: center;
+min-width: 50px;
+height: 50px;
+margin: 4px;
+padding: 10px;
+font-size: 20px;
+width:80px;
+}
+
+.static-toolbar .range-icon{
+border-radius: 5px;
+/*background-color: transparent;*/
+background-color: #ffffff77;
+backdrop-filter: blur(3px);
+width: 50px;
+height: 50px;
+/* margin: 7px; */
+}
+.static-toolbar .range-icon svg{
+width: 36px;
+height: 36px;
+margin: 5px;
+}
+
+.static-toolbar .range-slider .input-range.horizontal {
+height: 50px;
+width: 100%;
+min-width: 200px;
+border-radius: 3px;
+/* margin-top: 20px; */
+}
+
+.static-toolbar .horizontal .range-min,
+.static-toolbar .horizontal .range-max {
+padding: 15px 5px;
+margin: 3px;
+font-size:20px;
+color: #5f6368;
+}
+
+
+/* folding gamificator css animation */
+
+:root {
+    --base-grid: 10px;
+    --colour-body-background: #d84c6e;
+    --colour-background: #fff;
+    --colour-background-folded: transparent;
+    --colour-background-stripes: rgba(255, 255, 255, 0.5);
+    --colour-text: #1a1a1a;
+}
+
+.folder {
+    background-color: var(--colour-body-background);
+    border: 2px solid var(--colour-background);
+    perspective: 1000px;
+    text-decoration: none;
+    pointer-events: auto;
+}
+.content {
+    background-color: var(--colour-background);
+    color: var(--colour-text);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /*padding: calc(var(--base-grid) * 2);*/
+    display: flex;
+    flex-direction: column;
+    border: 4px solid #00cfff;
+}
+.content--left-half {
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+    -webkit-clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+.folder .content--left-half::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    border-left: 4px dashed grey;
+    transform: translateX(-50%);
+}
+
+.folder.folded .content--left-half::before {
+    border-left: 4px dashed grey;
+}
+
+.content--right-half {
+    clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+    -webkit-clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+    transition: transform 3s ease-in-out, background-color 1s ease-in-out;
+}
+.folder.folded .content--right-half {
+    background-color: var(--colour-background-folded);
+    transform: rotateY(-180deg);
+}
+.content--top-half {
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+.folder .content--top-half::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 0;
+    border-top: 4px dashed grey;
+    transform: translateY(-50%);
+}
+
+.folder.folded .content--top-half::before  {
+    border-top: 4px dashed grey;
+}
+
+.content--bottom-half {
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+    -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+   transition: transform 3s ease-in-out, background-color 1s ease-in-out;
+}     
+.folder.folded .content--bottom-half {
+    background-color: var(--colour-background-folded);
+    transform: rotateX(180deg);
+}
+
+/* a.folder button */
+
+a.folder button{
+position: absolute;
+width:80px;
+height:80px;
+background: transparent;
+border: solid 0px #00cfff;
+border-radius: 20%;
+}
+
+
+a.folder.folded button.top-half,
+a.folder.folded button.left-half
+{
+display: none;
+}
+
+a.folder button.top-half{
+top: 30%;
+left: 3%;
+}
+
+a.folder button.bottom-half{
+bottom: 30%;
+right: 3%;
+}
+
+a.folder button.right-half{
+top: 50%;
+right: 3%;
+}
+
+a.folder button.left-half{
+top: 50%;
+left: 3%;
+}
+/* end folding */

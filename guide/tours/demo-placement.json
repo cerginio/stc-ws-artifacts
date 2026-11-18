@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "1.1",
+  "id": "demo.placement",
+  "version": 1,
+  "status": "draft",
+  "meta": {
+    "title": "tour.demo.placement.title",
+    "description": "tour.demo.placement.description",
+    "category": "internal",
+    "estimatedMinutes": 1
+  },
+  "launch": {
+    "allowedSources": [
+      "editor",
+      "deep-link"
+    ],
+    "autoStart": "never",
+    "allowResume": false,
+    "restartPolicy": "restart"
+  },
+  "session": {
+    "contentMode": "user-content",
+    "onEnd": "keep"
+  },
+  "setup": [
+    {
+      "command": "ui.setupLocation",
+      "args": {
+        "location": "canvas"
+      },
+      "onFailure": {
+        "type": "skip-action"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "bottom-right-target",
+      "type": "info",
+      "content": {
+        "title": "tour.demo.placement.step.bottom-right-target.title",
+        "body": "tour.demo.placement.step.bottom-right-target.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "layers_panel_toggle",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "layers_panel_toggle",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "top-left-target",
+      "type": "info",
+      "content": {
+        "title": "tour.demo.placement.step.top-left-target.title",
+        "body": "tour.demo.placement.step.top-left-target.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "editor_draw_mode_toggle",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "editor_draw_mode_toggle",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "protected-centre",
+      "type": "info",
+      "content": {
+        "title": "tour.demo.placement.step.protected-centre.title",
+        "body": "tour.demo.placement.step.protected-centre.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      },
+      "poi": [
+        "middle-center"
+      ]
+    },
+    {
+      "id": "authored-preference",
+      "type": "info",
+      "content": {
+        "title": "tour.demo.placement.step.authored-preference.title",
+        "body": "tour.demo.placement.step.authored-preference.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      },
+      "panelPlacement": {
+        "preferred": [
+          "top-left"
+        ]
+      }
+    }
+  ]
+}

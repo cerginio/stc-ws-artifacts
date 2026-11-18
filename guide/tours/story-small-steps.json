@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0",
+  "id": "story.small-steps",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.story.small-steps.title",
+    "description": "tour.story.small-steps.description",
+    "category": "story",
+    "estimatedMinutes": 12
+  },
+  "launch": {
+    "autoStart": "never"
+  },
+  "steps": [
+    {
+      "id": "recall",
+      "type": "story",
+      "content": {
+        "title": "tour.story.small-steps.step.recall.title",
+        "body": "tour.story.small-steps.step.recall.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "before",
+      "type": "story",
+      "content": {
+        "title": "tour.story.small-steps.step.before.title",
+        "body": "tour.story.small-steps.step.before.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "add_frame",
+          "do": "activate"
+        },
+        {
+          "command": "editor_draw_mode_toggle",
+          "do": "hint"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "what-helped",
+      "type": "story",
+      "content": {
+        "title": "tour.story.small-steps.step.what-helped.title",
+        "body": "tour.story.small-steps.step.what-helped.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "add_frame",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "after",
+      "type": "story",
+      "content": {
+        "title": "tour.story.small-steps.step.after.title",
+        "body": "tour.story.small-steps.step.after.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "add_frame",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "the-sequence",
+      "type": "story",
+      "content": {
+        "title": "tour.story.small-steps.step.the-sequence.title",
+        "body": "tour.story.small-steps.step.the-sequence.body"
+      },
+      "interactionMode": "NONE",
+      "tools": [
+        {
+          "command": "frames_to_strip_exposition",
+          "do": "activate"
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      }
+    }
+  ]
+}

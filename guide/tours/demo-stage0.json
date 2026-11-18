@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "1.1",
+  "id": "demo.stage0",
+  "version": 1,
+  "status": "published",
+  "meta": {
+    "title": "tour.demo.stage0.title",
+    "description": "tour.demo.stage0.description",
+    "category": "onboarding",
+    "estimatedMinutes": 1
+  },
+  "launch": {
+    "allowedSources": [
+      "editor",
+      "deep-link"
+    ],
+    "autoStart": "never",
+    "allowResume": false,
+    "restartPolicy": "restart"
+  },
+  "requirements": {
+    "targets": [
+      "button.collab"
+    ]
+  },
+  "session": {
+    "contentMode": "user-content",
+    "onEnd": "keep"
+  },
+  "setup": [
+    {
+      "command": "ui.setupLocation",
+      "args": {
+        "location": "canvas"
+      },
+      "onFailure": {
+        "type": "skip-action"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "welcome",
+      "type": "info",
+      "content": {
+        "title": "tour.demo.stage0.step.welcome.title",
+        "body": "tour.demo.stage0.step.welcome.body"
+      },
+      "interactionMode": "NONE",
+      "advance": {
+        "mode": "manual"
+      }
+    },
+    {
+      "id": "collab-button",
+      "type": "interaction",
+      "content": {
+        "title": "tour.demo.stage0.step.collab-button.title",
+        "body": "tour.demo.stage0.step.collab-button.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "button.collab",
+          "role": "primary",
+          "padding": 8
+        }
+      ],
+      "completion": {
+        "type": "state",
+        "query": "target.resolvable",
+        "operator": "truthy",
+        "args": {
+          "target": "panel.collab"
+        }
+      },
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "button.collab",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    },
+    {
+      "id": "first-frame",
+      "type": "info",
+      "content": {
+        "title": "tour.demo.stage0.step.first-frame.title",
+        "body": "tour.demo.stage0.step.first-frame.body"
+      },
+      "interactionMode": "NONE",
+      "targets": [
+        {
+          "id": "canvas.frame",
+          "role": "primary",
+          "args": {
+            "index": 0
+          },
+          "padding": 6
+        }
+      ],
+      "advance": {
+        "mode": "manual"
+      },
+      "fallback": {
+        "type": "skip-step"
+      },
+      "panelPlacement": {
+        "anchor": {
+          "target": "canvas.frame",
+          "side": "auto",
+          "margin": 12
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,646 @@
+html {
+  height: 100%;
+  position: relative;
+  background-color: black;
+  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+* {
+  touch-action: manipulation;
+}
+
+body {
+  height: 100%;
+  position: relative;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  outline: none;
+
+  overflow-x: clip;
+  overflow-y: clip;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  font: 16px var(--font-ui);
+  color: #ccc;
+  font-weight: 400;
+}
+
+#splash-product-name {
+  font-family: var(--font-brand);
+  font-weight: 700;
+}
+
+button,
+input {
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: black;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+select,
+textarea {
+  font-family: inherit;
+}
+
+button,
+select {
+  outline: none;
+}
+
+/* General reset for buttons Safari */
+button,
+select {
+  -webkit-appearance: none;
+  /* Remove Safari-specific appearance */
+  -moz-appearance: none;
+  /* Remove Firefox-specific appearance */
+  appearance: none;
+}
+
+button.select-container select {
+  width: 100%;
+  height: 100%;
+  border: none;
+  color: #000;
+  font-size: 30px;
+  text-align: center;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button.select-container select option {
+  background: white;
+  color: black;
+  padding: 20px;
+  margin: 20px;
+  font-size: 24px;
+}
+
+/* Hide default select arrow */
+select::-ms-expand {
+  display: none;
+}
+
+button.select-container {
+  width: 93px !important;
+}
+
+.collapsed,
+.hidden {
+  display: none !important;
+}
+
+.empty {
+  visibility: hidden !important;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+}
+
+.f-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: auto 1;
+}
+
+.f-column.center {
+  align-items: center;
+}
+
+.f-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.f-row.start,
+.f-column.start {
+  align-items: flex-start;
+}
+
+.f-row.end,
+.f-column.end {
+  align-items: flex-end;
+}
+
+.f-row.stretch,
+.f-column.stretch {
+  align-items: stretch;
+}
+
+.f-row.wrap,
+.f-column.wrap {
+  flex-wrap: wrap;
+}
+
+
+
+/* bars */
+.bar {
+  height: auto;
+  flex: 1;
+}
+
+.bar button {
+  /*height: 128px !important;*/
+  /*padding: 9.6px 0.6px 9.6px 1.6px;*/
+  margin: 0.5px;
+  width: 92px !important;
+}
+
+.v-bar {
+  flex-wrap: wrap;
+}
+
+.v-bar.w196 {
+  width: 196px;
+}
+
+.v-bar button {
+  font-size: 15px;
+}
+
+/* h-bar */
+.h-bar {
+  /*width: auto;
+flex: 1;*/
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.h-bar button {
+  font-size: 15px;
+}
+
+.h-bar.h500 {
+  width: 500px;
+}
+
+.h-bar.mh380 {
+  min-width: 400px;
+}
+
+/* 1em=16px GPT task*/
+
+.h-bar select {
+  margin: 8px;
+  min-width: 60px;
+}
+
+.h-bar button {
+  padding: 0 4.8px;
+  margin: 0.5px;
+  font-size: 15px;
+  min-width: 38px;
+}
+
+.top-z {
+  z-index: 10;
+}
+.top-z-100 {
+  z-index: 100;
+}
+.top-z-200 {
+  z-index: 200;
+}
+
+.top-z-250 {
+  z-index: 250;
+}
+
+.panel-h-tool-bar button.activated {
+  background-color: #666;
+  border: solid 2px #00cfff;
+}
+
+/* layer item */
+.layer-item div {
+  margin: 8px;
+  min-width: 40px;
+}
+
+.layer-item {
+  border: 2px solid transparent;
+  background: #33333388;
+  width: 405px;
+  margin-top: 2px;
+}
+
+.layer-item.active {
+  border: 2px solid #00cfff;
+}
+
+/* [bug-2] layer owned by a remote collab participant — read-only */
+.layer-item.readonly-layer {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+/* [ADR-0006] Visibility is controllable by all users, even on read-only (remote) layers —
+   keep the visibility toggle clickable/affordant despite the row's not-allowed cursor. */
+.layer-item.readonly-layer button[onclick*="toggleLayerVisibility"],
+.layer-item-grid.readonly-layer button[onclick*="toggleLayerVisibility"] {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.layer-item .layer-owner {
+  font-size: 0.75em;
+  opacity: 0.8;
+  margin-left: 2px;
+}
+
+/* grid layer-item (Editor.uiFlags.layerPanelGrid) — declarative columns replace the
+   per-cell nth-child pixel hacks; lock/owner badge sits in a full-width second row. */
+.layer-item-grid {
+  display: grid;
+  grid-template-columns: 24px 44px 44px 64px 88px minmax(56px, 1fr);
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 3px;
+  box-sizing: border-box;
+  width: 405px;
+  padding: 6px 10px;
+  margin-top: 2px;
+  border: 2px solid transparent;
+  background: #33333388;
+  cursor: pointer;
+}
+
+.layer-item-grid > div {
+  min-width: 0;          /* let cells shrink instead of overflowing */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.layer-item-grid.active {
+  border-color: #00cfff;
+}
+
+.layer-item-grid.readonly-layer {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.layer-item-grid .li-vis {
+  justify-self: stretch;
+}
+
+.layer-item-grid .li-vis button {
+  width: 100%;
+  padding: 5px;
+  border-radius: 10%;
+  border: solid white;
+}
+
+/* full-width second row for the lock / owner badge; collapses when empty */
+.layer-item-grid .li-owner {
+  grid-column: 1 / -1;
+  font-size: 0.75em;
+  opacity: 0.85;
+}
+
+.layer-item-grid .li-owner:empty {
+  display: none;
+}
+
+.data-panel#layers-panel {
+  width: min(430px, calc(100vw - 24px));
+}
+
+.data-panel#layers-panel > .f-column,
+.data-panel#layers-panel .scroll-wrapper,
+.data-panel#layers-panel .panel-h-tool-bar {
+  width: 100%;
+  min-width: 0;
+}
+
+.data-panel#layers-panel .panel-h-tool-bar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.data-panel#layers-panel .panel-h-tool-bar > .f-column {
+  width: 100%;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.data-panel#layers-panel .panel-h-tool-bar button {
+  width: 100%;
+  min-width: 0;
+}
+
+.data-panel#layers-panel .scroll-header,
+.data-panel#layers-panel .layer-item,
+.data-panel#layers-panel .layer-item-grid {
+  display: grid;
+  grid-template-columns: minmax(20px, .4fr) minmax(36px, .7fr) minmax(44px, .8fr) minmax(58px, 1.1fr) minmax(68px, 1.3fr) minmax(72px, 1.2fr);
+  column-gap: 6px;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  padding: 6px 8px;
+}
+
+.data-panel#layers-panel .scroll-header > div,
+.data-panel#layers-panel .layer-item > div,
+.data-panel#layers-panel .layer-item-grid > div {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.layer-item div:nth-child(1) {
+  min-width: 16px;
+}
+
+.layer-item div:nth-child(2) {
+  min-width: 48px;
+}
+
+.layer-item div:nth-child(4) {
+  min-width: 56px;
+}
+
+.layer-item div:nth-child(5) {
+  min-width: 80px;
+}
+
+.layer-item button {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  border-radius: 10%;
+  border-style: solid;
+  border-color: white;
+}
+
+.panel-h-tool-bar button {
+  width: 135px;
+  height: 40px;
+  padding: 8px;
+  background-color: #444;
+  color: white;
+}
+
+.hex-panel-h-tool-bar button {
+  width: 161px;
+  height: 40px;
+  padding: 8px;
+  background-color: #444;
+  color: white;
+}
+
+.layer-item button.hidden-state,
+.layer-item-grid button.hidden-state {
+  background-color: red;
+  color: white;
+}
+
+.layer-item button.visible-state,
+.layer-item-grid button.visible-state {
+  background-color: green;
+  color: white;
+}
+
+#layer_tile_shape_select {
+  width: 100%;
+  height: 100%;
+  font-size: 100%;
+  text-align: center;
+  background: #c5bfbb;
+}
+
+/* KUDOS to @perpaer https://codepen.io/perpaer/pen/beGbbe */
+/* scrollable list layers */
+.scroll-wrapper {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-header {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid gray;
+}
+
+.scroll-header .split {
+  flex: 1 0 auto;
+}
+
+.scroll-body {
+  overflow-y: auto;
+  border-left: 1px solid gray;
+}
+
+.scroll-body-item {
+  display: flex;
+  border-bottom: 1px solid gray;
+}
+
+.scroll-header select,
+.scroll-header button {
+  height: 32px;
+  margin-top: 6px;
+}
+
+.scroll-body-item label {
+  white-space: break-spaces !important;
+  margin-left: 6px;
+  flex: 0 1 auto;
+}
+
+.f-stretch {
+  justify-content: space-around;
+}
+
+/* container for header */
+.pop-panel-header.f-row {
+  justify-content: space-between;
+}
+
+.header-switch {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  margin-top: 5px;
+}
+
+.header-switch label {
+  font-size: 16px;
+  margin-top: 3px;
+  text-align: start;
+}
+
+.line-width-switch-h {
+  margin-top: 5px;
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.line-width-switch-h label {
+  margin-top: 5px;
+}
+
+/* cmd-pad legacy*/
+/* TODO: .select-container special layout */
+.cmd-pad button.select-container svg {
+  padding: 2px 10px;
+  height: 64px;
+  width: 75px;
+  z-index: 1;
+  position: absolute;
+  pointer-events: none;
+}
+
+.cmd-pad .select-container select {
+  /*width: 77px;*/
+  z-index: 0;
+  height: 100%;
+  /*padding-top: 100px;*/
+  background-color: #F0F0F0;
+  color: transparent;
+  border-radius: 0;
+  /* disable Safari style */
+  border: 0;
+}
+
+.cmd-pad .select-container div.selected-value {
+  position: absolute;
+  width: 77px;
+  height: 35px;
+  margin: 0;
+  margin-top: 70px;
+  padding-bottom: 5px;
+  z-index: 0;
+  pointer-events: none;
+  border-bottom: solid dodgerblue 2px;
+}
+
+.cmd-pad .select-container select option {
+  color: black;
+}
+
+.cmd-pad button {
+  height: 100%;
+  max-height: 192px;
+  min-height: 150px;
+  width: 86px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-bottom: 5px solid #aaa;
+  border-top: 5px solid #F0F0F0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  position: relative;
+}
+
+.cmd-pad select {
+  width: 100%;
+  height: 27%;
+  background-color: dodgerblue;
+  color: white;
+  font-size: 16px;
+}
+
+.cmd-pad div {
+  margin: 2px;
+}
+
+.cmd-pad button.non-toggle-btn {
+  border: 5px solid #F0F0F0;
+}
+
+.cmd-pad button.activated {
+  border: 5px solid #00cfff;
+  border-bottom: 5px solid #F0F0F0;
+}
+
+.cmd-pad button svg {
+  padding: 2px 8px;
+  height: 64px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.cmd-pad button.disabled {
+  stroke: grey;
+  fill: grey;
+  background-color: #444;
+  color: darkgrey;
+}
+
+.cmd-pad button.warning {
+  background-color: #ffb600;
+  color: white;
+  border: solid 2px yellow;
+  scale: 1.5;
+  z-index: 999;
+}
+
+/* static-panel */
+
+/* static panel v1*/
+.static-panel .cmd-pad button {
+  min-height: 80px;
+  box-sizing: 0px;
+  border: 1px solid grey;
+}
+
+.static-panel .cmd-pad button.activated {
+  border: 4px solid #00cfff;
+}
+
+.static-panel .cmd-pad button svg {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding: 2px;
+  width: 100%;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+/* transform-origin for all panels */
+#layers-panel,
+#palette-panel,
+#color-mixer-circle,
+.story-pad-layout,
+.basic-pad-layout {
+  transform-origin: top left;
+}
+
+.quick-pad-layout {
+  transform-origin: top right;
+}
